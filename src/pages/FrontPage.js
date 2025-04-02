@@ -1,9 +1,53 @@
-import React from "react";
+import React,{useState} from "react";
+
+import classes from "./FrontPage.module.css";
+import Logo from "./../assets/AzuremedLogo.png";
+import FrontImage from "./../assets/AzuremedHospital.png"
 
 export default function FrontPage() {
+    const [login,setLogin] =  useState(false);
+
     return (
-        <div>
-            FrontPage
+        <div className={classes.background}>
+            <div className={classes.mainWrapper}>
+                <div className={`${classes.firstWrapper} ${login ? classes.showLoginPage : ""}`}>
+                    <div className={classes.logo}>
+                        <img src={Logo} alt="hospitalLogo"/>
+                    </div>
+                    <div className={classes.frontImage}>
+                        <img src={FrontImage} alt="HosptalImage"/>
+                    </div>
+                    <div className={classes.btnDiv}>
+                        <button className={classes.loginBtn} onClick={()=>setLogin(prev=>!prev)}>
+                            Login
+                        </button>
+                    </div>
+                </div>
+                <div className={`${classes.secondWrapper} ${login ? classes.showLoginPage : ""}`}>
+                    <LoginComponent/>
+                </div>
+            </div>            
         </div>
     );
+}
+
+function LoginComponent(){
+    return(
+        <div className={classes.LoginWrapper}>
+            <div className={classes.loginHeading}>
+
+            </div>
+            <div className={classes.loginEmail}>
+
+            </div>
+            <div className={classes.loginPassword}>
+                
+            </div>
+            <div className={classes.loginRoleChoice}>
+                
+            </div>
+
+
+        </div>
+    )
 }

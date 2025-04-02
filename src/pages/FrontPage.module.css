@@ -1,0 +1,133 @@
+*{
+    margin : 0;
+    padding : 0;
+    box-sizing: border-box;
+}
+/* This will remove the initial scroll bar that comes when you start writing css */
+
+/* structure in making */
+
+.background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #65C7F7, #0052D4);
+    padding: 20px;
+}
+
+.mainWrapper{
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 80vh;
+    width: 130vh;
+    background: linear-gradient(to bottom, #1d7ee4, #fff);  
+    border-radius: 40px;  
+    overflow:hidden;
+    box-shadow : 0 0 20px 2px rgb(33, 32, 32);
+}
+
+.firstWrapper,.secondWrapper{
+    display : flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    background-color: #1d7ee4;
+    /* background-color:transparent; */
+    border-bottom-right-radius: 40px;
+}
+.secondWrapper{
+    background-color: #fff;
+    border-top-left-radius: 40px;
+}
+
+@media screen and (max-width: 768px) {
+    .mainWrapper{
+        position : absolute;
+        width : 80vw;
+    }
+
+    .firstWrapper{
+        position : absolute;
+        width : 100%;
+        z-index : 2;
+        transition: transform 1s ease-in-out;
+        transform: translateX(0%);
+    }
+    .firstWrapper.showLoginPage{
+        transform: translateX(-100%);
+    }
+
+    .secondWrapper {
+        position : absolute;
+        width : 100%;
+        transition: transform 1s ease-in-out;
+        transform: translateX(100%);
+    }
+    .secondWrapper.showLoginPage{
+        transform: translateX(0%);
+    }
+    .loginBtn{
+        visibility: visible !important;
+    }
+
+}
+/* structure in making ends */
+
+/* left panel in making starts */
+.logo{
+    width:30%;
+    height : 25%;
+    display:flex;
+    align-items : center;
+    justify-content : center;
+    padding-top : 5%;
+}
+.logo img{
+    background : white;
+    aspect-ratio: 1;
+    height : 80%;
+    border-radius : 100%;
+    box-shadow : 0 0 0 2px black,
+                 0 0 0 6px #1d7ee4,
+                 0 0 0 7px black,
+                 0 0 5px 7px black;
+}
+.frontImage{
+    width:90%;
+    height:60%;
+}
+.frontImage img{
+    width : 100%;
+    height : 100%;
+    mask-image: linear-gradient(to right, transparent, white 5%, white 95%, transparent);
+}
+.btnDiv{
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    width:90%;
+    height:15%;
+}
+.loginBtn{
+    width : 70%;
+    height : 50%;
+    background-color: transparent;
+    border:3px solid black;
+    border-radius : 40px;
+    font-size: x-large;
+    font-weight: 900;
+    color : #ffF;
+    transition: all 0.3s ease-in-out;
+    visibility : hidden; /* not seen in full screen */
+    cursor: pointer;
+}
+.loginBtn:hover {
+    background-color: white;
+    color: #1d7ee4;
+    border-color: white;
+}
+/* left panel in making ends */
