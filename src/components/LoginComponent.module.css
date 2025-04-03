@@ -1,0 +1,50 @@
+/* structure making starts */
+
+.mainWrapper{
+    height : 80%;
+    width : 80%;
+    background-color: #fff;
+    border-radius : 20px;
+    box-shadow: 0 0 10px 1px #000;
+    overflow:hidden;
+}
+.slideWrapper{
+    position : relative;
+    height : 100%;
+    width : 100%;
+
+    transition : transform 0.5s ease-in;
+}
+.slideWrapperTwo{
+    transform : translateX(-100%);
+}
+.slideWrapperThree{
+    transform : translateX(-200%);
+}
+.slideWrapperFour{
+    transform : translateX(-300%);
+}
+
+.loginWrapper,.forgotEmailWrapper,.otpWrapper,.passwordWrapper{
+    position:absolute;
+    height:100%;
+    width:100%;
+}
+.loginWrapper{
+    left: 0;
+    background-color: blue;
+}
+.forgotEmailWrapper{
+    left:100%;
+    background-color:green;
+}
+.otpWrapper{
+    left:200%;
+    background-color: brown;
+}
+.passwordWrapper{
+    left:300%;
+    background-color:yellow;
+}
+
+/* structure making ends  */

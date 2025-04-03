@@ -4,6 +4,8 @@ import classes from "./FrontPage.module.css";
 import Logo from "./../assets/AzuremedLogo.png";
 import FrontImage from "./../assets/AzuremedHospital.png"
 
+import { LoginComponent } from "../components/LoginComponent";
+
 export default function FrontPage() {
     const [login,setLogin] =  useState(false);
 
@@ -31,23 +33,3 @@ export default function FrontPage() {
     );
 }
 
-function LoginComponent(){
-    return(
-        <div className={classes.LoginWrapper}>
-            <div className={classes.loginHeading}>
-
-            </div>
-            <div className={classes.loginEmail}>
-
-            </div>
-            <div className={classes.loginPassword}>
-                
-            </div>
-            <div className={classes.loginRoleChoice}>
-                
-            </div>
-
-
-        </div>
-    )
-}
