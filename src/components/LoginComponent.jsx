@@ -343,7 +343,7 @@ function PasswordChange({setCurrentPage}){
                     <input 
                         type="password" 
                         name="confirmPassword" 
-                        value={formData.confirmPpassword} 
+                        value={formData.confirmPassword} 
                         onChange={handleFormChange}
                         className={classes.loginInput}
                         onKeyDown={(event) => {
