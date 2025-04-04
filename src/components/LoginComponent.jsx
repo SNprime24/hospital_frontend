@@ -152,11 +152,13 @@ function LoginForm({setCurrentPage}){
 }
 
 function ForgotPasswordEmail({setCurrentPage}){
-    const [formData,setFormData] = useState({email : ""});
+    const [formData,setFormData] = useState({email : "", role : ""});
 
     function handleFormChange(e){
         setFormData((prev)=>({...prev, [e.target.name] : e.target.value}));
     }
+
+    console.log(formData);
 
     return(
         <div className={classes.forgotEmailWrapper}>
@@ -179,6 +181,64 @@ function ForgotPasswordEmail({setCurrentPage}){
                     />
                     <FontAwesomeIcon icon={faUser} />
                 </div>
+
+                <div className={classes.loginRoleDiv}>
+                    <input
+                        type="radio"
+                        id = "forgotDoctor"
+                        name="role"
+                        value="Doctor"
+                        onChange={handleFormChange}
+                        checked={formData.role === "Doctor"}
+                        className = {classes.loginRole}
+                    />
+                    <label for="forgotDoctor">
+                        <FontAwesomeIcon icon={faUserDoctor}/>
+                        <p>Doctor</p>
+                    </label>
+
+                    <input
+                        type="radio"
+                        id="forgotNurse"
+                        name="role"
+                        value="Nurse"
+                        onChange={handleFormChange}
+                        checked={formData.role === "Nurse"}
+                        className = {classes.loginRole}
+                    />
+                    <label for="forgotNurse">
+                        <FontAwesomeIcon icon={faUserNurse}/>
+                        <p>Nurse</p>
+                    </label>
+
+                    <input
+                        type="radio"
+                        id="forgotFDO"
+                        name="role"
+                        value="Front Desk Operator"
+                        onChange={handleFormChange}
+                        checked={formData.role === "Front Desk Operator"}
+                        className = {classes.loginRole}
+                    />
+                    <label for="forgotFDO">
+                        <FontAwesomeIcon icon={faUserPen}/>
+                        <p>FDO</p>
+                    </label>
+
+                    <input
+                        type="radio"
+                        id="forgotDEO"
+                        name="role"
+                        value="Data Entry Operator"
+                        onChange={handleFormChange}
+                        checked={formData.role === "Data Entry Operator"}
+                        className = {classes.loginRole}
+                    />
+                    <label for="forgotDEO">
+                        <FontAwesomeIcon icon={faUserGear}/>
+                        <p>DEO</p>
+                    </label>
+                </div>
                 
                 <div className={classes.loginBtnDiv}>
                     <button className={classes.loginBtn} onClick={(e)=>{
@@ -195,6 +255,8 @@ function ForgotPasswordEmail({setCurrentPage}){
         </div>
     );
 }
+
+
 
 function OtpComponent({setCurrentPage}){
     const [otpForm, setOtpForm] = useState("");

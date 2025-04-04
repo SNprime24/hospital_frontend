@@ -232,8 +232,8 @@ input[type="radio"]{
 
 /* forgotPassword design starts */
 .forgotHeadingDiv{
-    margin-top:10%;
-    height: 20%;
+    margin-top:5%;
+    height: 15%;
     width : 90%;
     display: flex;
     align-items:center;
@@ -243,8 +243,8 @@ input[type="radio"]{
     text-align: center;
 }
 .forgotEmailForm{
-    height : 30%;
-    margin-top : 20%;
+    height : 70%;
+    margin-top : 15%;
     margin-bottom: 2%;
     padding-inline: 10%;
 
@@ -254,12 +254,12 @@ input[type="radio"]{
     justify-content:space-between;
 }
 .forgotEmailForm .loginInputDiv{
-    height : 35%;
+    height : 20%;
 }
 .forgotEmailForm .loginBtnDiv{
-    height : 35%;
+    height : 20%;
 }
-@media (max-width: 400px) {
+@media (max-width: 900px) {
     .forgotHeadingDiv .loginHeading{
         font-size:150%;
     }
