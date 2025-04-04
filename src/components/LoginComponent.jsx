@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey, faUserDoctor, faUserNurse, faUserPen, faUserGear } from "@fortawesome/free-solid-svg-icons";
+import OtpInput from "react-otp-input";
 
 import classes from "./LoginComponent.module.css";
 
@@ -17,14 +18,8 @@ export function LoginComponent(){
             }>
                 <LoginForm setCurrentPage={setCurrentPage} />
                 <ForgotPasswordEmail setCurrentPage={setCurrentPage}/>
-                <div className={classes.otpWrapper}>
-                    <button onClick={()=>setCurrentPage(prev=>prev+1)}>NEXT</button>
-                    <button onClick={()=>setCurrentPage(prev=>prev-1)}>PREV</button>
-                </div>
-                <div className={classes.passwordWrapper}>
-                    {/* <button onClick={()=>setCurrentPage(prev=>prev+1)}>NEXT</button> */}
-                    <button onClick={()=>setCurrentPage(prev=>prev-1)}>PREV</button>
-                </div>
+                <OtpComponent setCurrentPage={setCurrentPage}/>
+                <PasswordChange setCurrentPage={setCurrentPage}/>
             </div>
         </div>
     )
@@ -53,6 +48,11 @@ function LoginForm({setCurrentPage}){
                         value={loginData.email} 
                         onChange={handleLoginFormChange}
                         className={classes.loginInput}
+                        onKeyDown={(event) => {
+                            if (event.key === "Tab") {
+                                event.preventDefault();
+                            }
+                        }}
                     />
                     <FontAwesomeIcon icon={faUser} />
                 </div>
@@ -63,6 +63,11 @@ function LoginForm({setCurrentPage}){
                         value={loginData.password} 
                         onChange={handleLoginFormChange}
                         className={classes.loginInput}
+                        onKeyDown={(event) => {
+                            if (event.key === "Tab") {
+                                event.preventDefault();
+                            }
+                        }}
                     />
                     <FontAwesomeIcon icon={faKey} />
                 </div>
@@ -124,9 +129,17 @@ function LoginForm({setCurrentPage}){
                     </label>
                 </div>
                 <div className={classes.loginBtnDiv}>
-                    <button className={classes.loginBtn} onClick={(e)=>{
-                        e.preventDefault();
-                    }}>
+                    <button 
+                        className={classes.loginBtn} 
+                        onClick={(e)=>{
+                            e.preventDefault();
+                        }}
+                        onKeyDown={(event) => {
+                            if (event.key === "Tab") {
+                                event.preventDefault();
+                            }
+                        }}
+                    >
                         Login
                     </button>
                 </div>
@@ -139,10 +152,158 @@ function LoginForm({setCurrentPage}){
 }
 
 function ForgotPasswordEmail({setCurrentPage}){
+    const [formData,setFormData] = useState({email : ""});
+
+    function handleFormChange(e){
+        setFormData((prev)=>({...prev, [e.target.name] : e.target.value}));
+    }
+
     return(
         <div className={classes.forgotEmailWrapper}>
-            <button onClick={()=>setCurrentPage(prev=>prev+1)}>NEXT</button>
-            <button onClick={()=>setCurrentPage(prev=>prev-1)}>PREV</button>
+            <div className = {classes.forgotHeadingDiv}>
+                <div className = {classes.loginHeading}>FORGOT YOUR PASSWORD?</div>
+            </div>
+            <form className={classes.forgotEmailForm}>
+                <div className={classes.loginInputDiv}>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        value={formData.email} 
+                        onChange={handleFormChange}
+                        className={classes.loginInput}
+                        onKeyDown={(event) => {
+                            if (event.key === "Tab") {
+                                event.preventDefault();
+                            }
+                        }}
+                    />
+                    <FontAwesomeIcon icon={faUser} />
+                </div>
+                
+                <div className={classes.loginBtnDiv}>
+                    <button className={classes.loginBtn} onClick={(e)=>{
+                        e.preventDefault();
+                        setCurrentPage(prev=>prev+1)
+                    }}>
+                        Submit
+                    </button>
+                </div>
+            </form>
+            <span className={classes.invButton} onClick={()=>setCurrentPage(prev=>prev-1)}>
+                Back to Login!
+            </span>
+        </div>
+    );
+}
+
+function OtpComponent({setCurrentPage}){
+    const [otpForm, setOtpForm] = useState("");
+    
+    console.log(otpForm)
+
+    return(
+        <div className={classes.otpWrapper}>
+            <div className = {classes.otpHeadingDiv}>
+                <div className = {classes.loginHeading}>OTP</div>
+            </div>
+
+            <OtpInput
+                id="otp"
+                value={otpForm}
+                onChange={setOtpForm}
+                numInputs={6}
+                renderSeparator={<span>-</span>}
+                containerStyle={{justifyContent:"center"}}
+                style={{justifyContent : 'center'}}
+                renderInput={(props) => (
+                    <input
+                        {...props}
+                        className={classes.otpBox}
+                        style={{width : '10%'}}
+                        
+                    />
+                )}
+            />
+            <input 
+                onKeyDown={(event) => {
+                    if (event.key === "Tab") {
+                        event.preventDefault();
+                    }
+                }}
+                style={{display:"none"}}
+            />
+            <div className={classes.loginBtnDiv}>
+                <button className={classes.loginBtn} onClick={(e)=>{
+                    e.preventDefault();
+                    setCurrentPage(prev=>prev+1)
+                }}>
+                    Submit
+                </button>
+            </div>
+            <span className={classes.invButton} onClick={()=>setCurrentPage(prev=>prev-2)}>
+                Back to Login!
+            </span>
+        </div>
+    );
+}
+
+function PasswordChange({setCurrentPage}){
+    const [formData, setFormData] = useState({password : "", confirmPassword : ""});
+
+    function handleFormChange(e){
+        setFormData((prev)=>({...prev, [e.target.name] : e.target.value}));
+    }
+    console.log(formData);
+
+    return(
+        <div className={classes.passwordWrapper}>
+            <div className = {classes.forgotHeadingDiv}>
+                <div className = {classes.loginHeading}>CHANGE PASSWORD!</div>
+            </div>
+            <form className={classes.changePasswordForm}>
+                <div className={classes.loginInputDiv}>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        value={formData.password} 
+                        onChange={handleFormChange}
+                        className={classes.loginInput}
+                        onKeyDown={(event) => {
+                            if (event.key === "Tab") {
+                                event.preventDefault();
+                            }
+                        }}
+                    />
+                    <FontAwesomeIcon icon={faKey} />
+                </div>
+
+                <div className={classes.loginInputDiv}>
+                    <input 
+                        type="password" 
+                        name="confirmPassword" 
+                        value={formData.confirmPpassword} 
+                        onChange={handleFormChange}
+                        className={classes.loginInput}
+                        onKeyDown={(event) => {
+                            if (event.key === "Tab") {
+                                event.preventDefault();
+                            }
+                        }}
+                    />
+                    <FontAwesomeIcon icon={faKey} />
+                </div>
+                
+                <div className={classes.loginBtnDiv}>
+                    <button className={classes.loginBtn} onClick={(e)=>{
+                        e.preventDefault();
+                    }}>
+                        Submit
+                    </button>
+                </div>
+            </form>
+            <span className={classes.invButton} onClick={()=>setCurrentPage(prev=>prev-3)}>
+                Back to Login!
+            </span>
         </div>
     );
 }

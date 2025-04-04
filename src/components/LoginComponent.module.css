@@ -29,27 +29,30 @@
     position:absolute;
     height:100%;
     width:100%;
+
     display : flex;
     align-items:center;
     justify-content: center;
-}
-.loginWrapper{
-    left: 0;
+
     flex-direction: column;
     padding-top : 10%;
     padding-bottom: 15%;
 }
+.loginWrapper{
+    left: 0;
+    
+}
 .forgotEmailWrapper{
     left:100%;
-    background-color:green;
+    /* background-color:green; */
 }
 .otpWrapper{
     left:200%;
-    background-color: brown;
+    /* background-color: brown; */
 }
 .passwordWrapper{
     left:300%;
-    background-color:yellow;
+    /* background-color:yellow; */
 }
 
 /* structure making ends  */
@@ -228,5 +231,88 @@ input[type="radio"]{
 /* login part design ends */
 
 /* forgotPassword design starts */
+.forgotHeadingDiv{
+    margin-top:10%;
+    height: 20%;
+    width : 90%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+.forgotHeadingDiv .loginHeading{
+    text-align: center;
+}
+.forgotEmailForm{
+    height : 30%;
+    margin-top : 20%;
+    margin-bottom: 2%;
+    padding-inline: 10%;
 
+    display : flex;
+    flex-direction:column;
+    align-items : center;
+    justify-content:space-between;
+}
+.forgotEmailForm .loginInputDiv{
+    height : 35%;
+}
+.forgotEmailForm .loginBtnDiv{
+    height : 35%;
+}
+@media (max-width: 400px) {
+    .forgotHeadingDiv .loginHeading{
+        font-size:150%;
+    }
+}
 /* forgotPassword desing ends  */
+
+/* OtpComponent design starts */
+    .otpWrapper{
+        justify-content:space-between;
+    }
+    .otpHeadingDiv{
+        margin-top:10%;
+    }
+    .otpBox {
+        height: 50px;
+        width : 100px;
+        margin: 0 5px;
+
+        font-size: 1.5rem;
+        text-align: center;
+
+        border: 2px solid #1d7ee4;
+        border-radius: 5px;
+        outline: none;
+        box-shadow: 0 0 5px #1d7ee4;
+        
+        background-color: #7abaffa2;
+        color: black;
+
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .otpBox:focus {
+        box-shadow: 0 2px 5px black;
+    }
+
+/* OtpComponent design ends */
+
+/* passwordChange design starts */
+    .changePasswordForm{
+        height : 40%;
+        margin-top : 20%;
+        margin-bottom: 2%;
+        padding-inline: 10%;
+
+        display : flex;
+        flex-direction:column;
+        align-items : center;
+        justify-content:space-between;
+    }
+    .changePasswordForm .loginInputDiv{
+        height : 25%;
+    }
+    .changePasswordForm .loginBtnDiv{
+        height : 35%;
+    }
+/* passwordChange design ends */

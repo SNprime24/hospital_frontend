@@ -20,7 +20,15 @@ export default function FrontPage() {
                         <img src={FrontImage} alt="HosptalImage"/>
                     </div>
                     <div className={classes.btnDiv}>
-                        <button className={classes.loginBtn} onClick={()=>setLogin(prev=>!prev)}>
+                        <button 
+                            className={classes.loginBtn} 
+                            onClick={()=>setLogin(prev=>!prev)} 
+                            onKeyDown={(event) => {
+                                if (event.key === "Tab") {
+                                    event.preventDefault();
+                                }
+                            }}
+                        >
                             Login
                         </button>
                     </div>
