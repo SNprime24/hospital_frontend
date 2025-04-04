@@ -6,7 +6,7 @@ import ErrorPage from './pages/ErrorPage';
 import MainPage from './pages/MainPage';
 import RootLayout from './pages/RootLayout';
 
-import classes from "./App.module.css";
+// import classes from "./App.module.css";
 
 const router = createBrowserRouter([
   {
