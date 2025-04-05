@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faKey, faUserDoctor, faUserNurse, faUserPen, faUserGear, faTowerBroadcast } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faKey, faUserDoctor, faUserNurse, faUserPen, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import OtpInput from "react-otp-input";
 
 import classes from "./LoginComponent.module.css";

@@ -1,7 +1,7 @@
 import React,{ useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faKey, faLessThan, faGreaterThan, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faLessThan, faGreaterThan, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./DEOMainPage.module.css";
 
