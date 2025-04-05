@@ -1,129 +1,137 @@
 .rootLayout {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  height: 100vh;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 2.5%;
+
+  width: 95%;
+  height: 70px;
+
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  background-color: #1d7ee4;
+  color: #373960;
+  box-shadow: 0px 2px 4px 1px #373960;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 1rem;
+  z-index: 1000;
+}
+
+.navbarFirst {
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbarFirst button {
+  margin-right: 1rem;
+
+  height: 65%;
+  aspect-ratio: 1;
+
+  background: none;
+  color: white;
+
+  border: none;
+  border-radius: 100%;
+  box-shadow: 0 0 0 1px #37396047 inset;
+
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  transition: all 0.5s;
+
+  display: none;
+}
+.navbarFirst button:hover {
+  box-shadow: 0 0 10px 1px #37396047 inset;
+}
+
+.navTitle {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navTitle img {
+  height: 80%;
+  border-radius: 10px;
+}
+
+.navBarLogoutButton {
+  height: 55%;
+  width: 100px;
+  background: rgb(220, 220, 220);
+
+  border: none;
+  border-radius: 50px;
+  outline: none;
+
+  font-size: large;
+  font-weight: bold;
+  color: #1d7ee4;
+
+  cursor: pointer;
+  box-shadow: 0 4px 10px #37396047;
+  transition: all 0.3s ease-in-out;
+}
+
+.navBarLogoutButton:hover {
+  box-shadow: 0 6px 15px #37396047;
+  transform: scale(1.05);
+}
+
+.sidebar {
+  position: fixed;
+  top: 12%;
+  left: 2.5%;
+
+  width: 300px;
+  height: 87%;
+
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 1px grey;
+
+  background-color: #202584;
+  color: white;
+
+  transition: left 1s ease-in-out;
+  z-index: 999;
+}
+
+.mainContent {
+  width: 100%;
+  height: 100%;
+  padding-top: 90px;
+  padding-left: 350px;
+  padding-right: 2.5%;
+  padding-bottom: 1%;
+  transition: padding-left 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .sidebar.close {
+    left: -100%;
   }
-  
-  .navbar {
-    position: fixed;
-    top: 0;
-    left: 2.5%;
-  
-    width: 95%;
-    height: 70px;
-  
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-  
-    background-color: #1d7ee4;
-    color: #373960;
-    box-shadow: 0px 2px 4px 1px #373960;
-  
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  
-    padding: 0 1rem;
-    z-index: 1000;
+  .sidebar.open {
+    left: 2.5;
   }
-  
-  .navbarFirst {
-    height: 100%;
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .navbarFirst button {
-    margin-right: 1rem;
-  
-    height: 65%;
-    aspect-ratio: 1;
-  
-    background: none;
-    color: white;
-  
-    border: none;
-    border-radius: 100%;
-    box-shadow: 0 0 0 1px #37396047 inset;
-  
-    font-size: 1.5rem;
-    cursor: pointer;
-  
-    transition: all 0.5s;
-  }
-  .navbarFirst button:hover {
-    box-shadow: 0 0 10px 1px #37396047 inset;
-  }
-  
-  .navTitle {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .navTitle img {
-    height: 80%;
-    border-radius: 10px;
-  }
-  
-  .navBarLogoutButton {
-    height: 55%;
-    width: 100px;
-    background: rgb(220, 220, 220);
-  
-    border: none;
-    border-radius: 50px;
-    outline: none;
-  
-    font-size: large;
-    font-weight: bold;
-    color: #1d7ee4;
-  
-    cursor: pointer;
-    box-shadow: 0 4px 10px #37396047;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .navBarLogoutButton:hover {
-    box-shadow: 0 6px 15px #37396047;
-    transform: scale(1.05);
-  }
-  
-  .sidebar {
-    position: fixed;
-    top: 12%;
-    left: 2.5%;
-  
-    width: 300px;
-    height: 87%;
-  
-    border-radius:10px;
-    box-shadow: 2px 2px 5px 1px grey;
-  
-    background-color: #202584;
-    color: white;
-  
-    transition: left 1s ease-in-out;
-    z-index: 999;
-  }
-  
   .mainContent {
-    margin-top : 90px;
-    margin-left : 342px;
-    transition: margin-left 0.7s ease-in-out;
+    padding-left: 2.5%;
   }
-  
-  @media (max-width: 768px) {
-    .sidebar.close {
-      left : -100%;
-    }
-    .sidebar.open {
-      left: 2.5;
-    }
-    .mainContent{
-      margin-left:2.5%;
-    }
+  .navbarFirst button {
+    display: block;
   }
-  
-  
+}
+

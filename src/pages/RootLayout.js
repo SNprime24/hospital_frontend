@@ -33,7 +33,7 @@ export default function RootLayout() {
                 className={classes.menuButton} 
                 onClick={() => setSidebarOpen(prev => !prev)}
             >
-                ☰
+                {sidebarOpen? "X":"☰"}
             </button>
             <div className={classes.navTitle}>
                 <img src={NavLogo} alt="NavgationLogo"/>

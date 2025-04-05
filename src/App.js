@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import FDOMainPage from './pages/FDOMainPage';
 import DEOMainPage from './pages/DEOMainPage';
 import PatientDetails from './pages/PatientDetails';
+import EntityForm from './pages/EntityForm';
 import { useDispatch } from 'react-redux';
 import { userExists, userNotExists } from './redux/reducers/auth';
 
@@ -31,6 +32,15 @@ function App() {
   }, [dispatch])
 
   const router = createBrowserRouter([
+    {
+      path : "/dev",
+      element : <RootLayout/>,
+      children : [
+        {index : true, element : <DEOMainPage/>},
+        { path: "new/:entity",  element : (<EntityForm/>)},
+        { path: "edit/:entity/:id", element : (<EntityForm/>)},
+      ]
+    },
     {
       path: "/",
       element: <ProtectRoute user = {!user} redirect = '/app' />,
@@ -53,6 +63,8 @@ function App() {
               user?.role === "FDO"    ? <FDOMainPage    /> : <DEOMainPage />
             ) },
             { path: "patient/:patientID", element: <PatientDetails /> },
+            { path: "new/:entity",  element : (user?.role==="DEO" && <EntityForm/>)},
+            { path: "edit/:entity/:id", element : (user?.role==="DEO" && <EntityForm/>)},
           ]
         }
       ]
