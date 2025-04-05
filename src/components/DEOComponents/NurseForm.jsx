@@ -1,8 +1,12 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 import { FormInput, FormSubmit } from './FormInput';
 
 import classes from "./DEOFormsDesign.module.css";
+import { useCreateMutation } from '../../hooks/hooks';
+import { useCreateNurseMutation } from '../../redux/api/api';
 
 
 function NurseForm({type = "add"}) {
@@ -16,14 +20,20 @@ function NurseForm({type = "add"}) {
         address : "",
         shift : "",
     })
+    const [create] = useCreateMutation(useCreateNurseMutation);
+    const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev)=>({...prev, [e.target.name] : e.target.value}));
-
     console.log(formData);
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-        alert("Form Submitted !");
+        setFormData(prev => ({
+            ...prev,
+            name: prev.firstName + " " + prev.lastName,
+            addr: prev.address
+        }));
+        create("Creating nurse...", formData, navigate);
         console.log(formData);
     }
 
