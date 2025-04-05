@@ -1,0 +1,78 @@
+.formWrapper{
+    width : 100%;
+    height : fit-content;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content : center;
+}
+.formHeading{
+    display : flex;
+    height : 5vw;
+    min-height: 40px;
+    width : 100%;
+
+    display : flex;
+    align-items : center;
+    justify-content : center;
+}
+.formHeading h1{
+    color : #373960;
+}
+
+.formWrapper form{
+    width : 70%;
+    display : flex;
+    flex-direction : column;
+    gap : 25px;
+}
+
+@media (max-width: 950px) {
+    .formWrapper form{
+        width : 100%;
+    }
+}
+
+/* form about section  */
+.formAbout h3{
+    color : #1d7ee4;
+    margin-bottom: 5px;
+}
+.formAboutInputs{
+    display : flex;
+    justify-content: space-between;
+    gap : 20px;
+}
+.inputImage{
+    width : fit-content;
+    display : flex; 
+    align-items : center;
+    justify-content : center;
+}
+.imagee{
+    width: 150px;
+    height : 150px;
+    background-color : grey;
+    border-radius : 100%;
+}
+.inputAbout{
+    width: 100%;
+}
+
+/* form user contacts section  */
+.formFlex{
+    display : flex;
+    gap : 10px;
+}
+@media (max-width: 450px) {
+    .formFlex{
+        display : block;
+    }
+}
+
+.formSubmit{
+    margin-left : 50%;
+    transform: translateX(-50%);
+    width : 50%;
+    height : 40px;
+}

@@ -1,38 +1,20 @@
-import React,{useState} from 'react'
-import { useParams } from 'react-router-dom';
+import React,{useState} from 'react';
 
-import classes from "./EntityForm.module.css"
+import { FormInput, FormSubmit } from './FormInput';
 
-import { FormInput,FormSubmit } from '../components/DEOComponents/FormInput';
-import { NurseForm } from '../components/DEOComponents/NurseForm';
-// FormInput = ({ label, value, onChange, type = "text", id, name, ...props})
+import classes from "./DEOFormsDesign.module.css";
 
-function EntityForm() {
-    const { entity } = useParams();
 
-    return (
-        <div style={{paddingBottom : "20px"}}>
-
-            {entity==="doctor" && <DoctorForm/>}
-            {entity==="nurse" && <NurseForm/>}
-            
-        </div>
-    )
-}
-
-function DoctorForm({type = "add"}) {
+function NurseForm({type = "add"}) {
     const [formData, setFormData] = useState({
         firstName : "",
         lastName : "",
         gender : "",
-        spec : "",
         qualification : "",
         email : "",
         phoneNumber : null,
         address : "",
-        inTime : null,
-        outTime : null,
-        room : "",
+        shift : "",
     })
 
     const handleFormChange = (e) => setFormData((prev)=>({...prev, [e.target.name] : e.target.value}));
@@ -48,7 +30,7 @@ function DoctorForm({type = "add"}) {
     return(
         <div className={classes.formWrapper}>
             <div className={classes.formHeading}>
-                <h1>{type==="add" ? "ADD DOCTOR" : "EDIT DOCTOR"}</h1>
+                <h1>{type==="add" ? "ADD NURSE" : "EDIT NURSE"}</h1>
             </div>
             <form>
                 <div className={classes.formAbout}>
@@ -60,7 +42,7 @@ function DoctorForm({type = "add"}) {
                         <div className={classes.inputAbout}>
                             <FormInput 
                                 type = "text"
-                                id = "DfirstName"
+                                id = "NirstName"
                                 name = "firstName"
                                 label = "First Name"
                                 value = {formData.firstName}
@@ -68,7 +50,7 @@ function DoctorForm({type = "add"}) {
                             />
                             <FormInput
                                 type = "text"
-                                id = "DlastName"
+                                id = "NlastName"
                                 name = "lastName"
                                 label = "Last Name"
                                 value = {formData.lastName}
@@ -76,7 +58,7 @@ function DoctorForm({type = "add"}) {
                             />
                             <FormInput
                                 type = "text"
-                                id = "Dgender"
+                                id = "Ngender"
                                 name = "gender"
                                 label = "Gender"
                                 value = {formData.gender}
@@ -86,19 +68,11 @@ function DoctorForm({type = "add"}) {
                     </div>             
                 </div>
                 <div className={classes.formAbout}>
-                    <h3>DOCTOR QUALIFICATION</h3>
+                    <h3>NURSE QUALIFICATION</h3>
                     <div className={classes.formFlex}>
                         <FormInput
                             type = "text"
-                            id = "Dspec"
-                            name = "spec"
-                            label = "Specialization"
-                            value = {formData.spec}
-                            onChange={handleFormChange}
-                        />
-                        <FormInput
-                            type = "text"
-                            id = "Dqualification"
+                            id = "Nqualification"
                             name = "qualification"
                             label = "Qualification"
                             value = {formData.qualification}
@@ -108,11 +82,11 @@ function DoctorForm({type = "add"}) {
                 </div>
 
                 <div className={classes.formAbout}>
-                    <h3>DOCTOR CONTACTS</h3>
+                    <h3>NURSE CONTACTS</h3>
                     <div className={classes.formFlex}>
                         <FormInput
                             type = "email"
-                            id = "Demail"
+                            id = "Nemail"
                             name = "email"
                             label = "E-mail"
                             value = {formData.email}
@@ -120,7 +94,7 @@ function DoctorForm({type = "add"}) {
                         />
                         <FormInput
                             type = "number"
-                            id = "DphoneNumber"
+                            id = "NphoneNumber"
                             name = "phoneNumber"
                             label = "Phone Number"
                             value = {formData.phoneNumber}
@@ -129,7 +103,7 @@ function DoctorForm({type = "add"}) {
                     </div>
                     <FormInput
                         type = "text"
-                        id = "Dtext"
+                        id = "Naddress"
                         name = "address"
                         label = "Address"
                         value = {formData.address}
@@ -138,36 +112,14 @@ function DoctorForm({type = "add"}) {
                 </div>
 
                 <div className={classes.formAbout}>
-                    <h3>DOCTOR TIMINGS</h3>
-                    <div className={classes.formFlex}>
-                        <FormInput
-                            type = "time"
-                            id = "DinTime"
-                            name = "inTime"
-                            label = "In Time"
-                            value = {formData.inTime}
-                            onChange={handleFormChange}
-                        />
-                        <FormInput
-                            type = "time"
-                            id = "DoutTime"
-                            name = "outTime"
-                            label = "Out Time"
-                            value = {formData.outTime}
-                            onChange={handleFormChange}
-                        />
-                    </div>
-                </div>
-
-                <div className={classes.formAbout}>
-                    <h3>DOCTOR ROOM</h3>
+                    <h3>NURSE SHIFT</h3>
                     <div className={classes.formFlex}>
                         <FormInput
                             type = "text"
-                            id = "DRoom"
-                            name = "room"
-                            label = "Room"
-                            value = {formData.room}
+                            id = "Nshift"
+                            name = "shift"
+                            label = "Shift"
+                            value = {formData.shift}
                             onChange={handleFormChange}
                         />
                     </div>
@@ -183,6 +135,4 @@ function DoctorForm({type = "add"}) {
     );
 }
 
-
-
-export default EntityForm;
+export {NurseForm};
