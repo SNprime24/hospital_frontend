@@ -1,51 +1,113 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { server } from '../../assets/config.js';
 
+const generateCrudEndpoints = (builder, entity) => ({
+    [`getAll${entity}s`]: builder.query({
+        query: () => ({ url: `${entity.toLowerCase()}/all` }),
+        providesTags: [entity],
+    }),
+
+    [`getThis${entity}`]: builder.query({
+        query: (id) => ({ url: `${entity.toLowerCase()}/${id}` }),
+        providesTags: [entity],
+    }),
+
+    [`create${entity}`]: builder.mutation({
+        query: (data) => ({
+            url: `${entity.toLowerCase()}/new`,
+            method: 'POST',
+            body: data,
+        }),
+        invalidatesTags: [entity],
+    }),
+
+    [`edit${entity}`]: builder.mutation({
+        query: (data) => ({
+            url: `${entity.toLowerCase()}/edit`,
+            method: 'POST',
+            body: data,
+        }),
+        invalidatesTags: [entity],
+    }),
+});
+
 const api = createApi({
-    reducerPath: 'api', 
-    baseQuery: fetchBaseQuery({ 
+    reducerPath: 'api',
+    baseQuery: fetchBaseQuery({
         baseUrl: `${server}/api/v1/`,
         credentials: 'include',
     }),
-    tagTypes: ['Question', 'User', 'Lab', 'Batch', 'Submission'], 
-
+    tagTypes: ['Doctor', 'Nurse'],
     endpoints: (builder) => ({
-        getMyBatch: builder.query({
-            query: ({ userId}) => ({
-                url: `user/my/${userId}`
-            }),
-            providesTags: ['User', 'Batch'],
-        }),
-
-        getProfile: builder.query({
-            query: ({userName, role}) => ({
-                url: `user/other?userName=${userName}&role=${role}`,
-            }),
-            providesTags: ['User'],
-        }),
-
-        createLab: builder.mutation({              // used in CreateLab.js
-            query: (data) => ({
-                url: 'lab/createLab',
-                method: 'POST',
-                body: data,
-            }),
-            invalidatesTags: ['User', 'Lab'],
-        }),
-
-        startLab: builder.mutation({               // used in DropDownSubmission.jsx
-            query: (labId) => ({
-                url: `lab/startLab/${labId}`,
-                method: 'POST',
-            }),
-            invalidatesTags: ['Lab'],
-        }),
-
-        
-    })
-})
+        ...generateCrudEndpoints(builder, 'Doctor'),
+        ...generateCrudEndpoints(builder, 'Nurse'),
+        ...generateCrudEndpoints(builder, 'HP'),
+        ...generateCrudEndpoints(builder, 'HS'),
+        ...generateCrudEndpoints(builder, 'Patient'),
+        ...generateCrudEndpoints(builder, 'Room'),
+        ...generateCrudEndpoints(builder, 'Test'),
+        ...generateCrudEndpoints(builder, 'Treatment'),
+        ...generateCrudEndpoints(builder, 'Disease'),
+        ...generateCrudEndpoints(builder, 'Appointment'),
+        ...generateCrudEndpoints(builder, 'Drugs'),
+    }),
+});
 
 export default api;
-export const { 
-    
+export const {
+    useGetAllDoctorsQuery,
+    useGetThisDoctorQuery,
+    useCreateDoctorMutation,
+    useEditDoctorMutation,
+
+    useGetAllNursesQuery,
+    useGetThisNurseQuery,
+    useCreateNurseMutation,
+    useEditNurseMutation,
+
+    useGetAllHPsQuery,
+    useGetThisHPQuery,
+    useCreateHPMutation,
+    useEditHPMutation,
+
+    useGetAllHSsQuery,
+    useGetThisHSQuery,
+    useCreateHSMutation,
+    useEditHSMutation,
+
+    useGetAllPatientsQuery,
+    useGetThisPatientQuery,
+    useCreatePatientMutation,
+    useEditPatientMutation,
+
+    useGetAllRoomsQuery,
+    useGetThisRoomQuery,
+    useCreateRoomMutation,
+    useEditRoomMutation,
+
+    useGetAllTestsQuery,
+    useGetThisTestQuery,
+    useCreateTestMutation,
+    useEditTestMutation,
+
+    useGetAllTreatmentsQuery,
+    useGetThisTreatmentQuery,
+    useCreateTreatmentMutation,
+    useEditTreatmentMutation,
+
+    useGetAllDiseasesQuery,
+    useGetThisDiseaseQuery,
+    useCreateDiseaseMutation,
+    useEditDiseaseMutation,
+
+    useGetAllAppointmentsQuery,
+    useGetThisAppointmentQuery,
+    useCreateAppointmentMutation,
+    useEditAppointmentMutation,
+
+    useGetAllDrugsQuery,
+    useGetThisDrugQuery,
+    useCreateDrugMutation,
+    useEditDrugMutation,
 } = api;
+
