@@ -115,9 +115,9 @@ function LoginForm({ setCurrentPage }) {
                         type="radio"
                         id="loginFDO"
                         name="role"
-                        value="Front Desk Operator"
+                        value="FDO"
                         onChange={handleLoginFormChange}
-                        checked={loginData.role === "Front Desk Operator"}
+                        checked={loginData.role === "FDO"}
                         className = {classes.loginRole}
                     />
                     <label htmlFor="loginFDO">
@@ -129,9 +129,9 @@ function LoginForm({ setCurrentPage }) {
                         type="radio"
                         id="loginDEO"
                         name="role"
-                        value="Data Entry Operator"
+                        value="DEO"
                         onChange={handleLoginFormChange}
-                        checked={loginData.role === "Data Entry Operator"}
+                        checked={loginData.role === "DEO"}
                         className = {classes.loginRole}
                     />
                     <label htmlFor="loginDEO">
@@ -409,6 +409,7 @@ async function SubmitForm({ param, formData, dispatch, navigate, setCurrentPage,
 
         if(resData.success) {
             toast.success(resData.message);
+            console.log(resData.user);
             if(param === "login") dispatch(userExists(resData.user));
             if(param === "login") navigate("/app");
             if(param === "verifyEmail") setData(formData);

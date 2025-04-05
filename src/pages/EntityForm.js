@@ -1,9 +1,11 @@
 import React,{useState} from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import classes from "./EntityForm.module.css"
 
 import { FormInput,FormSubmit } from '../components/DEOComponents/FormInput';
+import { useCreateDoctorMutation } from '../redux/api/api';
+import { useCreateMutation } from '../hooks/hooks';
 // FormInput = ({ label, value, onChange, type = "text", id, name, ...props})
 
 function EntityForm() {
@@ -32,14 +34,21 @@ function DoctorForm({type = "add"}) {
         outTime : null,
         room : "",
     })
+    const [create] = useCreateMutation(useCreateDoctorMutation);
+    const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev)=>({...prev, [e.target.name] : e.target.value}));
 
     console.log(formData);
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=> {
         e.preventDefault();
-        alert("Form Submitted !");
+        setFormData(prev => ({
+            ...prev,
+            name: prev.firstName + " " + prev.lastName,
+            addr: prev.address
+        }));
+        create("Creating doctor...", formData, navigate);
         console.log(formData);
     }
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
 import ProtectRoute from './components/Auth/ProtectRoute'
 import { Toaster } from 'react-hot-toast';
 import axios from 'axios';
@@ -23,24 +23,16 @@ import { userExists, userNotExists } from './redux/reducers/auth';
 function App() {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  console.log(user);
 
   useEffect(() =>{
     axios
       .get(`${server}/api/v1/auth/me`, { withCredentials: true })
-      .then(({ data }) => dispatch(userExists(data)))
+      .then(({ data }) => dispatch(userExists(data.user)))
       .catch((err) => dispatch(userNotExists()))
   }, [dispatch])
 
   const router = createBrowserRouter([
-    {
-      path : "/dev",
-      element : <RootLayout/>,
-      children : [
-        {index : true, element : <DEOMainPage/>},
-        { path: "new/:entity",  element : (<EntityForm/>)},
-        { path: "edit/:entity/:id", element : (<EntityForm/>)},
-      ]
-    },
     {
       path: "/",
       element: <ProtectRoute user = {!user} redirect = '/app' />,
@@ -63,8 +55,14 @@ function App() {
               user?.role === "FDO"    ? <FDOMainPage    /> : <DEOMainPage />
             ) },
             { path: "patient/:patientID", element: <PatientDetails /> },
-            { path: "new/:entity",  element : (user?.role==="DEO" && <EntityForm/>)},
-            { path: "edit/:entity/:id", element : (user?.role==="DEO" && <EntityForm/>)},
+            {
+              path: "new/:entity",
+              element: user?.role === "DEO" ? <EntityForm /> : <Navigate to="/unauthorized" />,
+            },
+            {
+              path: "edit/:entity/:id",
+              element: user?.role === "DEO" ? <EntityForm /> : <Navigate to="/unauthorized" />,
+            },            
           ]
         }
       ]
@@ -73,6 +71,7 @@ function App() {
 
   return (
     <>
+      {console.log(user)}
       <RouterProvider router={router} />
       <Toaster position = 'bottom-center' />
     </>

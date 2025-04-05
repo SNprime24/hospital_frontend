@@ -1,4 +1,5 @@
-import React,{ useRef,useState } from 'react'
+import React,{ useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey, faLessThan, faGreaterThan, faSearch } from "@fortawesome/free-solid-svg-icons";
 
@@ -218,6 +219,7 @@ function DEOMainPage() {
     const [selectedComponent, setSelectedComponent] = useState(null);
     const [searchText, setSearchText] = useState("");
     const navBarRef = useRef(null);
+    const navigate = useNavigate();
 
     console.log(selectedComponent);
     console.log(searchText);
@@ -255,9 +257,9 @@ function DEOMainPage() {
                         "DISEASES",
                         "TREATMENT"
                     ].map((item,index)=>(
-                        <a key={index} href="#" className={classes.navItem} onClick={()=>setSelectedComponent(item)}>
+                        <span key={index} className={classes.navItem} onClick={()=>setSelectedComponent(item)}>
                             {item}
-                        </a>
+                        </span>
                     ))}
                 </div>
                 <button onClick={scrollRight} className={classes.scrollBtn}><FontAwesomeIcon icon={faGreaterThan} /></button>
@@ -279,7 +281,10 @@ function DEOMainPage() {
                         />
                         <FontAwesomeIcon icon={faSearch} onClick={handleSearchClickAction}/>
                     </div>
-                    <button className={classes.addNewData}>ADD</button>
+                    <button 
+                        className={classes.addNewData}
+                        onClick={()=>navigate(`new/${selectedComponent?.toLowerCase()}`)}
+                    >ADD</button>
                 </div>
                 
                 {selectedComponent != null && <div className={classes.tableContainer}>
