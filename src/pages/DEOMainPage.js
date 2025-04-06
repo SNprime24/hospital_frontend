@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLessThan, faGreaterThan, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./DEOMainPage.module.css";
-import { useGetAllDoctorsQuery, useGetAllNursesQuery } from '../redux/api/api';
+import { useGetAllDoctorsQuery, useGetAllNursesQuery, useGetAllRoomsQuery } from '../redux/api/api';
 import { useErrors } from '../hooks/hooks';
 
 
@@ -20,20 +20,24 @@ function DEOMainPage() {
     const nurseData = useGetAllNursesQuery(undefined, {
         skip: selectedComponent !== "NURSE",
     });
+    const roomData = useGetAllRoomsQuery(undefined, {
+        skip: selectedComponent !== "ROOM",
+    })
     const errors = [
         { isError: doctorData.isError, error: doctorData.error },
         { isError: nurseData.isError,  error: nurseData.error  },
+        { isError: roomData.isError,  error: roomData.error  },
     ];
     useErrors(errors);
-    console.log("doctors: ", doctorData);
-    console.log("nurses: ", nurseData);
+    // console.log("rooms: ", roomData);
 
     console.log(selectedComponent);
     console.log(searchText);
 
     let data = [];
     if (selectedComponent === "DOCTOR") data = doctorData?.data?.data || [];
-    if (selectedComponent === "NURSE") data = nurseData?.data?.data || [];
+    if (selectedComponent === "NURSE")  data = nurseData?.data?.data || [];
+    if (selectedComponent === "ROOM")   data = roomData?.data?.data || [];
 
     const scrollLeft = () =>{
         navBarRef.current.scrollLeft -= 150;
@@ -65,7 +69,6 @@ function DEOMainPage() {
                         "TREATMENT"
                     ].map((item,index)=>(
                         <span key={index} className={classes.navItem} onClick={() => {
-
                             setSelectedComponent(item)
                         }}>
                             {item}

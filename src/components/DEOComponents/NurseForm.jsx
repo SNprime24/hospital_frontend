@@ -26,7 +26,7 @@ function NurseForm({type = "add"}) {
     const handleFormChange = (e) => setFormData((prev)=>({...prev, [e.target.name] : e.target.value}));
     console.log(formData);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         setFormData(prev => ({
             ...prev,

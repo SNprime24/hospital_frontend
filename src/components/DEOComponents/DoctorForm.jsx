@@ -14,7 +14,7 @@ const optionsList = [
     { value: 'banana', label: 'Banana' },
     { value: 'orange', label: 'Orange' },
     { value: 'grape', label: 'Grape' },
-  ];
+];
 
   
 function DoctorForm({type = "add"}) {
