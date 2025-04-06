@@ -56,13 +56,9 @@ function App() {
             ) },
             { path: "patient/:patientID", element: <PatientDetails /> },
             {
-              path: "new/:entity",
+              path: "form/:type/:entity",
               element: user?.role === "DEO" ? <EntityForm /> : <Navigate to="/unauthorized" />,
-            },
-            {
-              path: "edit/:entity/:id",
-              element: user?.role === "DEO" ? <EntityForm /> : <Navigate to="/unauthorized" />,
-            },            
+            }          
           ]
         }
       ]

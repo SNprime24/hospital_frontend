@@ -126,7 +126,7 @@ function DEOMainPage() {
                     </div>
                     <button 
                         className={classes.addNewData}
-                        onClick={()=>navigate(`new/${selectedComponent?.toLowerCase()}`)}
+                        onClick={()=>navigate(`form/new/${selectedComponent?.toLowerCase()}`)}
                     >ADD</button>
                 </div>
                 
@@ -140,12 +140,16 @@ function DEOMainPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {testData.map((item, index) => (
+                            {data.map((item, index) => (
                                 <tr key={index}>
-                                    <td>{item.id}</td>
+                                    <td>{item._id}</td>
                                     <td>{item.name}</td>
                                     <td className={classes.actionButtons}>
-                                        <span className={classes.actionBtn}>📝</span>
+                                        <span className={classes.actionBtn} onCLick = {() => {
+                                            navigate(`/form/edit/${selectedComponent}`, {
+                                                state: {item}
+                                            })
+                                        }}>📝</span>
                                         <span className={classes.actionBtn}>❌</span>
                                     </td>
                                 </tr>

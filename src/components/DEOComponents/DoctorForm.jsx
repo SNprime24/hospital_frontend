@@ -8,7 +8,8 @@ import { FormInput, FormSubmit, FormSelect } from './FormInput';
 
 import classes from "./DEOFormsDesign.module.css";
   
-function DoctorForm({type = "add"}) {
+function DoctorForm({ type, item }) {
+    console.log(item);
     const [formData, setFormData] = useState({
         firstName : "",
         lastName : "",

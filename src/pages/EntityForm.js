@@ -1,5 +1,5 @@
 import React from 'react'
-import {  useParams } from 'react-router-dom';
+import {  useLocation, useParams } from 'react-router-dom';
 
 // eslint-disable-next-line
 import classes from "./EntityForm.module.css"
@@ -13,15 +13,17 @@ import { TreatmentForm } from '../components/DEOComponents/TreatmentFom';
 // FormInput = ({ label, value, onChange, type = "text", id, name, ...props})
 
 function EntityForm() {
-    const { entity } = useParams();
+    const { type, entity, id } = useParams();
+    const location = useLocation();
+    const item = location.state;
 
     return (
         <div style={{paddingBottom : "20px"}}>
-            { entity === "doctor" && <DoctorForm /> }
-            { entity === "nurse" && <NurseForm /> }
-            { entity === "room" && <RoomForm /> }
-            { entity === "diseases" && <DiseaseForm /> }
-            { entity === "treatment" && <TreatmentForm /> }
+            { entity === "doctor" && <DoctorForm type = {type} item = {item} /> }
+            { entity === "nurse" && <NurseForm type = {type} item = {item} /> }
+            { entity === "room" && <RoomForm type = {type} item = {item} /> }
+            { entity === "diseases" && <DiseaseForm type = {type} item = {item} /> }
+            { entity === "treatment" && <TreatmentForm type = {type} item = {item} /> }
         </div>
     )
 }
