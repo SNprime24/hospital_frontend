@@ -1,0 +1,128 @@
+.mainWrapper{
+    height : 100%;
+    width : 100%;
+    display : flex;
+    flex-direction: column;
+    align-items : center;
+    gap : 10px;
+    padding-inline : 10%;
+    transition : all 0.5s;
+}
+.navBarContainer{
+    height : 60px;
+    width : 100%;
+    /* background : blue; */
+    border-radius: 10px;
+    display : flex;
+    align-items : center;
+    justify-content : space-evenly;
+    gap : 20px;
+}
+.mainContent{
+    height : 100%;
+    width : 100%;
+    overflow: hidden;
+    border-radius : 10px;
+}
+
+@media (max-width: 950px) {
+    .mainWrapper{
+        padding-inline : 0;
+    }
+}
+
+.contentWrapper{   
+    height : 100%;
+    width : 100%; 
+    background : red;
+    /* position : relative; */
+    transform : translateX(0%);
+    transition : all 0.7s;
+}
+.contentWrapper.one{
+    transform: translateX(0%);
+}
+.contentWrapper.two{
+    transform: translateX(-100%);
+}
+.contentWrapper.three{
+    transform: translateX(-200%);
+}
+.contentPage{
+    position : absolute;
+    height : 100%;
+    width : 100%;
+}
+.contentPage.firstPage{
+    background: green;
+    
+}
+.contentPage.secondPage{
+    transform : translateX(100%);
+    background: blue;
+}
+.contentPage.thirdPage{
+    transform : translateX(200%);
+    background: yellow;
+}
+
+/* subNavBar Design started  */
+
+.navBarContainer button {
+  padding-inline : 5px;
+  width : 100%;
+  min-width : fit-content;
+  height: 100%;
+  background:white;
+
+  outline: none;
+  border: none;
+  border-radius: 10px;
+
+  color: #1d7ee4;
+  font-size: large;
+  font-weight: bold;
+
+  display : flex;
+  align-items : center;
+  justify-content : center;
+  gap : 5px;
+
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.navBarContainer button:hover{
+    transform : scale(1.02);
+    box-shadow: 0 4px 10px #1d7de465;
+    background:#1d7ee4;
+    color: white;
+}
+.navBarContainer button.activeBtn{
+    transform : scale(1.02);
+    box-shadow: 0 4px 10px #1d7de465;
+    background:#1d7ee4;
+    color: white;
+}
+.navBarContainer button:hover svg{
+    color : #fff;
+}
+.navBarContainer button.activeBtn svg{
+    color : #fff;
+}
+.navBarContainer button:active { /*to get a good clicking effect */
+    transform: scale(0.8); 
+    opacity: 0.8;
+}
+@media (max-width: 500px) {
+    .navBarContainer button span{
+        display : none;
+    }
+}
+.verticalBar{
+    height : 100%;
+    width : 7px;
+    background:#1d7ee4;
+    border-radius : 7px;
+}
+
+/* navbar design ends  */
