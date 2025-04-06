@@ -6,6 +6,7 @@ import classes from "./EntityForm.module.css"
 
 import { NurseForm } from '../components/DEOComponents/NurseForm';
 import { DoctorForm } from '../components/DEOComponents/DoctorForm';
+import { RoomForm } from '../components/DEOComponents/RoomForm';
 
 // FormInput = ({ label, value, onChange, type = "text", id, name, ...props})
 
@@ -14,10 +15,9 @@ function EntityForm() {
 
     return (
         <div style={{paddingBottom : "20px"}}>
-
-            {entity==="doctor" && <DoctorForm/>}
-            {entity==="nurse" && <NurseForm/>}
-            
+            { entity === "doctor" && <DoctorForm /> }
+            { entity === "nurse" && <NurseForm /> }
+            { entity === "room" && <RoomForm /> }
         </div>
     )
 }
