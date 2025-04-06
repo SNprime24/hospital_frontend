@@ -55,4 +55,23 @@ const FormSelect = ({label, value, options, onChange, id, name, defaultValue, ..
   );
 }
 
-export  { FormInput,FormSubmit,FormSelect };
+const FormTextArea = ({label, value, onChange, id, name, rows = 4, ...props}) => {
+  return (
+    <div className={classes.inputWrapper}>
+      <textarea
+        id = {id}
+        name={name}
+        value={value}
+        className={classes.inputBar}
+        onChange={onChange}
+        placeholder=''
+        rows = {rows}
+        style={{maxWidth : '100%', minHeight : '100px', minWidth : '100%'}}
+        {...props}
+      />
+      <label htmlFor={id}>{label}</label>
+    </div>
+  )
+}
+
+export  { FormInput,FormSubmit,FormSelect,FormTextArea };
