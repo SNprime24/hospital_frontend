@@ -21,8 +21,9 @@ const typeList = [
 
 function RoomForm ({ type = "add" }) {
     const [formData, setFormData] = useState({
+        name: "",
         type : "",
-        capacity : "",
+        capacity : 0,
         isAC : true,
     })
     const [create] = useCreateMutation(useCreateRoomMutation);
@@ -44,8 +45,16 @@ function RoomForm ({ type = "add" }) {
             </div>
             <form>        
                 <div className={classes.formAbout}>
-                    <h3>ROOM TYPE</h3>
+                    <h3>ROOM DETAILS</h3>
                     <div className={classes.formFlex}>
+                        <FormInput
+                            type = "text"
+                            id = "name"
+                            name = "name"
+                            label = "name"
+                            value = {formData.name}
+                            onChange={handleFormChange}
+                        />
                         <FormSelect
                             id = "Rtype"
                             name = "type"

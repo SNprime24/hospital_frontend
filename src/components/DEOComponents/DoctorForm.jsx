@@ -1,21 +1,12 @@
 import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useCreateDoctorMutation } from '../../redux/api/api';
-import { useCreateMutation } from '../../hooks/hooks';
+import { useCreateDoctorMutation, useGetAllVacantDocRoomsQuery } from '../../redux/api/api';
+import { useCreateMutation, useErrors } from '../../hooks/hooks';
 
 import { FormInput, FormSubmit, FormSelect } from './FormInput';
 
 import classes from "./DEOFormsDesign.module.css";
-
-
-const optionsList = [
-    { value: 'apple', label: 'Apple' },
-    { value: 'banana', label: 'Banana' },
-    { value: 'orange', label: 'Orange' },
-    { value: 'grape', label: 'Grape' },
-];
-
   
 function DoctorForm({type = "add"}) {
     const [formData, setFormData] = useState({
@@ -32,6 +23,14 @@ function DoctorForm({type = "add"}) {
         room : "",
     })
     const [create] = useCreateMutation(useCreateDoctorMutation);
+    const roomData = useGetAllVacantDocRoomsQuery();
+    const errors = [
+        { isError: roomData.isError,  error: roomData.error  },
+    ];
+    useErrors(errors);
+    const rooms = roomData?.data?.data || [];
+    const roomList = rooms?.map(( room, index ) => ({ value:  room._id, label: room.name }));
+
     const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev)=>({...prev, [e.target.name] : e.target.value}));
@@ -173,7 +172,7 @@ function DoctorForm({type = "add"}) {
                         label = "Room"
                         value = {formData.value}
                         onChange = {handleFormChange}
-                        options = {optionsList}
+                        options = {roomList}
                     />
                 </div>
 
