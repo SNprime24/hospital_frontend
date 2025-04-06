@@ -4,11 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { useCreateDoctorMutation } from '../../redux/api/api';
 import { useCreateMutation } from '../../hooks/hooks';
 
-import { FormInput, FormSubmit } from './FormInput';
+import { FormInput, FormSubmit, FormSelect } from './FormInput';
 
 import classes from "./DEOFormsDesign.module.css";
 
 
+const optionsList = [
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' },
+    { value: 'orange', label: 'Orange' },
+    { value: 'grape', label: 'Grape' },
+  ];
+
+  
 function DoctorForm({type = "add"}) {
     const [formData, setFormData] = useState({
         firstName : "",
@@ -157,16 +165,16 @@ function DoctorForm({type = "add"}) {
 
                 <div className={classes.formAbout}>
                     <h3>DOCTOR ROOM</h3>
-                    <div className={classes.formFlex}>
-                        <FormInput
-                            type = "text"
-                            id = "DRoom"
-                            name = "room"
-                            label = "Room"
-                            value = {formData.room}
-                            onChange={handleFormChange}
-                        />
-                    </div>
+                    {/* const FormSelect = ({label, value, options, onChange, id, name, defaultValue, ...props}) =>{ */}
+                    <FormSelect
+                        id = "DRoom"
+                        name = "room"
+                        defaultValue="--Select a Room--"                        
+                        label = "Room"
+                        value = {formData.value}
+                        onChange = {handleFormChange}
+                        options = {optionsList}
+                    />
                 </div>
 
                 <div className={classes.formSubmit}>
