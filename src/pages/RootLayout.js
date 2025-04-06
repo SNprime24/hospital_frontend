@@ -5,6 +5,7 @@ import axios from "axios";
 import { server } from "../assets/config";
 import toast from "react-hot-toast";
 import NavLogo from "./../assets/AzureMedNavLogo.png";
+import ImagePlaceHolder from "./../assets/ProfileImagePlaceHolder.png"
 import { useDispatch } from "react-redux";
 import { userNotExists } from "../redux/reducers/auth";
 
@@ -43,12 +44,29 @@ export default function RootLayout() {
       </nav>
 
       <aside className={`${classes.sidebar} ${sidebarOpen ? classes.open : classes.close}`}>
-        lorem ipsum
+        <SideBarComponent/>
       </aside>
 
       <main className={classes.mainContent}>        
         <Outlet />
       </main>
+    </div>
+  );
+}
+
+function SideBarComponent(){
+  return (
+    <div className={classes.sideBarWrapper}>
+      <div className={classes.imageDiv}>
+        {/* <img src = {ImagePlaceHolder} alt="Profile Image"/> */}
+      </div>
+      <div className = { classes.aboutSection }>
+        <div className ={classes.aboutName}>
+
+        </div>
+        
+      </div>
+      
     </div>
   );
 }

@@ -8,6 +8,26 @@ import { useGetAllDiseasesQuery, useGetAllDoctorsQuery, useGetAllNursesQuery, us
 import { useErrors } from '../hooks/hooks';
 
 
+const testData = [
+    {"id":"doc1","name":"Dr. Amit Kumar"},
+    {"id":"doc2","name":"Dr. Sneha Verma"},
+    {"id":"doc3","name":"Dr. Rajeev Singh"},
+    {"id":"doc4","name":"Dr. Meera Joshi"},
+    {"id":"doc5","name":"Dr. Arjun Mehta"},
+    {"id":"doc6","name":"Dr. Nisha Sharma"},
+    {"id":"doc7","name":"Dr. Vikram Patel"},
+    {"id":"doc8","name":"Dr. Alok Das"},
+    {"id":"doc9","name":"Dr. Priya Reddy"},
+    {"id":"doc10","name":"Dr. Anil Kapoor"},
+    {"id":"doc11","name":"Dr. Sunita Nair"},
+    {"id":"doc12","name":"Dr. Harsh Vardhan"},
+    {"id":"doc13","name":"Dr. Kavita Mishra"},
+    {"id":"doc14","name":"Dr. Deepak Jain"},
+    {"id":"doc15","name":"Dr. Neha Bansal"}
+  ];
+  
+
+
 function DEOMainPage() {
     const [selectedComponent, setSelectedComponent] = useState(null);
     const [searchText, setSearchText] = useState("");
@@ -116,18 +136,18 @@ function DEOMainPage() {
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Action</th>
+                                <th className={classes.actionButtons}>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map((item, index) => (
+                            {testData.map((item, index) => (
                                 <tr key={index}>
-                                <td>{item._id}</td>
-                                <td>{item.name}</td>
-                                <td>
-                                    <span className={classes.editBtn}>📝</span>
-                                    <span className={classes.deleteBtn}>❌</span>
-                                </td>
+                                    <td>{item.id}</td>
+                                    <td>{item.name}</td>
+                                    <td className={classes.actionButtons}>
+                                        <span className={classes.actionBtn}>📝</span>
+                                        <span className={classes.actionBtn}>❌</span>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
