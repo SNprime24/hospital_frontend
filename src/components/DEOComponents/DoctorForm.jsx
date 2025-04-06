@@ -9,20 +9,22 @@ import { FormInput, FormSubmit, FormSelect } from './FormInput';
 import classes from "./DEOFormsDesign.module.css";
   
 function DoctorForm({ type, item }) {
-    console.log(item);
+    console.log(item.item?.name.split(' ')[0]);
     const [formData, setFormData] = useState({
-        firstName : "",
-        lastName : "",
-        gender : "",
-        spec : "",
-        qualification : "",
-        email : "",
-        phoneNumber : null,
-        address : "",
-        inTime : null,
-        outTime : null,
-        room : "",
+        firstName : (type==="edit")?item.item?.name.split(' ')[0]:"",
+        lastName : (type==="edit")?item.item?.name.split(' ')[1]:"",
+        gender : (type==="edit")?item.item?.gender:"",
+        spec : (type==="edit")?item.item?.spec:"",
+        qualification : (type==="edit")?item.item?.qualification:"",
+        email : (type==="edit")?item.item?.email:"",
+        phoneNumber : (type==="edit")?item.item?.phoneNumber:null,
+        address : (type==="edit")?item.item?.addr:"",
+        inTime : (type==="edit")?item.item?.inTime:null,
+        outTime : (type==="edit")?item.item?.outTime:null,
+        room : (type==="edit")?item.item?.room:"",
     })
+
+    
     const [create] = useCreateMutation(useCreateDoctorMutation);
     const roomData = useGetAllVacantDocRoomsQuery();
     const errors = [
@@ -52,7 +54,7 @@ function DoctorForm({ type, item }) {
     return(
         <div className={classes.formWrapper}>
             <div className={classes.formHeading}>
-                <h1>{type==="add" ? "ADD DOCTOR" : "EDIT DOCTOR"}</h1>
+                <h1>{type === "new" ? "ADD DOCTOR" : "EDIT DOCTOR"}</h1>
             </div>
             <form>
                 <div className={classes.formAbout}>

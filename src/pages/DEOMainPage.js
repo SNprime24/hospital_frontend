@@ -145,12 +145,13 @@ function DEOMainPage() {
                                     <td>{item._id}</td>
                                     <td>{item.name}</td>
                                     <td className={classes.actionButtons}>
-                                        <span className={classes.actionBtn} onCLick = {() => {
-                                            navigate(`/form/edit/${selectedComponent}`, {
+                                        <div className={classes.actionBtn} onClick = {(e) => {
+                                            e.preventDefault();
+                                            navigate(`form/edit/${selectedComponent?.toLowerCase()}`, {
                                                 state: {item}
                                             })
-                                        }}>📝</span>
-                                        <span className={classes.actionBtn}>❌</span>
+                                        }}>📝</div>
+                                        <div className={classes.actionBtn}>❌</div>
                                     </td>
                                 </tr>
                             ))}

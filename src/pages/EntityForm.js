@@ -13,7 +13,7 @@ import { TreatmentForm } from '../components/DEOComponents/TreatmentFom';
 // FormInput = ({ label, value, onChange, type = "text", id, name, ...props})
 
 function EntityForm() {
-    const { type, entity, id } = useParams();
+    const { type, entity } = useParams();
     const location = useLocation();
     const item = location.state;
 
