@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { FormInput, FormSubmit, FormSelect } from './FormInput';
 
 import classes from "./DEOFormsDesign.module.css";
-import { useCreateMutation } from '../../hooks/hooks';
-import { useCreateRoomMutation } from '../../redux/api/api';
+import { useAsyncMutation, useCreateMutation } from '../../hooks/hooks';
+import { useCreateRoomMutation, useUpdateRoomMutation } from '../../redux/api/api';
 
 const optionsList = [
     { value: true, label: 'AC' },
@@ -19,13 +19,16 @@ const typeList = [
     { value: "Test Room", label: "Test Room" },
 ]
 
-function RoomForm ({ type = "add" }) {
+function RoomForm ({ type, item }) {
     const [formData, setFormData] = useState({
-        type : "",
-        capacity : "",
-        isAC : true,
+        name: (type === "edit") ? item.item?.name.split(' ')[0] : "",
+        type : (type === "edit") ? item.item?.type : "",
+        capacity : (type === "edit") ? item.item?.capacity : 0,
+        isAC : (type === "edit") ? item.item?.gender : true,
     })
+
     const [create] = useCreateMutation(useCreateRoomMutation);
+    const [update] = useAsyncMutation(useUpdateRoomMutation);
     const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev)=>({...prev, [e.target.name] : e.target.value}));
@@ -33,7 +36,12 @@ function RoomForm ({ type = "add" }) {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        create("Creating room...", formData, navigate);
+        setFormData(prev => ({
+            ...prev, 
+            id: (type === "new") ? "" : item.item?._id
+        }))
+        if(type === "new") create("Creating room...", formData, navigate);
+        else update("Updating room...", formData, navigate);
         console.log(formData);
     }
 
@@ -44,8 +52,16 @@ function RoomForm ({ type = "add" }) {
             </div>
             <form>        
                 <div className={classes.formAbout}>
-                    <h3>ROOM TYPE</h3>
+                    <h3>ROOM DETAILS</h3>
                     <div className={classes.formFlex}>
+                        <FormInput
+                            type = "text"
+                            id = "name"
+                            name = "name"
+                            label = "name"
+                            value = {formData.name}
+                            onChange={handleFormChange}
+                        />
                         <FormSelect
                             id = "Rtype"
                             name = "type"

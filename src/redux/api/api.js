@@ -21,10 +21,10 @@ const generateCrudEndpoints = (builder, entity) => ({
         invalidatesTags: [entity],
     }),
 
-    [`edit${entity}`]: builder.mutation({
+    [`update${entity}`]: builder.mutation({
         query: (data) => ({
-            url: `${entity.toLowerCase()}/edit`,
-            method: 'POST',
+            url: `${entity.toLowerCase()}/update`,
+            method: 'PUT',
             body: data,
         }),
         invalidatesTags: [entity],
@@ -49,7 +49,14 @@ const api = createApi({
         ...generateCrudEndpoints(builder, 'Treatment'),
         ...generateCrudEndpoints(builder, 'Disease'),
         ...generateCrudEndpoints(builder, 'Appointment'),
-        ...generateCrudEndpoints(builder, 'Drugs'),
+        ...generateCrudEndpoints(builder, 'Drug'),
+
+        getAllVacantDocRooms: builder.query({
+            query: () => ({
+                url: `room/allVacantDocRooms`,
+            }),
+            providesTags: ['Room'],
+        })
     }),
 });
 
@@ -58,56 +65,57 @@ export const {
     useGetAllDoctorsQuery,
     useGetThisDoctorQuery,
     useCreateDoctorMutation,
-    useEditDoctorMutation,
+    useUpdateDoctorMutation,
 
     useGetAllNursesQuery,
     useGetThisNurseQuery,
     useCreateNurseMutation,
-    useEditNurseMutation,
+    useUpdateNurseMutation,
 
     useGetAllHPsQuery,
     useGetThisHPQuery,
     useCreateHPMutation,
-    useEditHPMutation,
+    useUpdateHPMutation,
 
     useGetAllHSsQuery,
     useGetThisHSQuery,
     useCreateHSMutation,
-    useEditHSMutation,
+    useUpdateHSMutation,
 
     useGetAllPatientsQuery,
     useGetThisPatientQuery,
     useCreatePatientMutation,
-    useEditPatientMutation,
+    useUpdatePatientMutation,
 
     useGetAllRoomsQuery,
     useGetThisRoomQuery,
+    useGetAllVacantDocRoomsQuery,
     useCreateRoomMutation,
-    useEditRoomMutation,
+    useUpdateRoomMutation,
 
     useGetAllTestsQuery,
     useGetThisTestQuery,
     useCreateTestMutation,
-    useEditTestMutation,
+    useUpdateTestMutation,
 
     useGetAllTreatmentsQuery,
     useGetThisTreatmentQuery,
     useCreateTreatmentMutation,
-    useEditTreatmentMutation,
+    useUpdateTreatmentMutation,
 
     useGetAllDiseasesQuery,
     useGetThisDiseaseQuery,
     useCreateDiseaseMutation,
-    useEditDiseaseMutation,
+    useUpdateDiseaseMutation,
 
     useGetAllAppointmentsQuery,
     useGetThisAppointmentQuery,
     useCreateAppointmentMutation,
-    useEditAppointmentMutation,
+    useUpdateAppointmentMutation,
 
     useGetAllDrugsQuery,
     useGetThisDrugQuery,
     useCreateDrugMutation,
-    useEditDrugMutation,
+    useUpdateDrugMutation,
 } = api;
 

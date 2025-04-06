@@ -43,7 +43,7 @@ const FormSelect = ({label, value, options, onChange, id, name, defaultValue, ..
         onChange={onChange}
         {...props}
       >
-        <option value= "" hidden>--select a room--</option>
+        <option value= "" hidden>{defaultValue}</option>
         {options.map((opt, index)=>(
           <option key={index} value={opt.value}>
             {opt.label}
