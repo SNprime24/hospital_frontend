@@ -35,6 +35,7 @@
   margin-inline: 5px;
   flex-shrink: 0;
   transition: 0.3s;
+  cursor: pointer;
 }
 .navItem:hover {
   background-color: #373960;
@@ -152,39 +153,37 @@
 
 /* table design started */
 /* Table Container */
-
 /*Change effectively*/ 
 .tableContainer {
-    height : 100%;
-
     background-color: transparent;
     padding-top : 20px;
 
 }
   
 table {
+    height : 100%;
     width: 100%;
-    height : 500px  !important;
     border-collapse: collapse;
-    background-color: white;
-    color: #333;
+    background-color: transparent;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
   
-/* Table Header */
-thead {
-    background-color: #f1f1f1;  
-    height : 20%;
+thead { 
+  width : 100%;
+  background-color: #1d7ee4;  
+  height : 10%;
 }
 
 tbody {
     height : 500px;
     overflow:hidden;
+    height : 90%;
 }
 
 th {
+    color: #fff;
     padding: 12px;
     text-align: left;
     font-weight: bold;
@@ -192,30 +191,40 @@ th {
 }
 
 /* Table Rows */
+tr {
+  height : 60px;
+  width : 100%;
+}
+
+tbody tr{
+  cursor : pointer;
+}
+
 td {
     padding: 12px;
     border-bottom: 1px solid #ddd;
 }
 
-/* Hover Effect */
-tr:hover {
-    background-color: #f9f9f9;
-}
-
 /* Buttons */
-.editBtn {
-    color: #007bff;
-    cursor: pointer;
-    text-decoration: underline;
-    margin-right: 10px;
-    font-weight: bold;
+.actionButtons{
+  height : 100%;
+  width :100%;
+  display :flex;
+  align-items: center;
+  justify-content: center;
+  gap :20px
 }
-
-.deleteBtn {
-    color: #dc3545;
-    cursor: pointer;
-    text-decoration: underline;
-    font-weight: bold;
+.actionBtn{
+  font-size: 25px;
+  cursor : pointer;
+  transition: all 0.5s;
+}
+.actionBtn:hover{
+  transform : scale(1.2);
+}
+.actionBtn:active { /*to get a good clicking effect */
+  transform: scale(0.7); 
+  opacity: 0.7;
 }
 
 /* Responsive Design */
