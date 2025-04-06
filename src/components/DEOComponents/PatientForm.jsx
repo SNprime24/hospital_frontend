@@ -1,32 +1,31 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useCreatePatientMutation,  useUpdatePatientMutation } from '../../redux/api/api';
+import { useCreateMutation, useAsyncMutation } from '../../hooks/hooks';
 
 import { FormInput, FormSubmit } from './FormInput';
 
 import classes from "./DEOFormsDesign.module.css";
-import { useAsyncMutation, useCreateMutation } from '../../hooks/hooks';
-import { useCreateNurseMutation, useUpdateNurseMutation } from '../../redux/api/api';
 
-
-function NurseForm({ type, item }) {
+function PatientForm({ type, item }) {
     const [formData, setFormData] = useState({
         firstName: (type === "edit") ? item.item?.name.split(' ')[0] : "",
         lastName: (type === "edit") ? item.item?.name.split(' ')[1] : "",
+        guardianFirstName: (type === "edit") ? item.item?.gname.split(' ')[0] : "",
+        guardianLastName: (type === "edit") ? item.item?.gname.split(' ')[1] : "",
         gender: (type === "edit") ? item.item?.gender : "",
-        qualification: (type === "edit") ? item.item?.qualification : "",
-        email: (type === "edit") ? item.item?.email : "",
         phoneNumber: (type === "edit") ? item.item?.phoneNumber : null,
-        address: (type === "edit") ? item.item?.addr : "",
-        shift: (type === "edit") ? item.item?.shift : "",
+        guardianPhoneNumber: (type === "edit") ? item.item?.gPhoneNumber : null,
+        address: (type === "edit") ? item.item?.addr : ""
     })
 
-    const [create] = useCreateMutation(useCreateNurseMutation);
-    const [update] = useAsyncMutation(useUpdateNurseMutation);
-
+    const [create] = useCreateMutation(useCreatePatientMutation);
+    const [update] = useAsyncMutation(useUpdatePatientMutation);
     const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
     console.log(formData);
 
     const handleSubmit = async (e) => {
@@ -34,18 +33,20 @@ function NurseForm({ type, item }) {
         setFormData(prev => ({
             ...prev,
             name: prev.firstName + " " + prev.lastName,
+            guardian_name: prev.guardianFirstName + " " + prev.guardianLastName,
+            guardian_phoneNo: prev.guardianPhoneNumber,
             addr: prev.address,
-            id: (type === "new") ? "" : item.item?._id
+            id: (type === "new") ? "" : item?.item._id
         }));
-        if (type === "new") create("Creating nurse...", formData, navigate);
-        else update("Updating nurse...", formData, navigate);
+        if (type === "new") create("Creating patient...", formData, navigate);
+        else update("Updating patient...", formData, navigate);
         console.log(formData);
     }
 
     return (
         <div className={classes.formWrapper}>
             <div className={classes.formHeading}>
-                <h1>{type === "new" ? "ADD NURSE" : "EDIT NURSE"}</h1>
+                <h1>{type === "new" ? "ADD PATIENT" : "EDIT PATIENT"}</h1>
             </div>
             <form>
                 <div className={classes.formAbout}>
@@ -57,7 +58,7 @@ function NurseForm({ type, item }) {
                         <div className={classes.inputAbout}>
                             <FormInput
                                 type="text"
-                                id="NirstName"
+                                id="DfirstName"
                                 name="firstName"
                                 label="First Name"
                                 value={formData.firstName}
@@ -65,7 +66,7 @@ function NurseForm({ type, item }) {
                             />
                             <FormInput
                                 type="text"
-                                id="NlastName"
+                                id="DlastName"
                                 name="lastName"
                                 label="Last Name"
                                 value={formData.lastName}
@@ -73,7 +74,7 @@ function NurseForm({ type, item }) {
                             />
                             <FormInput
                                 type="text"
-                                id="Ngender"
+                                id="Dgender"
                                 name="gender"
                                 label="Gender"
                                 value={formData.gender}
@@ -83,63 +84,56 @@ function NurseForm({ type, item }) {
                     </div>
                 </div>
                 <div className={classes.formAbout}>
-                    <h3>NURSE QUALIFICATION</h3>
+                    <h3>GUARDIAN DETAILS</h3>
                     <div className={classes.formFlex}>
                         <FormInput
                             type="text"
-                            id="Nqualification"
-                            name="qualification"
-                            label="Qualification"
-                            value={formData.qualification}
+                            id="DguardianFirstName"
+                            name="guardianFirstName"
+                            label="Guardian First Name"
+                            value={formData.guardianFirstName}
+                            onChange={handleFormChange}
+                        />
+                        <FormInput
+                            type="text"
+                            id="DguardianLastName"
+                            name="guardianLastName"
+                            label="Guardian Last Name"
+                            value={formData.guardianLastName}
+                            onChange={handleFormChange}
+                        />
+                        <FormInput
+                            type="tel"
+                            id="DguardianPhoneNumber"
+                            name="guardianPhoneNumber"
+                            label="Guardian Phone Number"
+                            value={formData.guardianPhoneNumber}
                             onChange={handleFormChange}
                         />
                     </div>
                 </div>
 
                 <div className={classes.formAbout}>
-                    <h3>NURSE CONTACTS</h3>
+                    <h3>PATIENTS CONTACTS</h3>
                     <div className={classes.formFlex}>
                         <FormInput
-                            type="email"
-                            id="Nemail"
-                            name="email"
-                            label="E-mail"
-                            value={formData.email}
+                            type="text"
+                            id="Dtext"
+                            name="address"
+                            label="Address"
+                            value={formData.address}
                             onChange={handleFormChange}
                         />
                         <FormInput
-                            type="number"
-                            id="NphoneNumber"
+                            type="tel"
+                            id="DphoneNumber"
                             name="phoneNumber"
                             label="Phone Number"
                             value={formData.phoneNumber}
                             onChange={handleFormChange}
                         />
                     </div>
-                    <FormInput
-                        type="text"
-                        id="Naddress"
-                        name="address"
-                        label="Address"
-                        value={formData.address}
-                        onChange={handleFormChange}
-                    />
                 </div>
-
-                <div className={classes.formAbout}>
-                    <h3>NURSE SHIFT</h3>
-                    <div className={classes.formFlex}>
-                        <FormInput
-                            type="text"
-                            id="Nshift"
-                            name="shift"
-                            label="Shift"
-                            value={formData.shift}
-                            onChange={handleFormChange}
-                        />
-                    </div>
-                </div>
-
                 <div className={classes.formSubmit}>
                     <FormSubmit
                         handleSubmit={handleSubmit}
@@ -150,4 +144,4 @@ function NurseForm({ type, item }) {
     );
 }
 
-export { NurseForm };
+export { PatientForm };

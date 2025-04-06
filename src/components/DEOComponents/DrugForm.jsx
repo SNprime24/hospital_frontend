@@ -5,16 +5,15 @@ import { FormInput, FormSubmit, FormTextArea } from './FormInput';
 
 import classes from "./DEOFormsDesign.module.css";
 import { useAsyncMutation, useCreateMutation } from '../../hooks/hooks';
-import { useCreateDiseaseMutation, useUpdateDiseaseMutation } from '../../redux/api/api';
+import { useCreateDrugMutation, useUpdateDrugMutation } from '../../redux/api/api';
 
-function DiseaseForm ({ type, item }) {
+function DrugForm ({ type, item }) {
     const [formData, setFormData] = useState({
         name: (type === "edit") ? item.item?.name : "",
-        symp: (type === "edit") ? item.item?.symp : "",
-        desc: (type === "edit") ? item.item?.desc : ""
+        composition: (type === "edit") ? item.item?.composition : "",
     })
-    const [create] = useCreateMutation(useCreateDiseaseMutation);
-    const [update] = useAsyncMutation(useUpdateDiseaseMutation);
+    const [create] = useCreateMutation(useCreateDrugMutation);
+    const [update] = useAsyncMutation(useUpdateDrugMutation);
     const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev)=>({...prev, [e.target.name] : e.target.value}));
@@ -27,19 +26,19 @@ function DiseaseForm ({ type, item }) {
             ...prev,
             id: (type === "edit") ? item.item?._id : ""
         }))
-        if(type === "new") create("Creating disease...", formData, navigate);
-        else update("Updating disease...", formData, navigate);
+        if(type === "new") create("Creating Drug...", formData, navigate);
+        else update("Updating Drug...", formData, navigate);
         console.log(formData);
     }
 
     return(
         <div className={classes.formWrapper}>
             <div className={classes.formHeading}>
-                <h1>{type === "new" ? "ADD DISEASE" : "EDIT DISEASE"}</h1>
+                <h1>{type === "new" ? "ADD DRUG" : "EDIT DRUG"}</h1>
             </div>
             <form>        
                 <div className={classes.formAbout}>
-                    <h3>DISEASE DETAILS</h3>
+                    <h3>DRUG DETAILS</h3>
                     <FormInput
                         type = "text"
                         id = "name"
@@ -49,17 +48,10 @@ function DiseaseForm ({ type, item }) {
                         onChange={handleFormChange}
                     />
                     <FormTextArea
-                        id = "symp"
-                        name = "symp"
-                        label = "Symptoms"
-                        value = {formData.symp}
-                        onChange = {handleFormChange}
-                    />
-                    <FormTextArea
-                        id = "desc"
-                        name = "desc"
-                        label = "Description"
-                        value = {formData.desc}
+                        id = "composition"
+                        name = "composition"
+                        label = "Composition"
+                        value = {formData.composition}
                         onChange = {handleFormChange}
                     />
                 </div>
@@ -73,4 +65,4 @@ function DiseaseForm ({ type, item }) {
     );
 }
 
-export { DiseaseForm };
+export { DrugForm };

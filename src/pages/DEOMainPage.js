@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLessThan, faGreaterThan, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./DEOMainPage.module.css";
-import { useGetAllDiseasesQuery, useGetAllDoctorsQuery, useGetAllNursesQuery, useGetAllRoomsQuery, useGetAllTreatmentsQuery } from '../redux/api/api';
+import { useGetAllDiseasesQuery, useGetAllDoctorsQuery, useGetAllDrugsQuery, useGetAllHPsQuery, useGetAllNursesQuery, useGetAllPatientsQuery, useGetAllRoomsQuery, useGetAllTestsQuery, useGetAllTreatmentsQuery } from '../redux/api/api';
 import { useErrors } from '../hooks/hooks';
 
 
@@ -40,8 +40,20 @@ function DEOMainPage() {
     const nurseData = useGetAllNursesQuery(undefined, {
         skip: selectedComponent !== "NURSE",
     });
+    const hpsData = useGetAllHPsQuery(undefined, {
+        skip: selectedComponent !== "HOSPITAL PROFESSIONALS",
+    })
+    const patientsData = useGetAllPatientsQuery(undefined, {
+        skip: selectedComponent !== "PATIENTS",
+    })
     const roomData = useGetAllRoomsQuery(undefined, {
         skip: selectedComponent !== "ROOM",
+    })
+    const drugData = useGetAllDrugsQuery(undefined, {
+        skip: selectedComponent !== "DRUGS",
+    })
+    const testData = useGetAllTestsQuery(undefined, {
+        skip: selectedComponent !== "TESTS",
     })
     const diseaseData = useGetAllDiseasesQuery(undefined, {
         skip: selectedComponent !== "DISEASES",
@@ -52,7 +64,11 @@ function DEOMainPage() {
     const errors = [
         { isError: doctorData.isError, error: doctorData.error },
         { isError: nurseData.isError,  error: nurseData.error  },
+        { isError: hpsData.isError,  error: hpsData.error  },
+        { isError: patientsData.isError,  error: patientsData.error  },
         { isError: roomData.isError,  error: roomData.error  },
+        { isError: drugData.isError,  error: drugData.error  },
+        { isError: testData.isError,  error: testData.error  },
         { isError: diseaseData.isError,  error: diseaseData.error  },
         { isError: treatmentData.isError, error: treatmentData.error }
     ];
@@ -64,7 +80,11 @@ function DEOMainPage() {
     let data = [];
     if (selectedComponent === "DOCTOR") data = doctorData?.data?.data || [];
     if (selectedComponent === "NURSE")  data = nurseData?.data?.data || [];
+    if (selectedComponent === "HOSPITAL PROFESSIONALS")  data = hpsData?.data?.data || [];
+    if (selectedComponent === "PATIENTS")  data = patientsData?.data?.data || [];
     if (selectedComponent === "ROOM")   data = roomData?.data?.data || [];
+    if (selectedComponent === "DRUGS")   data = drugData?.data?.data || [];
+    if (selectedComponent === "TESTS")   data = testData?.data?.data || [];
     if (selectedComponent === "DISEASES") data = diseaseData?.data?.data || [];
     if (selectedComponent === "TREATMENT") data = treatmentData?.data?.data || [];
     console.log(data);
@@ -126,7 +146,8 @@ function DEOMainPage() {
                     </div>
                     <button 
                         className={classes.addNewData}
-                        onClick={()=>navigate(`form/new/${selectedComponent?.toLowerCase()}`)}
+                        onClick={()=>navigate(`form/new/${selectedComponent?.toLowerCase().split(" ").join("")
+ }`)}
                     >ADD</button>
                 </div>
                 
@@ -147,7 +168,8 @@ function DEOMainPage() {
                                     <td className={classes.actionButtons}>
                                         <div className={classes.actionBtn} onClick = {(e) => {
                                             e.preventDefault();
-                                            navigate(`form/edit/${selectedComponent?.toLowerCase()}`, {
+                                            navigate(`form/edit/${selectedComponent?.toLowerCase().split(" ").join("")
+ }`, {
                                                 state: {item}
                                             })
                                         }}>📝</div>
