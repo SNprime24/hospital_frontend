@@ -54,6 +54,7 @@
 
   display: none;
 }
+
 .navbarFirst button:hover {
   box-shadow: 0 0 10px 1px #37396047 inset;
 }
@@ -64,6 +65,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .navTitle img {
   height: 80%;
   border-radius: 10px;
@@ -94,9 +96,9 @@
 
 .sidebar {
   position: fixed;
-  bottom : 5px;
+  bottom: 5px;
   left: 2.5%;
-  padding : 5px;
+  padding: 5px;
 
   width: 300px;
   height: 78%;
@@ -125,255 +127,16 @@
   .sidebar.close {
     left: -100%;
   }
+
   .sidebar.open {
     left: 2.5;
   }
+
   .mainContent {
     padding-left: 2.5%;
   }
+
   .navbarFirst button {
     display: block;
   }
-}
-
-/* sidebar component design  */
-
-.cDoctor{
-  background: red;
-}
-.cNurse{
-  background: blue;
-}
-.cDEO{
-  background : green;
-}
-.cFDO{
-  background: purple;
-}
-
-.sideBarWrapper{
-  height : 100%;
-  width : 100%;
-  
-  display : flex;
-  flex-direction: column;
-  align-items : center;
-  justify-content : start;
-}
-
-.imageDiv{
-  height : 10%;
-  width : 100%;
-  
-  display : flex;
-  align-items : center;
-  justify-content: center;
-  
-}
-.imageDiv img{
-  height : 300%;
-  aspect-ratio: 1;
-  border-radius: 100%;
-  transform: translateY(-19%);
-}
-
-.mainSection{
-  height : 40%;
-  width : 100%;
-  padding-top: 10px;
-  padding-bottom : 10px;
-  
-  display : flex;
-  flex-direction : column;
-  align-items : center;
-  justify-content: space-around;
-}
-.aboutName{
-  font-family :'Lucida Sans Unicode';
-  font-size: x-large;
-  font-weight: bolder;
-}
-.roleButton{
-  height : fit-content;
-  width: fit-content;
-  padding : 4px;
-  padding-inline: 12px;
-
-  border-radius: 20px;
-  font-family: Tahoma;
-  font-weight: 500;
-}
-.section{
-  text-align: center;
-}
-.section span{
-  font-weight: bolder;
-}
-
-.movingSection {
-  padding-top: 15px;
-  height : 50%;
-  width : 100%;
-}
-
-
-/* moving doctor side bar component  */
-
-.sideMainWrapper{
-  height : 100%;
-  width : 100%;
-  display : flex;
-  flex-direction: column;
-  align-items : center;
-  gap : 10px;
-  padding-inline : 15px;
-  transition : all 0.5s;
-}
-.sideNavBarContainer{
-  height : 40px;
-  width : 100%;
-  /* background : blue; */
-  display : flex;
-  align-items : center;
-  justify-content : space-evenly;
-  gap : 5px;
-}
-
-.sideNavBarContainer button {
-  width : 100%;
-  height: 35px;
-  background:white;
-
-  outline: none;
-  border: none;
-  border-radius: 5px;
-
-  color: #1d7ee4;
-  font-size: large;
-
-  display : flex;
-  align-items : center;
-  justify-content : center;
-
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-.sideNavBarContainer button:hover{
-  transform : scale(1.07);
-  box-shadow: 0 4px 10px #1d7de465;
-  background:#1d7ee4;
-  color: white;
-}
-.sideNavBarContainer button.activeBtn{
-  transform : scale(1.02);
-  box-shadow: 0 4px 10px #1d7de465;
-  background:#1d7ee4;
-  color: white;
-}
-.sideNavBarContainer button:hover svg{
-  color : #fff;
-}
-.sideNavBarContainer button.activeBtn svg{
-  color : #fff;
-}
-.sideNavBarContainer button:active { /*to get a good clicking effect */
-  transform: scale(0.8); 
-  opacity: 0.8;
-}
-.sideVerticalBar{
-  height : 100%;
-  width : 7px;
-  background:#1d7ee4;
-  border-radius : 7px;
-}
-
-.sideMainContent{
-  height : 96%;
-  width : 100%;
-  overflow: hidden;
-  border-radius : 10px;
-}
-
-.sideContentWrapper{   
-  height : 100%;
-  width : 100%; 
-  /* position : relative; */
-  
-  transform : translateX(0%);
-  transition : all 0.7s;
-}
-.sideContentWrapper.one{
-  transform: translateX(0%);
-}
-.sideContentWrapper.two{
-  transform: translateX(-100%);
-}
-.sideContentWrapper.three{
-  transform: translateX(-200%);
-}
-.sideContentPage{
-  position : absolute;
-  height : 96%;
-  width : 100%;
-  padding-top : 10px;
-  display: flex;
-  flex-direction: column;
-  gap : 15px;
-   
-  border-radius: 10px;
-
-  overflow-y: auto;  /* to give scrollable effect */
-  scrollbar-width: none;  /* to remove scrollbar */
-  -ms-overflow-style: none;
-}
-.sideContentPage.firstPage{
-  /* background: green; */
-  gap : 15px;
-}
-.sideContentPage.secondPage{
-  transform : translateX(100%);
-  gap : 7px;
-  align-items : center;
-  /* background: blue; */
-  
-}
-.sideContentPage.thirdPage{
-  transform : translateX(200%);
-  gap : 7px;
-  align-items : center;
-  /* background: yellow; */
-}
-.sideContentPage hr{
-  width : 80%;
-}
-.profileCardTest{
-  width : 70%;
-}
-.profileCardTest div{
-  display : flex;
-  justify-content: space-between;
-}
-.profileCardTest div p{
-  color : rgb(193, 193, 193);
-}
-
-.profileCardHp{
-  width : 100%;
-}
-.profileCardHp div{
-  display : flex;
-  justify-content: space-between;
-}
-.profileCardHp div p{
-  color : rgb(193, 193, 193);
-  font-size: x-small;
-  display : flex;
-  align-items : flex-end;
-  justify-content: flex-end;
-}
-
-
-/* moving side bar section css */
-.section h3{
-  color: #1d7ee4;
 }

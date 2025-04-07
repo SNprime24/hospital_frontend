@@ -51,9 +51,9 @@ const api = createApi({
         ...generateCrudEndpoints(builder, 'Appointment'),
         ...generateCrudEndpoints(builder, 'Drug'),
 
-        getAllVacantDocRooms: builder.query({
-            query: () => ({
-                url: `room/allVacantDocRooms`,
+        getAllVacantRooms: builder.query({
+            query: (type) => ({
+                url: `room/allVacantRooms?type=${type}`,
             }),
             providesTags: ['Room'],
         })
@@ -89,7 +89,7 @@ export const {
 
     useGetAllRoomsQuery,
     useGetThisRoomQuery,
-    useGetAllVacantDocRoomsQuery,
+    useGetAllVacantRoomsQuery,
     useCreateRoomMutation,
     useUpdateRoomMutation,
 

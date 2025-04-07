@@ -1,22 +1,24 @@
 import React, { useEffect } from 'react';
 import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
-import ProtectRoute from './components/Auth/ProtectRoute'
 import { Toaster } from 'react-hot-toast';
 import axios from 'axios';
+
+import ProtectRoute from './components/Auth/ProtectRoute'
 import {server} from './assets/config'
+
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { userExists, userNotExists } from './redux/reducers/auth';
 
 import FrontPage from './pages/FrontPage';
 import ErrorPage from './pages/ErrorPage';
 import RootLayout from './pages/RootLayout';
 import DoctorMainPage from './pages/DoctorMainPage';
 import NurseMainPage from './pages/NurseMainPage';
-import { useSelector } from 'react-redux';
 import FDOMainPage from './pages/FDOMainPage';
 import DEOMainPage from './pages/DEOMainPage';
 import PatientDetails from './pages/PatientDetails';
 import EntityForm from './pages/EntityForm';
-import { useDispatch } from 'react-redux';
-import { userExists, userNotExists } from './redux/reducers/auth';
 
 // import classes from "./App.module.css";
 
@@ -68,7 +70,7 @@ function App() {
   return (
     <>
       {console.log(user)}
-      <RouterProvider router={router} />
+      <RouterProvider router = {router} />
       <Toaster position = 'bottom-center' />
     </>
   );

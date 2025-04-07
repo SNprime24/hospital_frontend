@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import classes from "./DEOFormsDesign.module.css";
+
 import { FormInput, FormSubmit, FormTextArea } from './FormInput';
 
-import classes from "./DEOFormsDesign.module.css";
 import { useAsyncMutation, useCreateMutation } from '../../hooks/hooks';
 import { useCreateDrugMutation, useUpdateDrugMutation } from '../../redux/api/api';
 

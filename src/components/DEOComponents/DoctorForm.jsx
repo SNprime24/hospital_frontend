@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useCreateDoctorMutation, useGetAllVacantDocRoomsQuery, useUpdateDoctorMutation } from '../../redux/api/api';
-import { useCreateMutation, useErrors, useAsyncMutation } from '../../hooks/hooks';
+import classes from "./DEOFormsDesign.module.css";
 
 import { FormInput, FormSubmit, FormSelect } from './FormInput';
 
-import classes from "./DEOFormsDesign.module.css";
+import { useCreateDoctorMutation, useGetAllVacantRoomsQuery, useUpdateDoctorMutation } from '../../redux/api/api';
+import { useCreateMutation, useErrors, useAsyncMutation } from '../../hooks/hooks';
 
 function DoctorForm({ type, item }) {
     const [formData, setFormData] = useState({
@@ -20,12 +20,12 @@ function DoctorForm({ type, item }) {
         address: (type === "edit") ? item.item?.addr : "",
         inTime: (type === "edit") ? item.item?.inTime : null,
         outTime: (type === "edit") ? item.item?.outTime : null,
-        room: (type === "edit") ? item.item?.room : "",
+        room: (type === "edit") ? item.item?.room.name : "",
     })
 
     const [create] = useCreateMutation(useCreateDoctorMutation);
     const [update] = useAsyncMutation(useUpdateDoctorMutation);
-    const roomData = useGetAllVacantDocRoomsQuery();
+    const roomData = useGetAllVacantRoomsQuery("Consultation");
     const errors = [
         { isError: roomData.isError, error: roomData.error },
     ];
@@ -172,7 +172,7 @@ function DoctorForm({ type, item }) {
                     <FormSelect
                         id="DRoom"
                         name="room"
-                        defaultValue="--Select a Room--"
+                        defaultValue={(formData.room) ? formData.room : "Choose a room"}
                         label="Room"
                         value={formData.value}
                         onChange={handleFormChange}

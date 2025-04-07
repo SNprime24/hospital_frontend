@@ -34,6 +34,9 @@
 }
 
 /* form about section  */
+.formAbout{
+    width : 100%;
+}
 .formAbout h3{
     color : #1d7ee4;
     margin-bottom: 5px;
@@ -63,6 +66,7 @@
 .formFlex{
     display : flex;
     gap : 10px;
+    width : 100%;
 }
 @media (max-width: 450px) {
     .formFlex{

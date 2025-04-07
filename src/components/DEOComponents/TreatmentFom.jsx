@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FormInput, FormSelect, FormSubmit, FormTextArea } from './FormInput';
 
 import classes from "./DEOFormsDesign.module.css";
+
 import { useAsyncMutation, useCreateMutation, useErrors } from '../../hooks/hooks';
 import { useCreateTreatmentMutation, useGetAllDiseasesQuery, useUpdateDiseaseMutation } from '../../redux/api/api';
 

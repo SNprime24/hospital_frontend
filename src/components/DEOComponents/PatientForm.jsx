@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useCreatePatientMutation,  useUpdatePatientMutation } from '../../redux/api/api';
-import { useCreateMutation, useAsyncMutation } from '../../hooks/hooks';
+import classes from "./DEOFormsDesign.module.css";
 
 import { FormInput, FormSubmit } from './FormInput';
 
-import classes from "./DEOFormsDesign.module.css";
+import { useCreatePatientMutation,  useUpdatePatientMutation } from '../../redux/api/api';
+import { useCreateMutation, useAsyncMutation } from '../../hooks/hooks';
 
 function PatientForm({ type, item }) {
     const [formData, setFormData] = useState({

@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey, faUserDoctor, faUserNurse, faUserPen, faUserGear } from "@fortawesome/free-solid-svg-icons";
 import OtpInput from "react-otp-input";
+import { toast } from 'react-hot-toast';
 
 import classes from "./LoginComponent.module.css";
+
 import { server } from '../assets/config';
-import { toast } from 'react-hot-toast';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userExists } from "../redux/reducers/auth";
