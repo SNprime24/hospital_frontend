@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
-import { FormInput, FormSubmit } from './FormInput';
-
 import classes from "./DEOFormsDesign.module.css";
+
+import { FormInput, FormSelect, FormSubmit } from './FormInput';
+import { shiftList } from '../Lists/lists';
+
 import { useAsyncMutation, useCreateMutation } from '../../hooks/hooks';
 import { useCreateNurseMutation, useUpdateNurseMutation } from '../../redux/api/api';
 
@@ -23,7 +24,6 @@ function NurseForm({ type, item }) {
 
     const [create] = useCreateMutation(useCreateNurseMutation);
     const [update] = useAsyncMutation(useUpdateNurseMutation);
-
     const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -129,13 +129,14 @@ function NurseForm({ type, item }) {
                 <div className={classes.formAbout}>
                     <h3>NURSE SHIFT</h3>
                     <div className={classes.formFlex}>
-                        <FormInput
-                            type="text"
+                        <FormSelect
                             id="Nshift"
                             name="shift"
                             label="Shift"
                             value={formData.shift}
                             onChange={handleFormChange}
+                            options={shiftList}
+                            defaultValue={(formData.shift) ? formData.shift : "Choose a shift"}
                         />
                     </div>
                 </div>

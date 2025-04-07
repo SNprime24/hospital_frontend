@@ -4,35 +4,29 @@ import { useNavigate } from 'react-router-dom';
 import classes from "./DEOFormsDesign.module.css";
 
 import { FormInput, FormSelect, FormSubmit } from './FormInput';
+import { departmentList, designationList, hsRoleList, shiftList } from '../Lists/lists';
 
-import { useAsyncMutation, useCreateMutation, useErrors } from '../../hooks/hooks';
-import { useCreateHPMutation, useGetAllDoctorsQuery, useUpdateHPMutation } from '../../redux/api/api';
+import { useAsyncMutation, useCreateMutation } from '../../hooks/hooks';
+import { useCreateHSMutation, useUpdateHSMutation } from '../../redux/api/api';
 
 
-function HPForm({ type, item }) {
+function HSForm({ type, item }) {
     const [formData, setFormData] = useState({
         firstName: (type === "edit") ? item.item?.name.split(' ')[0] : "",
         lastName: (type === "edit") ? item.item?.name.split(' ')[1] : "",
+        gender: (type === "edit") ? item.item?.gender : "",
         address: (type === "edit") ? item.item?.addr : "",
         phoneNumber: (type === "edit") ? item.item?.phoneNumber : "",
         email: (type === "edit") ? item.item?.email : "",
-        userName: (type === "edit") ? item.item?.userName : "",
-        gender: (type === "edit") ? item.item?.gender : "",
-        uni: (type === "edit") ? item.item?.uni : "",
-        degree: (type === "edit") ? item.item?.degree : "",
-        supervisedBy: (type === "edit") ? item.item?.supervisedBy : "",
+        role: (type === "edit") ? item.item?.role : "",
+        department: (type === "edit") ? item.item?.department : "",
+        designation: (type === "edit") ? item.item?.designation : "",
+        shift: (type === "edit") ? item.item?.shift : ""
     })
     
-    const [create] = useCreateMutation(useCreateHPMutation);
-    const [update] = useAsyncMutation(useUpdateHPMutation);
+    const [create] = useCreateMutation(useCreateHSMutation);
+    const [update] = useAsyncMutation(useUpdateHSMutation);
     const navigate = useNavigate();
-
-    const doctorData = useGetAllDoctorsQuery();
-    const errors = [{ isError: doctorData.isError, error: doctorData.error }];
-    useErrors(errors);
-
-    const doctors = doctorData?.data?.data || [];
-    const doctorList = doctors?.map((doctor, index) => ({ value: doctor._id, label: doctor.name }));
 
     const handleFormChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     console.log(formData);
@@ -53,7 +47,7 @@ function HPForm({ type, item }) {
     return (
         <div className={classes.formWrapper}>
             <div className={classes.formHeading}>
-                <h1>{type === "new" ? "ADD HEALTH PROFESSIONAL" : "EDIT HEALTH PROFESSIONAL"}</h1>
+                <h1>{type === "new" ? "ADD HEALTH STAFF" : "EDIT HEALTH STAFF"}</h1>
             </div>
             <form>
                 <div className={classes.formAbout}>
@@ -90,27 +84,6 @@ function HPForm({ type, item }) {
                         </div>
                     </div>
                 </div>
-                <div className={classes.formAbout}>
-                    <h3>EDUCATION</h3>
-                    <div className={classes.formFlex}>
-                        <FormInput
-                            type="text"
-                            id="Duni"
-                            name="uni"
-                            label="University"
-                            value={formData.uni}
-                            onChange={handleFormChange}
-                        />
-                        <FormInput
-                            type="text"
-                            id="Ddegree"
-                            name="degree"
-                            label="Degree"
-                            value={formData.degree}
-                            onChange={handleFormChange}
-                        />
-                    </div>
-                </div>
 
                 <div className={classes.formAbout}>
                     <h3>CONTACTS</h3>
@@ -142,17 +115,67 @@ function HPForm({ type, item }) {
                     />
                 </div>
 
-                <div className={classes.formAbout}>
-                    <h3>SUPERVISION</h3>
-                    <FormSelect
-                        id="Ddoctor"
-                        name="doctor"
-                        defaultValue="Select a Doctor"
-                        label="Doctor"
-                        value={formData.value}
-                        onChange={handleFormChange}
-                        options={doctorList}
-                    />
+                
+                <div className={classes.formFlex}>
+                    <div className={classes.formAbout}>
+                        <h3>DEPARTMENT</h3>
+                        <div className={classes.formFlex}>
+                            <FormSelect
+                                id="Ddepartment"
+                                name="department"
+                                defaultValue="Select a Department"
+                                label="Department"
+                                value={formData.department}
+                                onChange={handleFormChange}
+                                options={departmentList}
+                            />
+                        </div>
+                    </div>
+                    <div className={classes.formAbout}>
+                        <h3>DESIGNATION</h3>
+                        <div className={classes.formFlex}>
+                            <FormSelect
+                                id="Ddesignation"
+                                name="designation"
+                                defaultValue="Select a Designation"
+                                label="Designation"
+                                value={formData.designation}
+                                onChange={handleFormChange}
+                                options={designationList}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className={classes.formFlex}>
+                    <div className={classes.formAbout}>
+                        <h3>ROLE</h3>
+                        <div className={classes.formFlex}>
+                            <FormSelect
+                                id="Drole"
+                                name="role"
+                                defaultValue="Select a Role"
+                                label="role"
+                                value={formData.role}
+                                onChange={handleFormChange}
+                                options={hsRoleList}
+                            />
+                        </div>
+                    </div>
+                    <div className={classes.formAbout}>
+                        <h3>SHIFT</h3>
+                        <div className={classes.formFlex}>
+                            <FormSelect
+                                id="Dshift"
+                                name="shift"
+                                defaultValue="Select a Shift"
+                                label="Shift"
+                                value={formData.shift}
+                                onChange={handleFormChange}
+                                options={shiftList}
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 <div className={classes.formSubmit}>
@@ -165,4 +188,4 @@ function HPForm({ type, item }) {
     );
 }
 
-export { HPForm }
+export { HSForm }

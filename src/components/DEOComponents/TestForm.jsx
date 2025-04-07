@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useCreateTestMutation, useGetAllDoctorsQuery, useGetAllNursesQuery, useGetAllVacantDocRoomsQuery, useUpdateTestMutation } from '../../redux/api/api';
-import { useCreateMutation, useErrors, useAsyncMutation } from '../../hooks/hooks';
+import classes from "./DEOFormsDesign.module.css";
 
 import { FormInput, FormSubmit, FormSelect, FormTextArea } from './FormInput';
 
-import classes from "./DEOFormsDesign.module.css";
+import { useCreateTestMutation, useGetAllDoctorsQuery, useGetAllNursesQuery, useGetAllVacantRoomsQuery, useUpdateTestMutation } from '../../redux/api/api';
+import { useCreateMutation, useErrors, useAsyncMutation } from '../../hooks/hooks';
 
 function TestForm({ type, item }) {
     const [formData, setFormData] = useState({
@@ -21,7 +21,7 @@ function TestForm({ type, item }) {
     const [update] = useAsyncMutation(useUpdateTestMutation);
     const doctorsData = useGetAllDoctorsQuery();
     const nursesData = useGetAllNursesQuery();
-    const roomData = useGetAllVacantDocRoomsQuery();
+    const roomData = useGetAllVacantRoomsQuery("Test Room");
     const errors = [
         { isError: doctorsData.isError, error: doctorsData.error },
         { isError: nursesData.isError, error: nursesData.error },

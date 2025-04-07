@@ -1,23 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { FormInput, FormSubmit, FormSelect } from './FormInput';
-
 import classes from "./DEOFormsDesign.module.css";
+
+import { FormInput, FormSubmit, FormSelect } from './FormInput';
+import { ACList, roomTypeList } from '../Lists/lists';
+
 import { useAsyncMutation, useCreateMutation } from '../../hooks/hooks';
 import { useCreateRoomMutation, useUpdateRoomMutation } from '../../redux/api/api';
-
-const optionsList = [
-    { value: true, label: 'AC' },
-    { value: false, label: 'Non AC' },
-];
-
-const typeList = [
-    { value: "Consultation", label: "Consultation" },
-    { value: "ICU", label: "ICU" },
-    { value: "General Ward", label: "General Ward" },
-    { value: "Test Room", label: "Test Room" },
-]
 
 function RoomForm ({ type, item }) {
     const [formData, setFormData] = useState({
@@ -69,7 +59,7 @@ function RoomForm ({ type, item }) {
                             defaultValue = "Select a room type"
                             value = {formData.type}
                             onChange = {handleFormChange}
-                            options = {typeList}
+                            options = {roomTypeList}
                         />
                     </div>
                 </div>
@@ -92,7 +82,7 @@ function RoomForm ({ type, item }) {
                             defaultValue = "--select a room type--"
                             value = {formData.isAC}
                             onChange={handleFormChange}
-                            options = {optionsList}
+                            options = {ACList}
                         />
                     </div>
                 </div>
