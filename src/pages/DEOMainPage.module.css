@@ -126,7 +126,7 @@
     opacity: 0.7;
 }
 
-.inputDiv:focus-within svg {
+.searchInputDiv:focus-within svg {
   color: white;
 }
 .addNewData{
@@ -147,8 +147,13 @@
     transition: all 0.3s ease-in-out;
 }
 .addNewData:hover{
+    transform : scale(1.02);
     background:#1d7ee4;
     color: white;
+}
+.addNewData:active { /*to get a good clicking effect */
+  transform: scale(0.8); 
+  opacity: 0.8;
 }
 
 /* table design started */

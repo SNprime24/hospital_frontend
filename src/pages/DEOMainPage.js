@@ -95,8 +95,8 @@ function DEOMainPage() {
                 <div className={classes.dataSubHeader}>
                     <div className={classes.searchInputDiv}>
                         <input 
-                            type="email" 
-                            name="email" 
+                            type="text" 
+                            name="text" 
                             value={searchText}
                             className={classes.searchInput}
                             onChange = {(e)=>setSearchText(e.target.value)}
