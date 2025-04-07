@@ -13,7 +13,7 @@ function DoctorMainPage() {
     const handleSelectedPageThree = () => setSelectedPage(3);
 
     return (
-        <div class={classes.mainWrapper}>
+        <div className={classes.mainWrapper}>
             <div className={classes.navBarContainer}>
                 <button 
                     className={(selectedPage===1)?classes.activeBtn:""}

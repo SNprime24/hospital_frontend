@@ -13,6 +13,7 @@ import { userExists, userNotExists } from './redux/reducers/auth';
 import FrontPage from './pages/FrontPage';
 import ErrorPage from './pages/ErrorPage';
 import RootLayout from './pages/RootLayout';
+import SubRootLayout from './pages/SubRootLayout'
 import DoctorMainPage from './pages/DoctorMainPage';
 import NurseMainPage from './pages/NurseMainPage';
 import FDOMainPage from './pages/FDOMainPage';
@@ -56,7 +57,12 @@ function App() {
               user?.role === "Nurse"  ? <NurseMainPage  /> :
               user?.role === "FDO"    ? <FDOMainPage    /> : <DEOMainPage />
             ) },
-            { path: "patient/:patientID", element: <PatientDetails /> },
+            { path: "patient/:patientID", 
+              element: <SubRootLayout />,
+              children: [
+                { index: true, element: <PatientDetails /> }
+              ] 
+            },
             {
               path: "form/:type/:entity",
               element: user?.role === "DEO" ? <EntityForm /> : <Navigate to="/unauthorized" />,

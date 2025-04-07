@@ -47,7 +47,10 @@ function DEOMainPage() {
     }));    
     useErrors(errors);
     
-    const data = selectedData?.data?.data || [];
+    const allData = selectedData?.data?.data || [];
+    const data = allData.filter(item =>
+        item.name?.toLowerCase().includes(searchText.toLowerCase())
+    );
 
     const scrollLeft = () => {
         navBarRef.current.scrollLeft -= 150;
@@ -87,7 +90,8 @@ function DEOMainPage() {
                 </div>
                 <button onClick={scrollRight} className={classes.scrollBtn}><FontAwesomeIcon icon={faGreaterThan} /></button>
             </div>
-            <div className={classes.dataList}>
+            {selectedComponent === null && <div className={classes.dataList}></div>}
+            {selectedComponent != null && <div className={classes.dataList}>
                 <div className={classes.dataSubHeader}>
                     <div className={classes.searchInputDiv}>
                         <input 
@@ -112,7 +116,7 @@ function DEOMainPage() {
                     </button>
                 </div>
                 
-                {selectedComponent != null && <div className={classes.tableContainer}>
+                <div className={classes.tableContainer}>
                     <table>
                         <thead>
                             <tr>
@@ -139,9 +143,9 @@ function DEOMainPage() {
                             ))}
                         </tbody>
                     </table>
-                </div>}
+                </div>
                 
-            </div>
+            </div>}
         </div>
     )
 }

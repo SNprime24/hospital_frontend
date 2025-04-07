@@ -71,7 +71,6 @@
 .navBarContainer button {
   padding-inline : 5px;
   width : 100%;
-  min-width : -webkit-fill-available;
   min-width : fit-content;
   height: 100%;
   background:white;

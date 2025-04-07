@@ -92,7 +92,7 @@ function DoctorSideBarComponent({ user }) {
                             <h3>INFO</h3>
                             <span>Specialisation : </span> {user?.spec} <br />
                             <span>Qualification : </span> {user?.qualification} <br />
-                            <span>Room : </span> {user?.room} <br />
+                            <span>Room : </span> {user?.room.name} <br />
                         </div>
 
                         <div className={classes.section}>
