@@ -37,6 +37,13 @@ function App() {
 
   const router = createBrowserRouter([
     {
+      path : "/dev",
+      element : <RootLayout/>,
+      children : [
+        {index : true, element : <DoctorMainPage/>}
+      ]
+    },
+    {
       path: "/",
       element: <ProtectRoute user = {!user} redirect = '/app' />,
       errorElement: <ErrorPage />,

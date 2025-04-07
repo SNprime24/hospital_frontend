@@ -16,7 +16,7 @@ export default function SideBarComponent({ user }) {
             <div className={classes.mainSection}>
 
                 <div className={classes.aboutName}>
-                    {(user.role === "Doctor" ? "Dr. " : "")}{user.name}
+                    {(user?.role === "Doctor" ? "Dr. " : "")}{user?.name}
                 </div>
 
                 <div className={`${classes.roleButton} ${user?.role === "Doctor" ? classes.cDoctor :
@@ -39,8 +39,8 @@ export default function SideBarComponent({ user }) {
             </div>
 
             <div className={classes.movingSection}>
-                {user.role === "Doctor" ? <DoctorSideBarComponent user={user} /> :
-                    user.role === "Nurse" ? <NurseSideBarComponent user={user} /> :
+                {user?.role === "Doctor" ? <DoctorSideBarComponent user={user} /> :
+                    user?.role === "Nurse" ? <NurseSideBarComponent user={user} /> :
                         <HospitalStaffSideBarComponent user={user} />}
             </div>
 
