@@ -131,8 +131,8 @@ function DEOMainPage() {
                 <div className={classes.dataSubHeader}>
                     <div className={classes.searchInputDiv}>
                         <input 
-                            type="email" 
-                            name="email" 
+                            type="text" 
+                            name="text" 
                             value={searchText}
                             className={classes.searchInput}
                             onChange = {(e)=>setSearchText(e.target.value)}
@@ -146,8 +146,7 @@ function DEOMainPage() {
                     </div>
                     <button 
                         className={classes.addNewData}
-                        onClick={()=>navigate(`form/new/${selectedComponent?.toLowerCase().split(" ").join("")
- }`)}
+                        onClick={()=>navigate(`form/new/${selectedComponent?.toLowerCase().split(" ").join("")}`)}
                     >ADD</button>
                 </div>
                 
