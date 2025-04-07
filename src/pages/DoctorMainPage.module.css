@@ -37,7 +37,7 @@
 .contentWrapper {
   height: 100%;
   width: 100%;
-  background: red;
+  /* background: red; */
   /* position : relative; */
   transform: translateX(0%);
   transition: all 0.7s;
@@ -56,6 +56,9 @@
   height: 100%;
   width: 100%;
 
+  /* extra CSS  */
+  padding: 10px;
+
   overflow-x: hidden;
   overflow-y: auto;
   /* to give scrollable effect */
@@ -64,13 +67,14 @@
   -ms-overflow-style: none;
 }
 .contentPage.firstPage {
-  background: green;
+  /* background: green; */
+  content : ""
 }
 
 .contentPage.secondPage {
   transform: translateX(100%);
   /* background: blue; */
-  padding: 10px;
+  
   padding-right: 20px;
 
   display: grid;
@@ -100,7 +104,7 @@
 
 .contentPage.thirdPage {
   transform: translateX(200%);
-  background: yellow;
+  /* background: yellow; */
 }
 
 /* subNavBar Design started  */

@@ -40,7 +40,7 @@ function App() {
       path : "/dev",
       element : <RootLayout/>,
       children : [
-        {index : true, element : <NurseMainPage/>}
+        {index : true, element : <DoctorMainPage/>}
       ]
     },
     {

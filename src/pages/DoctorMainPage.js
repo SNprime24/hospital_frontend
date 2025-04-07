@@ -12,6 +12,7 @@ const patient = [
     {
       "_id": "6611c0f9e45788b6f06c5678",
       "time": "2025-04-06T09:00:00.000Z",
+      "dischargeTime": "2025-04-06T09:00:00.000Z",
       "status": "Completed",
       "patient": {
         "name": "Anita Desai",
@@ -85,6 +86,7 @@ const patient = [
     {
       "_id": "6611c0f9e45788b6f06c8910",
       "time": "2025-04-06T11:45:00.000Z",
+      "dischargeTime": "2025-04-06T09:00:00.000Z",
       "status": "Scheduled",
       "patient": {
         "name": "Rajeev Kapoor",
@@ -224,9 +226,22 @@ function DoctorMainPage() {
                 
                 <div className={`${classes.contentWrapper} ${selectedPage===1 ? classes.one : selectedPage===2 ? classes.two : classes.three}`}>
                     <div className={`${classes.contentPage} ${classes.firstPage}`}>
-                        
+                        {/* Page-1 */}
+                        <StrechBarComponent discharged={false} patient={patient[0]}/>
+                        <StrechBarComponent discharged={false} patient={patient[0]}/>
+                        <StrechBarComponent discharged={false} patient={patient[1]}/>
+                        <StrechBarComponent discharged={false} patient={patient[0]}/>
+                        <StrechBarComponent discharged={false} patient={patient[1]}/>
+                        <StrechBarComponent discharged={false} patient={patient[0]}/>
+                        <StrechBarComponent discharged={false} patient={patient[1]}/>
+                        <StrechBarComponent discharged={false} patient={patient[0]}/>
+                        <StrechBarComponent discharged={false} patient={patient[1]}/>
+                        <StrechBarComponent discharged={false} patient={patient[0]}/>
+                        <StrechBarComponent discharged={false} patient={patient[0]}/>
+                        <StrechBarComponent discharged={false} patient={patient[1]}/>
                     </div>
                     <div className={`${classes.contentPage} ${classes.secondPage}`}>
+                        {/* Page-2 */}
                         <BoxBarComponent patient={patient[0]}/>
                         <BoxBarComponent patient={patient[1]}/>
                         <BoxBarComponent patient={patient[0]}/>
@@ -235,7 +250,19 @@ function DoctorMainPage() {
                         <BoxBarComponent patient={patient[1]}/>
                     </div>
                     <div className={`${classes.contentPage} ${classes.thirdPage}`}>
-
+                        {/* Page-3 */}
+                        <StrechBarComponent discharged={true} patient={patient[0]}/>
+                        <StrechBarComponent discharged={true} patient={patient[0]}/>
+                        <StrechBarComponent discharged={true} patient={patient[1]}/>
+                        <StrechBarComponent discharged={true} patient={patient[0]}/>
+                        <StrechBarComponent discharged={true} patient={patient[1]}/>
+                        <StrechBarComponent discharged={true} patient={patient[0]}/>
+                        <StrechBarComponent discharged={true} patient={patient[1]}/>
+                        <StrechBarComponent discharged={true} patient={patient[0]}/>
+                        <StrechBarComponent discharged={true} patient={patient[1]}/>
+                        <StrechBarComponent discharged={true} patient={patient[0]}/>
+                        <StrechBarComponent discharged={true} patient={patient[0]}/>
+                        <StrechBarComponent discharged={true} patient={patient[1]}/>
                     </div>
                 </div>      
             </div>
