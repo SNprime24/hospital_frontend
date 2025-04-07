@@ -1,120 +1,116 @@
-.mainWrapper{
-    height : 100%;
-    width : 100%;
+.mainWrapper {
+  height: 100%;
+  width: 100%;
 
-    display : flex;
-    flex-direction: column;
-    align-items : center;
-    gap : 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 
-    padding-inline : 5%;
+  padding-inline: 5%;
 
-    transition : all 0.5s;
+  transition: all 0.5s;
 }
-.navBarContainer{
-    height : 60px;
-    width : 100%;
-    /* background : blue; */
-    border-radius: 10px;
-    display : flex;
-    align-items : center;
-    justify-content : space-evenly;
-    gap : 20px;
+.navBarContainer {
+  height: 60px;
+  width: 100%;
+  /* background : blue; */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 20px;
 }
-.mainContent{
-    height : 100%;
-    width : 100%;
-    overflow: hidden;
-    border-radius : 10px;
+.mainContent {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 @media (max-width: 950px) {
-    .mainWrapper{
-        padding-inline : 0;
-    }
+  .mainWrapper {
+    padding-inline: 0;
+  }
 }
 
-.contentWrapper{   
-    height : 100%;
-    width : 100%; 
-    background : red;
-    /* position : relative; */
-    transform : translateX(0%);
-    transition : all 0.7s;
+.contentWrapper {
+  height: 100%;
+  width: 100%;
+  background: red;
+  /* position : relative; */
+  transform: translateX(0%);
+  transition: all 0.7s;
 }
-.contentWrapper.one{
-    transform: translateX(0%);
+.contentWrapper.one {
+  transform: translateX(0%);
 }
-.contentWrapper.two{
-    transform: translateX(-100%);
+.contentWrapper.two {
+  transform: translateX(-100%);
 }
-.contentWrapper.three{
-    transform: translateX(-200%);
+.contentWrapper.three {
+  transform: translateX(-200%);
 }
-.contentPage{
-    position : absolute;
-    height : 100%;
-    width : 100%;
+.contentPage {
+  position: absolute;
+  height: 100%;
+  width: 100%;
 
-    overflow-x: hidden;
-    overflow-y: auto;
-    /* to give scrollable effect */
-    scrollbar-width: none;
-    /* to remove scrollbar */
-    -ms-overflow-style: none;
-    
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* to give scrollable effect */
+  scrollbar-width: none;
+  /* to remove scrollbar */
+  -ms-overflow-style: none;
 }
-.contentPage.firstPage{
-    background: green;
-    
+.contentPage.firstPage {
+  background: green;
 }
 
+.contentPage.secondPage {
+  transform: translateX(100%);
+  /* background: blue; */
+  padding: 10px;
+  padding-right: 20px;
 
-.contentPage.secondPage{
-    transform : translateX(100%);
-    /* background: blue; */
-    padding : 10px;
-    padding-right : 20px;
+  display: grid;
+  grid-template-columns: 50% 50%; /* use 50% 50% to make the boxes shrink and not go out of the parent div*/
+  gap: 10px 10px;
 
-    display : grid;
-    grid-template-columns: 50% 50%; /* use 50% 50% to make the boxes shrink and not go out of the parent div*/
-    gap : 10px 10px;
-
-    transition: all 0.7s;
+  transition: all 0.7s;
 }
 @media (max-width: 1030px) {
-    .contentPage.secondPage{
-        grid-template-columns: 100%;
-        padding-right : 10px;
-    }
+  .contentPage.secondPage {
+    grid-template-columns: 100%;
+    padding-right: 10px;
+  }
 }
 @media (max-width: 820px) {
-    .contentPage.secondPage{
-        grid-template-columns: 50% 50%; /* use 50% 50% to make the boxes shrink and not go out of the parent div*/
-        padding-right : 15px;
-    }
+  .contentPage.secondPage {
+    grid-template-columns: 50% 50%; /* use 50% 50% to make the boxes shrink and not go out of the parent div*/
+    padding-right: 15px;
+  }
 }
 @media (max-width: 640px) {
-    .contentPage.secondPage{
-        grid-template-columns: 100%;
-        padding-right : 10px;
-    }
+  .contentPage.secondPage {
+    grid-template-columns: 100%;
+    padding-right: 10px;
+  }
 }
 
-
-.contentPage.thirdPage{
-    transform : translateX(200%);
-    background: yellow;
+.contentPage.thirdPage {
+  transform: translateX(200%);
+  background: yellow;
 }
 
 /* subNavBar Design started  */
 
 .navBarContainer button {
-  padding-inline : 5px;
-  width : 100%;
-  min-width : fit-content;
+  padding-inline: 5px;
+  width: 100%;
+  min-width: fit-content;
   height: 100%;
-  background:white;
+  background: white;
 
   outline: none;
   border: none;
@@ -124,46 +120,97 @@
   font-size: large;
   font-weight: bold;
 
-  display : flex;
-  align-items : center;
-  justify-content : center;
-  gap : 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
-.navBarContainer button:hover{
-    transform : scale(1.02);
-    box-shadow: 0 4px 10px #1d7de465;
-    background:#1d7ee4;
-    color: white;
+.navBarContainer button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px #1d7de465;
+  background: #1d7ee4;
+  color: white;
 }
-.navBarContainer button.activeBtn{
-    transform : scale(1.02);
-    box-shadow: 0 4px 10px #1d7de465;
-    background:#1d7ee4;
-    color: white;
+.navBarContainer button.activeBtn {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px #1d7de465;
+  background: #1d7ee4;
+  color: white;
 }
-.navBarContainer button:hover svg{
-    color : #fff;
+.navBarContainer button:hover svg {
+  color: #fff;
 }
-.navBarContainer button.activeBtn svg{
-    color : #fff;
+.navBarContainer button.activeBtn svg {
+  color: #fff;
 }
-.navBarContainer button:active { /*to get a good clicking effect */
-    transform: scale(0.8); 
-    opacity: 0.8;
+.navBarContainer button:active {
+  /*to get a good clicking effect */
+  transform: scale(0.8);
+  opacity: 0.8;
 }
 @media (max-width: 500px) {
-    .navBarContainer button span{
-        display : none;
-    }
+  .navBarContainer button span {
+    display: none;
+  }
 }
-.verticalBar{
-    height : 100%;
-    width : 7px;
-    background:#1d7ee4;
-    border-radius : 7px;
+.verticalBar {
+  height: 100%;
+  width: 7px;
+  background: #1d7ee4;
+  border-radius: 7px;
 }
 
 /* navbar design ends  */
+
+/*search input design */
+.searchInputDiv {
+  width: 100%;
+  height: 7%;
+    margin-top:2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #1d7ee4;
+
+  border-radius: 10px;
+  padding: 6px;
+  padding-inline: 2%;
+}
+.searchInput {
+  width: 90%;
+  height: 100%;
+  background: transparent;
+
+  border: none;
+  outline: none;
+  border-color: transparent;
+
+  color: black;
+  font-size: medium;
+  font-family: Verdana;
+
+  transition: all 0.5s;
+}
+.searchInputDiv:has(.searchInput:focus) {
+  background-color: #7abaffa2;
+  box-shadow: 0 0 3px #1d7ee4;
+}
+
+.searchInputDiv svg {
+  color: #1d7ee4;
+  transition: all 0.7s;
+}
+.searchInputDiv svg:hover {
+  transform: scale(1.2);
+}
+.searchInputDiv svg:active {
+  /*to get a good clicking effect */
+  transform: scale(0.7);
+  opacity: 0.7;
+}
+.searchInputDiv:focus-within svg {
+  color: white;
+}

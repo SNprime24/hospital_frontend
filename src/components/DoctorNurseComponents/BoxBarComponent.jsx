@@ -48,21 +48,28 @@ function BoxBarComponent({ patient }) {
         <div className={classes.medicalInformation}>
           <div classname={classes.infoDisease}>
             <span title="disease">{patient?.disease?.map((val) => val.name).join(", ")}</span>
-            <span title="room">{patient?.room?.name}</span>
+            <span title="patient room">{patient?.room?.name}</span>
           </div>
           <hr/>
           <div className={classes.infoDoctor} title="doctor">
-            <span>{patient?.doctor?.name}</span>
+            <span className={(patient===undefined || patient?.doctor===undefined || patient?.doctor?.name==="") ? classes.lightText : ""}>
+              {(patient===undefined || patient?.doctor===undefined || patient?.doctor?.name==="") ? "-- Doctor Currently Unavailable --" : patient?.doctor?.name}
+            </span>
             <span>{patient?.doctor?.phoneNumber}</span>
           </div>
           <hr/>
           <div className={classes.infoNurse} title="nurse">
-            <span>{nurseInfo?.name}</span>
+            {console.log(nurseInfo)}
+            <span className={(nurseInfo===undefined || nurseInfo?.name==="") ? classes.lightText : ""}>
+              {(nurseInfo===undefined || nurseInfo?.name==="") ? "-- Nurse Currently Unavailable --" : nurseInfo?.name}
+            </span>
             <span>{nurseInfo?.phoneNumber}</span>
           </div>
           <hr/>
           <div className={classes.infoHP} title="hospital professional">
-            <span>{patient?.hps[0]?.name}</span>
+            <span className={(patient===undefined || patient?.hps===undefined || patient?.hps[0]?.name==="") ? classes.lightText : ""}>
+              {(patient===undefined || patient?.hps===undefined || patient?.hps[0]?.name==="") ? "-- Professional Currently Unavailable --" : patient?.hps[0]?.name}
+            </span>
             <span>{patient?.hps[0]?.phoneNumber}</span>
           </div>
         </div>

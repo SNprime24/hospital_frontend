@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarPlus, faClockRotateLeft,  faNotesMedical } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarPlus, faClockRotateLeft,  faNotesMedical, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import { BoxBarComponent } from '../components/DoctorNurseComponents/BoxBarComponent';
 import { StrechBarComponent } from '../components/DoctorNurseComponents/StrechBarComponent';
@@ -160,10 +160,16 @@ const patient = [
 
 function DoctorMainPage() {
     const [selectedPage, setSelectedPage] = useState(1);
+    const [searchText,setSearchText] = useState("");
 
     const handleSelectedPageOne = () => setSelectedPage(1);
     const handleSelectedPageTwo = () => setSelectedPage(2);
     const handleSelectedPageThree = () => setSelectedPage(3);
+
+    const handleSearchClickAction = ()=>{
+        console.log(searchText);
+        alert("You clicked the search buttton")
+    }
 
     return (
         <div className={classes.mainWrapper}>
@@ -196,7 +202,26 @@ function DoctorMainPage() {
                     <span>PAST</span> 
                 </button> 
             </div>
+
+            <div className={classes.searchInputDiv}>
+                <input 
+                    type="text" 
+                    name="text" 
+                    value={searchText}
+                    className={classes.searchInput}
+                    onChange = {(e)=>setSearchText(e.target.value)}
+                    onKeyDown={(event) => {
+                        if (event.key === "Tab") {
+                            event.preventDefault();
+                        }
+                    }}
+                    placeholder="Filter by name..."
+                />
+                <FontAwesomeIcon icon={faSearch} onClick={handleSearchClickAction}/>
+            </div>
+
             <div className={classes.mainContent}>
+                
                 <div className={`${classes.contentWrapper} ${selectedPage===1 ? classes.one : selectedPage===2 ? classes.two : classes.three}`}>
                     <div className={`${classes.contentPage} ${classes.firstPage}`}>
                         

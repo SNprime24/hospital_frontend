@@ -23,7 +23,7 @@
 }
 .wrapper:active {
     /*to get a good clicking effect */
-    transform: scale(0.8);
+    transform: scale(0.95);
     opacity: 0.8;
 }
 
@@ -150,4 +150,9 @@ hr{
     background: black;
     margin-top : 4px;
     margin-bottom : 5px;
+}
+
+.lightText{
+    font-size : small;
+    color : grey;
 }
