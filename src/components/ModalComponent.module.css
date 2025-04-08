@@ -1,0 +1,72 @@
+/* modal design  */
+.modalWrapper{
+    position: absolute;
+    top : 0;
+    left : 0;
+    z-index : 2000;
+    
+    height : 100%;
+    width : 100%;
+    
+    display : flex;
+    align-items : center;
+    justify-content: center;
+
+    background: rgba(40, 37, 37, 0.474);
+
+    transition: all 0.7s;
+}
+.modalContent{
+    position :relative;
+
+    height : fit-content;
+    min-height: 100px;
+    max-height : 400px;
+    width : 80%;
+    max-width: 500px;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* to give scrollable effect */
+    scrollbar-width: none;
+    /* to remove scrollbar */
+    -ms-overflow-style: none;
+
+    background-color: whitesmoke;
+    border:3px solid #1d7ee4;
+    border-radius: 10px;
+
+    box-shadow : 0 0 4px 0px #1d7ee4;
+    display : flex;
+    align-items : center;
+    justify-content : space-around;
+}
+.modalClose{
+    position : absolute;
+    top : 4px;
+    right : 7px;
+    
+    width : 22px;
+    height : 22px;
+
+    display : flex;
+    align-items :center;
+    justify-content: center;
+
+    border : none;
+    border-radius : 100%;
+    font-size:larger;
+
+    transition : all 0.4s;
+}
+.modalClose:hover{
+    background-color: #1d7ee4;
+    transform : scale(1.2)
+}
+.modalClose:hover svg{
+    color : white;
+}
+.modalClose:active{
+    transform:scale(0.9);
+    opacity : 70%;
+}

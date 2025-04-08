@@ -40,7 +40,7 @@ function App() {
       path : "/dev",
       element : <RootLayout/>,
       children : [
-        {index : true, element : <DoctorMainPage/>}
+        {index : true, element : <FDOMainPage/>}
       ]
     },
     {

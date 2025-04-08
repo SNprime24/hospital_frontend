@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilePen, faUserDoctor, faUserNurse, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faFilePen, faUserDoctor, faUserNurse, faSearch} from "@fortawesome/free-solid-svg-icons";
+
+import { ModalComponent } from '../components/ModalComponent';
 
 import classes from "./FDOMainPage.module.css";
 
 function FDOMainPage() {
     const [selectedPage, setSelectedPage] = useState(1);
     const [searchText,setSearchText] = useState("");
+
+    const [modalState, setModalState] = useState(0);
 
     const handleSelectedPageOne = () => setSelectedPage(1);
     const handleSelectedPageTwo = () => setSelectedPage(2);
@@ -66,12 +70,13 @@ function FDOMainPage() {
                                             event.preventDefault();
                                         }
                                     }}
+                                    placeholder="Filter by name..."
                                 />
                                 <FontAwesomeIcon icon={faSearch} onClick={handleSearchClickAction}/>
                             </div>
                             <button 
                                 className={classes.addNewData}
-                                onClick={()=>alert("New button clicked !!")}
+                                onClick={()=>setModalState(1)}
                             >NEW</button>
                         </div>
                         
@@ -85,12 +90,13 @@ function FDOMainPage() {
                 </div> 
 
             </div>
-{/* 
-            <div className={classes.modalWrapper}>
-                <div className={classes.modalContent}>
-                    <div></div>
-                </div>
-            </div>      */}
+
+            <ModalComponent 
+                modalState = {modalState} 
+                onHandleClose={()=>setModalState(0)}
+            >
+                Hello
+            </ModalComponent>   
             
         </div>
     )
