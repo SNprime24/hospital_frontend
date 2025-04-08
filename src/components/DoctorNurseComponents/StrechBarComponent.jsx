@@ -2,7 +2,7 @@ import React from "react";
 
 import classes from "./StrechBarComponent.module.css";
 
-function StrechBarComponent({ discharged, patient }) {
+function StrechBarComponent({ discharged, appointment }) {
   return (
     <div className={classes.wrapper}>
       <div className={classes.profileImage} title="Profile Image">
@@ -12,17 +12,17 @@ function StrechBarComponent({ discharged, patient }) {
         />
       </div>
       <div className={classes.general}>
-        <div className={classes.name}>{patient.patient.name}</div>
+        <div className={classes.name}>{appointment.name}</div>
         <div className={classes.genderAge}>
-          <span>{patient.patient.gender}</span>
-          <span>{patient.patient.age}</span>
+          <span>{appointment.gender}</span>
+          <span>{appointment.age}</span>
         </div>
       </div>
 
       {!discharged && (
         <div className={classes.medicalInfo}>
           <div title="Appointment time">
-            {new Date(patient.time).toLocaleString()}
+            {new Date(appointment.time).toLocaleString()}
           </div>
         </div>
       )}
@@ -30,10 +30,11 @@ function StrechBarComponent({ discharged, patient }) {
         <div className={classes.medicalInfo}>
           <div title="disease">
             <span>DISEASE :</span>{" "}
-            {patient.disease.map((val) => val.name).join(", ")}
+            {appointment.disease?.map((val) => val).join(", ")}
+            {/* {appointment.disease} */}
           </div>
           <div title="Discharge time">
-            {new Date(patient.dischargeTime).toLocaleString()}
+            {new Date(appointment.dischargeTime).toLocaleString()}
           </div>
         </div>
       )}

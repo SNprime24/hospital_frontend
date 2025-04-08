@@ -172,7 +172,7 @@ function NurseSideBarComponent({ user }) {
                         <h3>TESTS SUPERVISION</h3>
                         <hr />
                         <div className={classes.profileCardTest}>
-                            {user.test.map((test, index) => (
+                            {user.test?.map((test, index) => (
                                 <div>
                                     <span>{test.tname}</span>
                                     <p>{test.room}</p>

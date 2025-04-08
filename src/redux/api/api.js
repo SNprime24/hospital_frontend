@@ -56,6 +56,20 @@ const api = createApi({
                 url: `room/allVacantRooms?type=${type}`,
             }),
             providesTags: ['Room'],
+        }),
+
+        getAppointments: builder.query({
+            query: ({ _id }) => ({
+                url: `doctor/appointments/?_id=${_id}`,
+            }),
+            providesTags: ['Doctor'],
+        }),
+
+        getCurrentAppointments: builder.query({
+            query: ({ entity, _id }) => ({
+                url: `appointment/currentAppointments/?entity=${entity}&_id=${_id}`,
+            }),
+            providesTags: ['Appointment', 'Doctor', 'Nurse'],
         })
     }),
 });
@@ -66,6 +80,7 @@ export const {
     useGetThisDoctorQuery,
     useCreateDoctorMutation,
     useUpdateDoctorMutation,
+    useGetAppointmentsQuery,
 
     useGetAllNursesQuery,
     useGetThisNurseQuery,
@@ -112,6 +127,7 @@ export const {
     useGetThisAppointmentQuery,
     useCreateAppointmentMutation,
     useUpdateAppointmentMutation,
+    useGetCurrentAppointmentsQuery,
 
     useGetAllDrugsQuery,
     useGetThisDrugQuery,
