@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePen, faUserDoctor, faUserNurse, faSearch} from "@fortawesome/free-solid-svg-icons";
 
 import { ModalComponent } from '../components/ModalComponent';
+import { NewAppointment } from '../components/DEOComponents/NewAppointment';
 
 import classes from "./FDOMainPage.module.css";
 
@@ -56,7 +57,6 @@ function FDOMainPage() {
             <div className={classes.mainContent}>
                 <div className={`${classes.contentWrapper} ${selectedPage===1 ? classes.one : selectedPage===2 ? classes.two : classes.three}`}>
                     <div className={`${classes.contentPage} ${classes.firstPage}`}>
-
                         <div className={classes.dataSubHeader}>
                             <div className={classes.searchInputDiv}>
                                 <input 
@@ -95,7 +95,7 @@ function FDOMainPage() {
                 modalState = {modalState} 
                 onHandleClose={()=>setModalState(0)}
             >
-                Hello
+                <NewAppointment/>
             </ModalComponent>   
             
         </div>
@@ -103,3 +103,4 @@ function FDOMainPage() {
 }
 
 export default FDOMainPage;
+

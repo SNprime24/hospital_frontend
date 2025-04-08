@@ -1,0 +1,220 @@
+/* AppointmentModal design  */
+.appWrapper {
+  width: 100%;
+  padding: 20px;
+}
+.appHeading {
+  height: 50px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: x-large;
+  font-weight: 500;
+}
+
+.navBarContainer {
+  height: 35px;
+  width: 100%;
+  /* background : blue; */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 20px;
+}
+.mainContent {
+  height: 150px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+@media (max-width: 950px) {
+  .mainWrapper {
+    padding-inline: 0;
+  }
+}
+
+.contentWrapper {
+  height: 100%;
+  width: 100%;
+  /* background : red; */
+  /* position : relative; */
+  transform: translateX(0%);
+  transition: all 0.7s;
+}
+.contentWrapper.one {
+  transform: translateX(0%);
+}
+.contentWrapper.two {
+  transform: translateX(-100%);
+}
+
+.contentPage {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding-top : 10px;
+}
+.contentPage.firstPage {
+  /* background: green; */
+  padding: 10px;
+
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.contentPage.secondPage {
+  transform: translateX(100%);
+
+  padding-inline : 8px;
+  padding-top: 20px;
+
+  display : flex;
+  flex-direction : column;
+  justify-content : space-between;
+}
+
+/* subNavBar Design started  */
+
+.navBarContainer button {
+  padding-inline: 5px;
+  width: 100%;
+  min-width: fit-content;
+  height: 100%;
+  background: white;
+
+  outline: none;
+  border: none;
+  border-radius: 10px;
+
+  color: #1d7ee4;
+  font-size: large;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.navBarContainer button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px #1d7de465;
+  background: #1d7ee4;
+  color: white;
+}
+.navBarContainer button.activeBtn {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px #1d7de465;
+  background: #1d7ee4;
+  color: white;
+}
+.navBarContainer button:hover svg {
+  color: #fff;
+}
+.navBarContainer button.activeBtn svg {
+  color: #fff;
+}
+.navBarContainer button:active {
+  /*to get a good clicking effect */
+  transform: scale(0.8);
+  opacity: 0.8;
+}
+@media (max-width: 500px) {
+  .navBarContainer button span {
+    display: none;
+  }
+}
+.verticalBar {
+  height: 100%;
+  width: 7px;
+  background: #1d7ee4;
+  border-radius: 7px;
+}
+
+/* navbar design ends  */
+
+.searchInputDiv {
+  width: 100%;
+  height: 25%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #1d7ee4;
+
+  border-radius: 10px;
+  padding: 6px;
+  padding-inline: 2%;
+
+  margin-left:50%;
+  transform: translate(-50%);
+}
+.searchInput {
+  width: 90%;
+  height: 100%;
+  background: transparent;
+
+  border: none;
+  outline: none;
+  border-color: transparent;
+
+  color: black;
+  font-size: medium;
+  font-family: Verdana;
+
+  transition: all 0.5s;
+}
+.searchInputDiv:has(.searchInput:focus) {
+  background-color: #7abaffa2;
+  box-shadow: 0 0 3px #1d7ee4;
+}
+.searchInputDiv svg {
+  color: #1d7ee4;
+  transition: all 0.7s;
+}
+.searchInputDiv svg:hover {
+  transform: scale(1.2);
+}
+.searchInputDiv svg:active {
+  /*to get a good clicking effect */
+  transform: scale(0.7);
+  opacity: 0.7;
+}
+.searchInputDiv:focus-within svg {
+  color: white;
+}
+
+.contentPage.firstPage button{
+  height : 40%;
+  width : 80%;
+  background:white;
+
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px #1d7de465;
+
+    color: #1d7ee4;
+    font-size: large;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.contentPage.firstPage button:hover{
+  transform : scale(1.02);
+  background:#1d7ee4;
+  color: white;
+}
+.contentPage.firstPage button:active { /*to get a good clicking effect */
+  transform: scale(0.8); 
+  opacity: 0.8;
+}

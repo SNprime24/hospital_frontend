@@ -2,9 +2,15 @@ import React from "react";
 
 import classes from "./StrechBarComponent.module.css";
 
-function StrechBarComponent({ discharged, appointment }) {
+function StrechBarComponent({ discharged, appointment,handleClick }) {
   return (
-    <div className={classes.wrapper}>
+    <div 
+      className={classes.wrapper} 
+      onClick={(e)=>{
+        e.stopPropagation();
+        handleClick()
+      }}
+    >
       <div className={classes.profileImage} title="Profile Image">
         <img
           src="https://t3.ftcdn.net/jpg/08/05/28/22/360_F_805282248_LHUxw7t2pnQ7x8lFEsS2IZgK8IGFXePS.jpg"
@@ -22,7 +28,7 @@ function StrechBarComponent({ discharged, appointment }) {
       {!discharged && (
         <div className={classes.medicalInfo}>
           <div title="Appointment time">
-            {new Date(appointment.time).toLocaleString()}
+            {appointment.time===undefined?"" : new Date(appointment.time).toLocaleString()}
           </div>
         </div>
       )}

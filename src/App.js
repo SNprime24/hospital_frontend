@@ -40,7 +40,13 @@ function App() {
       path : "/dev",
       element : <RootLayout/>,
       children : [
-        {index : true, element : <FDOMainPage/>}
+        {index : true, element : <FDOMainPage/>},
+        { path: "patient/:patientID", 
+          element: <SubRootLayout />,
+          children: [
+            { path: ":appointmentID", element: <PatientDetails /> }
+          ] 
+        },
       ]
     },
     {
