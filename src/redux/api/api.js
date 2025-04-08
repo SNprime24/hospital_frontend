@@ -29,6 +29,15 @@ const generateCrudEndpoints = (builder, entity) => ({
         }),
         invalidatesTags: [entity],
     }),
+
+    [`delete${entity}`]: builder.mutation({
+        query: (data) => ({
+            url: `${entity.toLowerCase()}/delete`,
+            method: 'DELETE',
+            body: data,
+        }),
+        invalidatesTags: [entity],
+    }),
 });
 
 const api = createApi({
@@ -80,58 +89,69 @@ export const {
     useGetThisDoctorQuery,
     useCreateDoctorMutation,
     useUpdateDoctorMutation,
+    useDeleteDoctorMutation,
     useGetAppointmentsQuery,
 
     useGetAllNursesQuery,
     useGetThisNurseQuery,
     useCreateNurseMutation,
     useUpdateNurseMutation,
+    useDeleteNurseMutation,
 
     useGetAllHPsQuery,
     useGetThisHPQuery,
     useCreateHPMutation,
     useUpdateHPMutation,
+    useDeleteHPMutation,
 
     useGetAllHSsQuery,
     useGetThisHSQuery,
     useCreateHSMutation,
     useUpdateHSMutation,
+    useDeleteHSMutation,
 
     useGetAllPatientsQuery,
     useGetThisPatientQuery,
     useCreatePatientMutation,
     useUpdatePatientMutation,
+    useDeletePatientMutation,
 
     useGetAllRoomsQuery,
     useGetThisRoomQuery,
     useGetAllVacantRoomsQuery,
     useCreateRoomMutation,
     useUpdateRoomMutation,
+    useDeleteRoomMutation,
 
     useGetAllTestsQuery,
     useGetThisTestQuery,
     useCreateTestMutation,
     useUpdateTestMutation,
+    useDeleteTestMutation,
 
     useGetAllTreatmentsQuery,
     useGetThisTreatmentQuery,
     useCreateTreatmentMutation,
     useUpdateTreatmentMutation,
+    useDeleteTreatmentMutation,
 
     useGetAllDiseasesQuery,
     useGetThisDiseaseQuery,
     useCreateDiseaseMutation,
     useUpdateDiseaseMutation,
+    useDeleteDiseaseMutation,
 
     useGetAllAppointmentsQuery,
     useGetThisAppointmentQuery,
     useCreateAppointmentMutation,
     useUpdateAppointmentMutation,
+    useDeleteAppointmentMutation,
     useGetCurrentAppointmentsQuery,
 
     useGetAllDrugsQuery,
     useGetThisDrugQuery,
     useCreateDrugMutation,
     useUpdateDrugMutation,
+    useDeleteDrugMutation,
 } = api;
 
