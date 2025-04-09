@@ -108,10 +108,10 @@ function DoctorSideBarComponent({ user }) {
                         <h3>TESTS SUPERVISION</h3>
                         <hr />
                         <div className={classes.profileCardTest}>
-                            {user?.test?.map((test, index) => (
+                            {user?.tests?.map((test, index) => (
                                 <div>
                                     <span>{test?.tname}</span>
-                                    <p>{test?.room}</p>
+                                    <p>{test?.room?.name}</p>
                                 </div>
                             ))}
                         </div>
@@ -121,9 +121,9 @@ function DoctorSideBarComponent({ user }) {
                         <h3>PROFESSIONALS</h3>
                         <hr />
                         <div className={classes.profileCardHp}>
-                            {user?.hp?.map((person, index) => (
+                            {user?.hps?.map((person, index) => (
                                 <div>
-                                    <span>{person?.name}</span>
+                                    <span>{person?.h_name}</span>
                                     <p>{person?.degree}</p>
                                 </div>
                             ))}

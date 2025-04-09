@@ -3,7 +3,7 @@ import React from "react";
 import classes from "./BoxBarComponent.module.css";
 
 function BoxBarComponent({ appointment }) {
-  console.log(appointment);
+  // console.log(appointment);
   const date = new Date();
   const hours = date.getHours();
 

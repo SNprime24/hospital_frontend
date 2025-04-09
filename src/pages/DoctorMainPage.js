@@ -27,7 +27,7 @@ function DoctorMainPage() {
     }
 
     const appointmentData = useGetAppointmentsQuery({ _id: user._id });
-    const currentAppointmentsData=  useGetCurrentAppointmentsQuery({ entity: "doctor", _id: user._id })
+    const currentAppointmentsData =  useGetCurrentAppointmentsQuery({ entity: "doctor", _id: user._id })
     const errors = [
         { isError: appointmentData.isError, error: appointmentData.error },
         { isError: currentAppointmentsData.isError, error: currentAppointmentsData.error }
@@ -35,7 +35,7 @@ function DoctorMainPage() {
     useErrors(errors);
 
     const appointments = appointmentData?.data?.appointments?.filter(item =>
-        item.name?.toLowerCase().includes(searchText.toLowerCase())
+        item?.patient?.pname?.toLowerCase().includes(searchText.toLowerCase())
     );
     const currentAppointments = currentAppointmentsData?.data?.appointments?.filter(item =>
         item?.patient?.pname?.toLowerCase().includes(searchText.toLowerCase())

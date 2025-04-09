@@ -3,9 +3,10 @@ import React from "react";
 import ProfileImagePlaceholder from "./../../assets/ProfileImagePlaceholderGrey.jpg"
 import classes from "./StrechBarComponent.module.css";
 
-function StrechBarComponent({ discharged, appointment, handleClick, type=1 }) {
+function StrechBarComponent({ discharged, appointment, handleClick, type = 1 }) {
   const date = new Date(appointment?.time);
   const dichargedDate = new Date(appointment?.dischargeTime)
+  console.log(appointment); 
 
   const datePart = date.toLocaleDateString(undefined, {
     month: 'short',
@@ -42,7 +43,7 @@ function StrechBarComponent({ discharged, appointment, handleClick, type=1 }) {
       <div className={classes.general}>
         <div className={classes.name}>{appointment.name}</div>
         {type===1 && <div className={classes.genderAge}>
-          <span>{appointment.gender}</span>
+          <span>{appointment.patient?.gender}</span>
           <pre>     </pre>
           <span>{appointment.age}</span>
         </div>}
@@ -50,7 +51,7 @@ function StrechBarComponent({ discharged, appointment, handleClick, type=1 }) {
           <span><div>Status - </div><pre> </pre>{appointment?.status}</span>
           {appointment?.status==="InProgress" && 
             <>
-              <span><div>Room no -  </div><pre> </pre>{appointment?.room?.name}</span>
+              <span><div>Room no -  </div><pre> </pre>{appointment?.room}</span>
               <span><div>Bed no - </div><pre> </pre>{appointment?.bed?.name}</span>
             </>
           }
@@ -60,7 +61,7 @@ function StrechBarComponent({ discharged, appointment, handleClick, type=1 }) {
       {!discharged && (
         <div className={classes.medicalInfo}>
           <div title="Appointment time">
-            {appointment.time===undefined?"" : `${datePart} ${timePart}`}
+            {appointment?.time===undefined?"" : `${datePart} ${timePart}`}
           </div>
         </div>
       )}
@@ -68,7 +69,7 @@ function StrechBarComponent({ discharged, appointment, handleClick, type=1 }) {
         <div className={classes.medicalInfo}>
           <div title="disease">
             <span>DISEASE :</span>{" "}
-            {appointment.disease?.map((val) => val).join(", ")}
+            {appointment?.disease?.map((val) => val).join(", ")}
             {/* {appointment.disease} */}
           </div>
           <div title="Discharge time">
