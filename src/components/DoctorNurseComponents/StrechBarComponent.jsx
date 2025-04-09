@@ -41,7 +41,7 @@ function StrechBarComponent({ appointment, handleClick, type = 1, discharged=fal
         />
       </div>
       <div className={classes.general}>
-        <div className={classes.name}>{appointment.name}</div>
+        <div className={classes.name}>{appointment?.role==="Doctor" && "Dr. "}{appointment.name}</div>
 
         {type===1 && <div className={classes.genderAge}>
           <span>{appointment.patient?.gender}</span>
@@ -65,6 +65,18 @@ function StrechBarComponent({ appointment, handleClick, type = 1, discharged=fal
             <span>{appointment.phoneNumber}</span>
             <pre>  </pre>
             <span>{appointment.room}</span>
+          </div>
+        }
+
+        {type===4 && <div className={classes.genderAge}>
+            <span>{appointment.shift}</span>
+            <pre>     </pre>
+            <span>{appointment.phoneNumber}</span>
+          </div>
+        }
+
+        {type===5 && <div className={classes.genderAge}>
+            <span>{appointment.phoneNumber}</span>
           </div>
         }
 
