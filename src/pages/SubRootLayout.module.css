@@ -1,90 +1,230 @@
 .rootLayout {
-  position : relative;
-  
-  height : fit-content;
-  min-height: 100%;
-  width : 100%;
+  position: relative;
 
-  padding : 20px;
+  height: fit-content;
+  min-height: 100%;
+  width: 100%;
+
+  padding: 20px;
 
   display: flex;
   flex-direction: column;
-    
-  background : red; 
+  /*     
+  background : red;  */
 
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 
 .sidebar {
   position: absolute;
-  top: 185px;
-  right: 0%;
+  top: 195px;
+  right: 1%;
   padding: 5px;
 
   width: 250px;
   height: fit-content;
-  min-height : 72%;
+  min-height: 72%;
 
-  background-color: #202584;
+  /* background-color: #202584; */
 
   transition: right 1s ease-in-out;
   z-index: 999;
 }
+/* more css design of the sidebar is done below  */
 
+/* SubRootLayout */
 .mainContent {
+  position: relative;
+
   width: 100%;
   height: 100%;
 
-  margin-top : 15px;
-  padding-right : 235px;
+  margin-top: 25px;
+  padding-right: 235px;
 
-  transition: all 0.3s ease-in-out;  
-  background: green;
+  transition: all 0.3s ease-in-out;
+  /* background: green; */
 }
 
 @media (max-width: 1100px) {
   .sidebar.close {
-    right : -100%;
+    right: -100%;
   }
 
   .sidebar.open {
-    right : 0%;
+    right: 0%;
   }
 
   .mainContent {
-    padding-right: 0px;    
+    padding-right: 0px;
   }
 }
 
-.temp{
-  height : 20px;
-  width : 100%;
-  background : yellow;
+
+
+/* sidebar inside design  */
+/* more css design of the sidebar is done above  */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  
+  padding-top : 20px;
+  padding-inline : 10px;
+
+  background: whitesmoke;  
+  border: 2px solid #1d7ee4;
+  border-radius: 10px;
+  box-shadow: 0 0 3px 0 #1d7ee4;
+}
+.sidebar h3 {
+  color: black;
+}
+.sidebar button {
+  width: 100%;
+  height: 50px;
+  background: white;
+  
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px #1d7de465;
+
+  color: #1d7ee4;
+  font-size: large;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.sidebar button:hover {
+  transform: scale(1.06);
+  background: #1d7ee4;
+  color: white;
+}
+.sidebar button:active {
+  /*to get a good clicking effect */
+  transform: scale(0.8);
+  opacity: 0.8;
+}
+.newAppointmentButton{
+  color : white !important;
+  background : #1d7ee4 !important;
+}
+.sidebarCloseButton{
+  position : absolute;
+  height : fit-content;
+  width : fit-content;
+
+  top : 12px;
+  right : -9px;
 }
 
 
-/* SubRootLayout */
+/* general Info design started */
 
-.generalInfo{
+.generalInfo {
+  width: 100%;
+  height: 150px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.imgSection {
+  height: 100%;
+  aspect-ratio: 1;
+}
+.imgSection img {  
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 100%;
+}
+.generalInfo .info {
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 500px) {
+  .generalInfo {
+    display : block;
+  }
+  .imgSection{
+    width : 100%;
+    display : flex;
+    justify-content: center;
+    padding-bottom : 10px;
+  }
+  .sidebar{
+    top:350px;
+  }
+  .mainContent {
+    margin-top: 180px;
+  }
+}
+
+/* .info design started */
+.generalInfo .info div{
+  height : 19%;
   width : 100%;
-  height : 150px;
-  
   display : flex;
   align-items : center;
   justify-content : space-between;
-  gap : 20px;
+
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 600;
 }
-.imgSection{
-  height : 100%;
-  aspect-ratio: 1;
+.generalInfo .info .name{
+  height : 26%;
+  font-size : 160%;
 }
-.imgSection img{
-  width : 100%;
+.generalInfo .info div span{
+  padding-top : 12px;
   height : 100%;
-  border-radius: 100%;
+  vertical-align: bottom;
+  font-size : x-small;
+  color : grey;
+}
+.generalInfo .info div div{
+  justify-content: flex-end;
+}
+.generalInfo .info hr{
+  background: grey;
+  margin-top :-3px;
+}
+@media (max-width: 500px) {
+  .generalInfo .info div span{
+    display : none;
+  }
 }
 
-.generalInfo .info{
-  width : 100%;
-  height : 100%;
+/* extra css styles */
+.smallButton{
+  height : 30px !important;
+  width : 30px !important;
+  
+  color : #1d7ee4 !important;
+  background: #fff !important;
+  border : 2px solid #1d7ee4 !important;
+  border-radius : 100% !important;
+
+  font-size : medium !important;
+  cursor : pointer !important;
+
+  box-shadow : 0 0 3px 0px #1d7ee4 !important; 
+  transition : all 0.3s ease-out !important;
+}
+.smallButton:hover{
+  transform : scale(1.15) !important;
+  background: #1d7ee4 !important;
+  color : #fff !important;
+}
+.smallButton:hover svg{
+  color : #fff !important;
+  box-shadow : 0 0 5px 0px #1d7ee4 !important;
+}
+.smallButton:active{
+  transform:scale(0.7) !important;
+  opacity : 40% !important;
 }

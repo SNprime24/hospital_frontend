@@ -18,7 +18,7 @@ import DoctorMainPage from './pages/DoctorMainPage';
 import NurseMainPage from './pages/NurseMainPage';
 import FDOMainPage from './pages/FDOMainPage';
 import DEOMainPage from './pages/DEOMainPage';
-import PatientDetails from './pages/PatientDetails';
+import PatientMedicalDetails from './pages/PatientDetails';
 import EntityForm from './pages/EntityForm';
 
 // import classes from "./App.module.css";
@@ -44,7 +44,7 @@ function App() {
         { path: "patient/:patientID", 
           element: <SubRootLayout />,
           children: [
-            { path: ":appointmentID", element: <PatientDetails /> }
+            { path: ":appointmentID", element: <PatientMedicalDetails /> }
           ] 
         },
       ]
@@ -73,7 +73,7 @@ function App() {
             { path: "patient/:patientID", 
               element: <SubRootLayout />,
               children: [
-                { index: true, element: <PatientDetails /> }
+                { index: true, element: <PatientMedicalDetails /> }
               ] 
             },
             {

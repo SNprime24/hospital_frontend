@@ -1,46 +1,11 @@
 import React from 'react'
 
-function PatientDetails() {
+function PatientMedicalDetails() {
     return (
         <div>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
-            <h3>This is Saurav Singh</h3>
+
         </div>
     )
 }
 
-export default PatientDetails;
+export default PatientMedicalDetails;
