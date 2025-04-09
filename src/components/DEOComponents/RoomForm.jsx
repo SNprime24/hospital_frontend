@@ -38,7 +38,7 @@ function RoomForm ({ type, item }) {
     return(
         <div className={classes.formWrapper}>
             <div className={classes.formHeading}>
-                <h1>{type==="add" ? "ADD ROOM" : "EDIT ROOM"}</h1>
+                <h1>{type==="new" ? "ADD ROOM" : "EDIT ROOM"}</h1>
             </div>
             <form>        
                 <div className={classes.formAbout}>

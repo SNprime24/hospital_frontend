@@ -2,7 +2,7 @@ import React  from 'react';
 
 import classes from "./FormInput.module.css"
 
-const FormInput = ({ label, value, onChange, type = "text", id, name, ...props}) => {
+const FormInput = ({ label, value = "", onChange, type = "text", id, name, ...props }) => {
   return (
     <div className={classes.inputWrapper}>
       <input

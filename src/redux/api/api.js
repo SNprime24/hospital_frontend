@@ -46,7 +46,7 @@ const api = createApi({
         baseUrl: `${server}/api/v1/`,
         credentials: 'include',
     }),
-    tagTypes: ['Doctor', 'Nurse'],
+    tagTypes: ['Doctor', 'Nurse', 'HS', 'Appointment'],
     endpoints: (builder) => ({
         ...generateCrudEndpoints(builder, 'Doctor'),
         ...generateCrudEndpoints(builder, 'Nurse'),
@@ -79,6 +79,27 @@ const api = createApi({
                 url: `appointment/currentAppointments/?entity=${entity}&_id=${_id}`,
             }),
             providesTags: ['Appointment', 'Doctor', 'Nurse'],
+        }),
+
+        getAllCurrentDoctors: builder.query({
+            query: () => ({
+                url: `hs/currentDoctors`,
+            }),
+            providesTags: ['HS', 'Doctor'],
+        }),
+
+        getAllCurrentNurses: builder.query({
+            query: () => ({
+                url: `hs/currentNurses`,
+            }),
+            providesTags: ['HS', 'Nurse'],
+        }),
+
+        getAllCurrentAppointments: builder.query({
+            query: () => ({
+                url: `hs/currentAppointments`,
+            }),
+            providesTags: ['HS', 'Appointment'],
         })
     }),
 });
@@ -109,6 +130,9 @@ export const {
     useCreateHSMutation,
     useUpdateHSMutation,
     useDeleteHSMutation,
+    useGetAllCurrentDoctorsQuery,
+    useGetAllCurrentNursesQuery,
+    useGetAllCurrentAppointmentsQuery,
 
     useGetAllPatientsQuery,
     useGetThisPatientQuery,

@@ -33,7 +33,6 @@ function DoctorMainPage() {
         { isError: currentAppointmentsData.isError, error: currentAppointmentsData.error }
     ]
     useErrors(errors);
-    console.log(currentAppointmentsData);
 
     const appointments = appointmentData?.data?.appointments?.filter(item =>
         item.name?.toLowerCase().includes(searchText.toLowerCase())
