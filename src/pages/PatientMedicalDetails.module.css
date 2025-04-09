@@ -1,0 +1,17 @@
+.wrapper{
+    display : flex;
+    flex-direction : column;
+    gap : 20px;
+    align-items : center;
+    justify-content: center;
+    padding-top : 15px;
+}
+.wrapperForm{
+    width : 100%;
+}
+.wrapperForm h3{
+    color : #1d7ee4;
+}
+hr{
+    width : 100%;
+}

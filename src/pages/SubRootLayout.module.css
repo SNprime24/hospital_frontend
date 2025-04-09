@@ -40,7 +40,7 @@
   height: 100%;
 
   margin-top: 25px;
-  padding-right: 235px;
+  padding-right: 250px;
 
   transition: all 0.3s ease-in-out;
   /* background: green; */
@@ -58,6 +58,7 @@
   .mainContent {
     padding-right: 0px;
   }
+
 }
 
 
@@ -119,8 +120,14 @@
 
   top : 12px;
   right : -9px;
-}
 
+  display : none;   /* is changing above*/
+}
+@media (max-width: 1100px){
+  .sidebarCloseButton{
+    display: block;
+  }
+}
 
 /* general Info design started */
 
