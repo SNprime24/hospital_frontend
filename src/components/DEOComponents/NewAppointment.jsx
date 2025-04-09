@@ -88,6 +88,7 @@ function NewAppointment (){
                                             event.preventDefault();
                                         }
                                     }}
+                                    onClick={(e)=>e.stopPropagation()}
                                     placeholder="Filter by Phone Number..."
                                 />
                                 <FontAwesomeIcon 

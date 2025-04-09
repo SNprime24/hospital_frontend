@@ -1,8 +1,30 @@
 import React from "react";
 
+import ProfileImagePlaceholder from "./../../assets/ProfileImagePlaceholderGrey.jpg"
 import classes from "./StrechBarComponent.module.css";
 
-function StrechBarComponent({ discharged, appointment,handleClick }) {
+function StrechBarComponent({ discharged, appointment, handleClick, type=1 }) {
+  const date = new Date(appointment?.time);
+  const dichargedDate = new Date(appointment?.dischargeTime)
+
+  const datePart = date.toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric'
+  });
+  const timePart = date.toLocaleTimeString(undefined, {
+    hour: '2-digit',
+    minute: '2-digit'
+  }); 
+
+  const dischargeDatePart = dichargedDate.toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric'
+  });
+  const dischargeTimePart = dichargedDate.toLocaleTimeString(undefined, {
+    hour: '2-digit',
+    minute: '2-digit'
+  }); 
+
   return (
     <div 
       className={classes.wrapper} 
@@ -13,22 +35,32 @@ function StrechBarComponent({ discharged, appointment,handleClick }) {
     >
       <div className={classes.profileImage} title="Profile Image">
         <img
-          src="https://t3.ftcdn.net/jpg/08/05/28/22/360_F_805282248_LHUxw7t2pnQ7x8lFEsS2IZgK8IGFXePS.jpg"
+          src={ProfileImagePlaceholder}
           alt="profileImage"
         />
       </div>
       <div className={classes.general}>
         <div className={classes.name}>{appointment.name}</div>
-        <div className={classes.genderAge}>
+        {type===1 && <div className={classes.genderAge}>
           <span>{appointment.gender}</span>
+          <pre>     </pre>
           <span>{appointment.age}</span>
-        </div>
+        </div>}
+        {type===2 && <div className={classes.genderAge}>
+          <span><div>Status - </div><pre> </pre>{appointment?.status}</span>
+          {appointment?.status==="InProgress" && 
+            <>
+              <span><div>Room no -  </div><pre> </pre>{appointment?.room?.name}</span>
+              <span><div>Bed no - </div><pre> </pre>{appointment?.bed?.name}</span>
+            </>
+          }
+        </div>}
       </div>
 
       {!discharged && (
         <div className={classes.medicalInfo}>
           <div title="Appointment time">
-            {appointment.time===undefined?"" : new Date(appointment.time).toLocaleString()}
+            {appointment.time===undefined?"" : `${datePart} ${timePart}`}
           </div>
         </div>
       )}
@@ -40,7 +72,7 @@ function StrechBarComponent({ discharged, appointment,handleClick }) {
             {/* {appointment.disease} */}
           </div>
           <div title="Discharge time">
-            {new Date(appointment.dischargeTime).toLocaleString()}
+            {`${dischargeDatePart}`} {`${dischargeTimePart}`}
           </div>
         </div>
       )}
