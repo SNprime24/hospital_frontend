@@ -67,6 +67,14 @@
     text-overflow: ellipsis;
     white-space: nowrap; 
 }
+@media (max-width: 500px) {
+    .general .name{
+        font-size: 110%;
+    }
+    pre{
+        display : none;
+    }
+}
 .genderAge{
     display: flex;
     align-items : center;
@@ -78,6 +86,14 @@
     color: gray;
     display : flex;
     align-items: flex-end;
+}
+@media (max-width: 500px) {
+    .genderAge span{
+        font-size :57%;
+    }
+    .genderAge{
+        gap : 7px;
+    }
 }
 .genderAge span div{    
     font-size : 120%;

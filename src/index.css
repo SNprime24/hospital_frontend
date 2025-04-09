@@ -1,8 +1,3 @@
-*{
-  /* to remove scrollbar */
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
 
 body {
   margin: 0;
