@@ -100,7 +100,14 @@ const api = createApi({
                 url: `hs/currentAppointments`,
             }),
             providesTags: ['HS', 'Appointment'],
-        })
+        }),
+
+        getPatientByNumber: builder.query({
+            query: (phoneNo) => ({
+                url: `patient/${phoneNo}`,
+            }),
+            providesTags: ['Patients'],
+        }),
     }),
 });
 
@@ -136,6 +143,7 @@ export const {
 
     useGetAllPatientsQuery,
     useGetThisPatientQuery,
+    useLazyGetPatientByNumberQuery,
     useCreatePatientMutation,
     useUpdatePatientMutation,
     useDeletePatientMutation,

@@ -13,10 +13,11 @@ import { TreatmentForm } from '../components/DEOComponents/TreatmentFom';
 import { PatientForm } from '../components/DEOComponents/PatientForm';
 
 
-function EntityForm() {
+function EntityForm({ isFDO }) {
     const { type, entity } = useParams();
     const location = useLocation();
     const item = location.state;
+    if(isFDO)  return( <div style={{paddingBottom : "20px"}}> <PatientForm type = "new"/> </div> )
 
     return (
         <div style={{paddingBottom : "20px"}}>

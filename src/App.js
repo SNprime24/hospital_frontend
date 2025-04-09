@@ -78,7 +78,11 @@ function App() {
             },
             {
               path: "form/:type/:entity",
-              element: user?.role === "DEO" ? <EntityForm /> : <Navigate to="/unauthorized" />,
+              element: user?.role === "DEO" ? 
+                <EntityForm /> : 
+                  user?.role === "FDO" ? <EntityForm isFDO = {true} /> :
+                  <Navigate to="/unauthorized" 
+                />,
             }          
           ]
         }

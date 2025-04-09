@@ -1,4 +1,5 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileCirclePlus, faUser, faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -6,109 +7,111 @@ import { faFileCirclePlus, faUser, faSearch } from "@fortawesome/free-solid-svg-
 import { StrechBarComponent } from "../DoctorNurseComponents/StrechBarComponent";
 
 import classes from "./NewAppointment.module.css";
+import { useLazyGetPatientByNumberQuery } from "../../redux/api/api";
 
-const patient = {
-    "name": "Anita Desai",
-    "age": 45,
-    "gender": "Female",
-    "email": "anita.desai@example.com",
-    "phoneNumber": "9823456789",
-    "guardianName": "Vikram Desai",
-    "guardianPhoneNumber": "9898989898"
-}
 
-function NewAppointment (){
+function NewAppointment() {
+    const navigate = useNavigate();
+    const [getPatient, { isSuccess }] = useLazyGetPatientByNumberQuery();
     const [selectedPage, setSelectedPage] = useState(1);
-    const [searchText,setSearchText] = useState("");
+    const [searchText, setSearchText] = useState("");
+    const [patient, setPatient] = useState();
 
     const handleSelectedPageOne = () => setSelectedPage(1);
     const handleSelectedPageTwo = () => setSelectedPage(2);
 
-    const handleSearchClickAction = ()=>{
+    const handleSearchClickAction = async () => {
         console.log(searchText);
-        alert("You clicked the search buttton")
+        const result = await getPatient(searchText);
+        if(result?.data?.success) {
+            setPatient(result.data.patient);
+        } 
+        else setPatient(null);
+        setSearchText("");
     }
 
-    const handleNewPatientButton = ()=>{
+    const handleNewPatientButton = () => {
+        navigate('form/new/patients');
         console.log("new patient");
     }
 
-    return(
+    return (
         <div className={classes.appWrapper}>
             <div className={classes.appHeading}>
                 NEW APPOINTMENT
             </div>
             <div className={classes.appContent}>
                 <div className={classes.navBarContainer}>
-                    <button 
-                        className={(selectedPage===1)?classes.activeBtn:""}
-                        onClick={(e)=>{
+                    <button
+                        className={(selectedPage === 1) ? classes.activeBtn : ""}
+                        onClick={(e) => {
                             e.stopPropagation()
                             handleSelectedPageOne()
                         }}
-                    > 
-                        <FontAwesomeIcon icon={faFileCirclePlus}/> 
-                        <span>NEW</span> 
-                    </button> 
-                    <span className={classes.verticalBar}/>
+                    >
+                        <FontAwesomeIcon icon={faFileCirclePlus} />
+                        <span>NEW</span>
+                    </button>
+                    <span className={classes.verticalBar} />
                     <button
-                        className={(selectedPage===2)?classes.activeBtn:""}
-                        onClick={(e)=>{
+                        className={(selectedPage === 2) ? classes.activeBtn : ""}
+                        onClick={(e) => {
                             e.stopPropagation()
                             handleSelectedPageTwo()
                         }}
-                    > 
-                        <FontAwesomeIcon icon={faUser}/> 
-                        <span>EXISTING</span> 
-                    </button> 
+                    >
+                        <FontAwesomeIcon icon={faUser} />
+                        <span>EXISTING</span>
+                    </button>
                 </div>
                 <div className={classes.mainContent}>
-                    <div className={`${classes.contentWrapper} ${selectedPage===1 ? classes.one : classes.two}`}>
+                    <div className={`${classes.contentWrapper} ${selectedPage === 1 ? classes.one : classes.two}`}>
                         <div className={`${classes.contentPage} ${classes.firstPage}`}>
-                            <button 
-                                onClick={(e)=>{
+                            <button
+                                onClick={(e) => {
                                     e.stopPropagation();
                                     handleNewPatientButton();
                                 }}
                             >
                                 NEW PATIENT
-                            </button>                            
+                            </button>
                         </div>
                         <div className={`${classes.contentPage} ${classes.secondPage}`}>
 
                             <div className={classes.searchInputDiv}>
-                                <input 
-                                    type="text" 
-                                    name="text" 
+                                <input
+                                    type="text"
+                                    name="text"
                                     value={searchText}
                                     className={classes.searchInput}
-                                    onChange = {(e)=>setSearchText(e.target.value)}
+                                    onChange={(e) => setSearchText(e.target.value)}
                                     onKeyDown={(event) => {
                                         if (event.key === "Tab") {
                                             event.preventDefault();
                                         }
                                     }}
-                                    onClick={(e)=>e.stopPropagation()}
+                                    onClick={(e) => e.stopPropagation()}
                                     placeholder="Filter by Phone Number..."
                                 />
-                                <FontAwesomeIcon 
-                                    icon={faSearch} 
-                                    onClick={(e)=>{
+                                <FontAwesomeIcon
+                                    icon={faSearch}
+                                    onClick={(e) => {
                                         e.stopPropagation()
                                         handleSearchClickAction()
                                     }}
                                 />
                             </div>
-                            
-                            <StrechBarComponent 
-                                discharged={false} 
-                                appointment={patient} 
-                                handleClick={(e)=>{
+
+                            {isSuccess && patient && (<StrechBarComponent
+                                discharged={false}
+                                appointment={patient}
+                                type={0}
+                                handleClick={(e) => {
                                     console.log("clicked");
                                 }}
-                            />
+                            />)}
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>

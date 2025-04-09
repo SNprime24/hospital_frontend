@@ -46,11 +46,6 @@ function FDOMainPage() {
     console.log(nurses);
     console.log(appointments);
 
-    const handleSearchClickAction = () => {
-        console.log(searchText);
-        alert("You clicked the search buttton")
-    }
-
     return (
         <div className={classes.mainWrapper}>
             <div className={classes.navBarContainer}>
@@ -98,7 +93,7 @@ function FDOMainPage() {
                         }}
                         placeholder="Filter by name..."
                     />
-                    <FontAwesomeIcon icon={faSearch} onClick={handleSearchClickAction} />
+                    <FontAwesomeIcon icon={faSearch} />
                 </div>
                 <button
                     className={classes.addNewData}
@@ -145,4 +140,3 @@ function FDOMainPage() {
 }
 
 export default FDOMainPage;
-
