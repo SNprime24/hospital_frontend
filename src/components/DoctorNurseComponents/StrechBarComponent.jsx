@@ -5,8 +5,7 @@ import classes from "./StrechBarComponent.module.css";
 
 function StrechBarComponent({ appointment, handleClick, type = 1, discharged=false}) {
   const date = new Date(appointment?.time);
-  const dichargedDate = new Date(appointment?.dischargeTime)
-  console.log(appointment); 
+  const dichargedDate = new Date(appointment?.dischargeTime);
 
   const datePart = date.toLocaleDateString(undefined, {
     month: 'short',
