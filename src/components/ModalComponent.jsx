@@ -14,7 +14,10 @@ export function ModalComponent({children, modalState, onHandleClose}){
                 onHandleClose();
             }}
         >
-            <div className={classes.modalContent}>
+            <div 
+                className={classes.modalContent}
+                onClick={(e) => e.stopPropagation()}
+            >
                 {children}
 
                 <button 
