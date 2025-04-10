@@ -62,7 +62,7 @@ const useCreateMutation = (mutationHook) => {
                 toast.success(res.data.message || "Created data successfully", {
                     id: toastId,
                 });
-                if(role === "FDO") navigate(`patient/${res.data.patient._id}`, {
+                if(role === "FDO") navigate(`/app/patient/${res.data.patient._id}`, {
                     state: { patient: res.data.patient }
                 })
                 else navigate("/");
