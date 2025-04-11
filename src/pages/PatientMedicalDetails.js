@@ -1,11 +1,17 @@
-import React from "react";
+import React,{useState} from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 import { StrechBarComponent } from "../components/DoctorNurseComponents/StrechBarComponent";
+import { AppointForm } from "../components/PatientForms/AppointForm";
+import { AdmitForm } from "../components/PatientForms/AdmitForm";
+import { ExaminationForm } from "../components/PatientForms/ExaminationForm";
 
 import classes from "./PatientMedicalDetails.module.css";
 import { FormTextArea } from "../components/DEOComponents/FormInput";
 
 const user = {
+  name: "Suprit Naik",
   role: "Doctor",
 };
 
@@ -53,10 +59,14 @@ const appointment = {
   ],
   remarks: [
     {
+      remarkUser : "Suprit Naik",
+      remarkUserRole : "Doctor",
       remarkTime: "2025-04-09T11:00:00.000Z",
       remarkMsg: "Patient showing stable vitals.",
     },
     {
+      remarkUser : "Ishan Kinger",
+      remarkUserRole : "Nurse",
       remarkTime: "2025-04-09T12:30:00.000Z",
       remarkMsg: "Medication administered.",
     },
@@ -102,52 +112,159 @@ const appointment = {
 };
 
 function PatientMedicalDetails() {
+  // appoint logic
+  const [appointEdit, setAppointEdit] = useState(0);
+  const [newAppointdata,setNewAppointData] = useState({date : "", time : "", doctor : null});
+  const handleAppointSubmit = ()=>{
+    setAppointEdit(0)
+    alert("appoint Form submitted ")
+  }
+
+  //admission logic
+  const [admitEdit, setAdmitEdit] = useState(0);
+  const [newAdmitData ,setNewAdmitData] = useState({room : "", bed : "", nurses : []});
+  const handleAdmitSubmit = () =>{
+    setAdmitEdit(0);
+    alert("Admit Form Submitted");
+  }
+  console.log(newAdmitData);
+
+  //examination logic
+  const [examEdit, setExamEdit] = useState(0);
+  const [newExamData ,setNewExamData] = useState({room : "", bed : "", nurses : []});
+  const handleExamSubmit = () =>{
+    setExamEdit(0);
+    alert("Examination Form Submitted");
+  }
+  console.log(newAdmitData);
+
+  // const appointment = {}
+  const type = 'ne'
+
+  if(type==="new"){
+    return(
+        <div className={classes.wrapper}>
+          <h2>NEW APPOINTMENT</h2>
+          <AppointForm
+            formData = {newAppointdata}
+            setFormData = {setNewAppointData}
+            handleSubmit={handleAppointSubmit}
+          />
+        </div>
+    );
+  }
+
   return (
     <div className={classes.wrapper}>
       <div className={classes.wrapperForm}>
-        <h3>APPOINT</h3>
-        <hr />
-        <div>APPOINTMENT TIME : {appointment.time}</div>
-        <div>
-          <h5>DOCTOR : </h5>
-          <StrechBarComponent appointment={appointment.doctor} type={3} />
-        </div>
-        {user.role === "FDO" && <button> DISCHARGE </button>}
-      </div>
-
-      <div className={classes.wrapperForm}>
-        <h3>ADDMISSION</h3>
-        <hr />
         <div className={classes.divFlex}>
-          <div>
-            <h5>ROOM No. </h5> {appointment.room.name}
-          </div>
-          <div>
-            <h5>Bed No. </h5> {appointment.bed.name}
-          </div>
+          <h3>APPOINT</h3>
+          <button 
+            className={classes.smallButton} 
+            title="Edit Appointment"
+            onClick = {()=>setAppointEdit((prev)=>prev^1)}
+          > 
+              <FontAwesomeIcon icon ={faPen}/> 
+          </button>
         </div>
-        <div>
-          <h5>NURSES : </h5>
-          {appointment?.nurse?.map((val, _) => (
-            <StrechBarComponent appointment={val} type={4} />
-          ))}
-        </div>
-        {user.role === "FDO" && <button> DISCHARGE </button>}
+        <hr />
+
+        {appointEdit===0 &&
+          <>
+            <div>APPOINTMENT TIME : {appointment?.time}</div>
+            <div>
+              <h5>DOCTOR : </h5>
+              {appointment.doctor!==undefined && <StrechBarComponent appointment={appointment?.doctor} type={3} />}
+            </div>
+            {user.role === "FDO" && <button> DISCHARGE </button>}
+          </>
+        }
+
+        {appointEdit===1 && 
+          <AppointForm
+            formData = {newAppointdata}
+            setFormData = {setNewAppointData}
+            handleSubmit={handleAppointSubmit}
+            type = "edit"
+          />
+        }
+
       </div>
 
       <div className={classes.wrapperForm}>
-        <h3>EXAMINATION</h3>
+        <div className={classes.divFlex}>
+          <h3>ADMISSION</h3>
+          <button 
+            className={classes.smallButton} 
+            title="Edit Admission Form"
+            onClick = {()=>setAdmitEdit((prev)=>prev^1)}
+          > 
+              <FontAwesomeIcon icon ={faPen}/> 
+          </button>
+        </div>
         <hr />
-        <div>
-          <h2>DISEASE : </h2>
-          {appointment.disease.map((val, _) => val.diseaseName).join(", ")}
+        
+        {admitEdit===0 &&
+          <>
+            <div className={classes.divFlex}>
+              <div>
+                <h5>ROOM No. </h5> {appointment?.room?.name}
+              </div>
+              <div>
+                <h5>Bed No. </h5> {appointment?.bed?.name}
+              </div>
+            </div>
+            <div>
+              <h5>NURSES : </h5>
+              {appointment?.nurse?.map((val, _) => (
+                <StrechBarComponent appointment={val} type={4} />
+              ))}
+            </div>
+            {user.role === "FDO" && <button> DISCHARGE </button>}
+          </>
+        }
+
+        {admitEdit===1 && 
+          <AdmitForm
+            formData = {newAdmitData}
+            setFormData = {setNewAdmitData}
+            handleSubmit={handleAdmitSubmit}
+            type = "edit"
+          />
+        }
+      </div>
+
+      <div className={classes.wrapperForm}>
+        <div className={classes.divFlex}>
+          <h3>EXAMINATION</h3>
+          <button 
+            className={classes.smallButton} 
+            title="Edit Admission Form"
+            onClick = {()=>setExamEdit((prev)=>prev^1)}
+          > 
+              <FontAwesomeIcon icon ={faPen}/> 
+          </button>
         </div>
-        <div>
-          <h5>HOSPITAL PROFESSIONALS : </h5>
-          {appointment?.hps?.map((val, _) => (
-            <StrechBarComponent appointment={val} type={5} />
-          ))}
-        </div>
+        <hr />
+        {examEdit===0 && <>
+            <div>
+              <h2>DISEASE : </h2>
+              {appointment?.disease?.map((val, _) => val.diseaseName).join(", ")}
+            </div>
+            <div>
+              <h5>HOSPITAL PROFESSIONALS : </h5>
+              {appointment?.hps?.map((val, _) => (
+                <StrechBarComponent appointment={val} type={5} />
+              ))}
+            </div>
+          </>
+        }
+        {examEdit===1 && 
+          <ExaminationForm
+            handleSubmit={handleExamSubmit}
+            type = "edit"
+          />
+        }
       </div>
 
       <div className={classes.wrapperForm}>
@@ -155,7 +272,7 @@ function PatientMedicalDetails() {
         <hr />
         <div>
           <h2>DISEASE : </h2>
-          {appointment.disease.map((val, _) => val.diseaseName).join(", ")}
+          {appointment?.disease?.map((val, _) => val.diseaseName).join(", ")}
         </div>
         <div>
           <h5>HOSPITAL PROFESSIONALS : </h5>
@@ -170,7 +287,7 @@ function PatientMedicalDetails() {
         <hr />
         <div>
           <h2>DISEASE : </h2>
-          {appointment.disease.map((val, _) => val.diseaseName).join(", ")}
+          {appointment?.disease?.map((val, _) => val.diseaseName).join(", ")}
         </div>
         <div>
           <h5>HOSPITAL PROFESSIONALS : </h5>
@@ -190,10 +307,11 @@ function PatientMedicalDetails() {
             <button>SUBMIT</button>
           </>
         }
-        {appointment.remarks.map((val,_)=>(
+        {appointment?.remarks?.map((val,_)=>(
           <>
             <h5>{val.remarkTime}</h5>
-            <p>{val.remarkMsg}</p>
+            <span>{val.remarkUser}({val.remarkUserRole})</span>
+            <p>{val.remarkMsg}</p> 
           </>
         ))}
       </div>
@@ -203,3 +321,6 @@ function PatientMedicalDetails() {
 }
 
 export default PatientMedicalDetails;
+
+
+

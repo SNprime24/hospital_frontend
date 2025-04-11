@@ -3,7 +3,7 @@ import React from "react";
 import ProfileImagePlaceholder from "./../../assets/ProfileImagePlaceholderGrey.jpg"
 import classes from "./StrechBarComponent.module.css";
 
-function StrechBarComponent({ appointment, handleClick, type = 1, discharged=false}) {
+function StrechBarComponent({ appointment, handleClick, type = 1, discharged=false, isActive=0}) {
   const date = new Date(appointment?.time);
   const dichargedDate = new Date(appointment?.dischargeTime)
   console.log(appointment); 
@@ -28,7 +28,7 @@ function StrechBarComponent({ appointment, handleClick, type = 1, discharged=fal
 
   return (
     <div 
-      className={classes.wrapper} 
+      className={`${classes.wrapper} ${isActive?classes.active:""}`} 
       onClick={(e)=>{
         e.stopPropagation();
         handleClick()
@@ -66,11 +66,11 @@ function StrechBarComponent({ appointment, handleClick, type = 1, discharged=fal
         </div>}
 
         {type===3 && <div className={classes.genderAge}>
-            <span>{appointment.spec}</span>
+            <span>{appointment?.spec}</span>
             <pre>  </pre>
-            <span>{appointment.phoneNumber}</span>
+            <span>{appointment?.phoneNumber}</span>
             <pre>  </pre>
-            <span>{appointment.room}</span>
+            <span>{appointment?.room}</span>
           </div>
         }
 

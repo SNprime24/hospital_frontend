@@ -29,6 +29,13 @@
     transform: scale(0.95);
     opacity: 0.8;
 }
+.wrapper.activeWrapper{
+    border : 2px solid #0ab10a;
+}
+.wrapper.activeWrapper:hover{
+    transform : scale(1.02);
+    box-shadow : -5px 5px 5px -3px #0ab10a;    
+}
 
 .sketch{
     width : 100%;

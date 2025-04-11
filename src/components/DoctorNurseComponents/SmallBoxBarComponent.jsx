@@ -4,11 +4,20 @@ import ProfileImagePlaceholder from "./../../assets/ProfileImagePlaceholderGrey.
 
 import classes from "./SmallBoxBarComponent.module.css";
 
-function SmallBoxBarComponent({ user }) {
-  console.log(user);
+function SmallBoxBarComponent({ user, handleClick, isActive=false }) {
+  // console.log(user);
   
   return (
-    <div className={`${classes.wrapper} ${user.role==="Nurse"?classes.smallWrapper : ""}`}>
+    <div 
+      className={`${classes.wrapper} 
+                  ${user.role==="Nurse"?classes.smallWrapper : ""} 
+                  ${isActive ? classes.activeWrapper:""}`
+                }
+      onClick={(e)=>{
+        e.stopPropagation();
+        handleClick();
+      }}
+    >
       <div className={classes.sketch}>
         <div className={classes.sketchGeneral}>
           <div className={classes.generalProfileImage} title="Profile Image">

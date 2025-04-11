@@ -44,7 +44,7 @@ function App() {
         { path: "patient/:patientID", 
           element: <SubRootLayout />,
           children: [
-            { path: ":appointmentID", element: <PatientMedicalDetails /> }
+            { index : true, element: <PatientMedicalDetails /> }
           ] 
         },
       ]

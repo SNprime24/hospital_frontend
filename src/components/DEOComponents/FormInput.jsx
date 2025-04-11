@@ -37,7 +37,7 @@ const FormSelect = ({label, value, options, onChange, id, name, defaultValue, ..
     <div className={classes.inputWrapper}>
       <select 
         id = {id}
-        name = {name}x
+        name = {name}
         value ={value}
         className={classes.inputBar}
         onChange={onChange}

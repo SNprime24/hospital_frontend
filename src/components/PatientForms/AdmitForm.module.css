@@ -1,0 +1,35 @@
+.slidingList {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  scroll-behavior: smooth;
+}
+.slidingList::-webkit-scrollbar {
+  height: 8px;
+}
+.slidingList::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+.slidingList::-webkit-scrollbar-track {
+  background: transparent;
+}
+/* Each SmallBoxBarComponent child should not shrink */
+.slidingList > * {
+  flex: 0 0 auto;
+  width: 290px;
+  height: 120px !important;
+}
+
+.cross{
+    background:rgba(255, 134, 134, 0.548);
+}
+.cross svg{
+    color : red;
+}
+.cross:hover{
+    background:rgba(255, 134, 134, 0.783);
+}
