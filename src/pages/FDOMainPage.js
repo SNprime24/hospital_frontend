@@ -42,7 +42,7 @@ function FDOMainPage() {
         item?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
     const appointments = currentAppointmentsData?.data?.appointments?.filter(item =>
-        item?.patient?.pname?.toLowerCase().includes(searchText.toLowerCase())
+        item?.patient?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
     // console.log(doctors);
     // console.log(nurses);
@@ -108,7 +108,7 @@ function FDOMainPage() {
                     <div className={`${classes.contentPage} ${classes.firstPage}`}>
                         {appointments && appointments
                             ?.map((appointment) => (
-                                <StrechBarComponent key={appointment.id} discharged={false} appointment={appointment} type={2} />
+                                <StrechBarComponent key={appointment._id} discharged={false} appointment={appointment} type={2} />
                             ))
                         }
                     </div>

@@ -30,7 +30,7 @@ function NurseMainPage() {
   useErrors(errors);
 
   const currentAppointments = currentAppointmentsData?.data?.appointments?.filter(item =>
-    item?.patient?.pname?.toLowerCase().includes(searchText.toLowerCase())
+    item?.patient?.name?.toLowerCase().includes(searchText.toLowerCase())
   );
 
 
@@ -64,15 +64,12 @@ function NurseMainPage() {
       <div className={classes.mainContent}>
         <div className={classes.contentWrapper}>
           <div className={classes.contentPage}>
-            {/* <BoxBarComponent appointment={patient[0]}/>
-                        <BoxBarComponent appointment={patient[1]}/>
-                        <BoxBarComponent appointment={patient[0]}/>
-                        <BoxBarComponent appointment={patient[1]}/>
-                        <BoxBarComponent appointment={patient[0]}/>
-                        <BoxBarComponent appointment={patient[1]}/> */}
+
+            {/* <BoxBarComponent appointment={patient[0]}/> */}
+
             {currentAppointments && currentAppointments
               ?.map((appointment) => (
-                <BoxBarComponent key={appointment.id} appointment={appointment} />
+                <BoxBarComponent key={appointment._id} appointment={appointment} />
               ))
             }
           </div>

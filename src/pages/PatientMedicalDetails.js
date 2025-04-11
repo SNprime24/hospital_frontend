@@ -24,7 +24,6 @@ const appointment = {
   dischargeTime: "2025-04-09T14:00:00.000Z",
   status: "InProgress",
   active: true,
-  name: "Suprit naik",
   patient: "661537a0c3b1f4b6a8d0ef01",
   doctor: {
     _id: "661538a1f2c4a7b6a9d2aa02",
@@ -180,7 +179,7 @@ function PatientMedicalDetails({ appointment, type = "edit" }) {
   const [newAppointdata,setNewAppointData] = useState({ date : "", time : "", doctor : null });
   const handleAppointSubmit = () => {
     setAppointEdit(0)
-    
+        
   }
 
   //admission logic

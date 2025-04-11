@@ -35,10 +35,10 @@ function DoctorMainPage() {
     useErrors(errors);
 
     const appointments = appointmentData?.data?.appointments?.filter(item =>
-        item?.patient?.pname?.toLowerCase().includes(searchText.toLowerCase())
+        item?.patient?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
     const currentAppointments = currentAppointmentsData?.data?.appointments?.filter(item =>
-        item?.patient?.pname?.toLowerCase().includes(searchText.toLowerCase())
+        item?.patient?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
 
     return (
@@ -97,14 +97,14 @@ function DoctorMainPage() {
                         {appointments && appointments
                             ?.filter(appointment => appointment?.status === "Scheduled")
                             ?.map((appointment) => (
-                                <StrechBarComponent key={appointment.id} discharged={false} appointment={appointment} />
+                                <StrechBarComponent key={appointment._id} discharged={false} appointment={appointment} />
                             ))
                         }
                     </div>
                     <div className={`${classes.contentPage} ${classes.secondPage}`}>
                         {currentAppointments && currentAppointments
                             ?.map((appointment) => (
-                                <BoxBarComponent key={appointment.id} appointment={appointment} />
+                                <BoxBarComponent key={appointment._id} appointment={appointment} />
                             ))
                         }
                     </div>
@@ -112,7 +112,7 @@ function DoctorMainPage() {
                         {appointments && appointments
                             ?.filter(appointment => appointment?.status === "Completed")
                             ?.map((appointment) => (
-                                <StrechBarComponent key={appointment.id} discharged={true} appointment={appointment} />
+                                <StrechBarComponent key={appointment._id} discharged={true} appointment={appointment} />
                             ))
                         }
                     </div>
