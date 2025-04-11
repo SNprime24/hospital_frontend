@@ -7,7 +7,7 @@ import FrontImage from "./../assets/AzuremedHospital.png"
 import { LoginComponent } from "../components/LoginComponent";
 
 export default function FrontPage() {
-    const [login,setLogin] =  useState(false);
+    const [login, setLogin] =  useState(false);
 
     return (
         <div className={classes.background}>

@@ -14,7 +14,7 @@ function RoomForm ({ type, item }) {
         name: (type === "edit") ? item.item?.name.split(' ')[0] : "",
         type : (type === "edit") ? item.item?.type : "",
         capacity : (type === "edit") ? item.item?.capacity : 0,
-        isAC : (type === "edit") ? item.item?.gender : true,
+        isAC : (type === "edit") ? item.item?.isAC : true,
     })
 
     const [create] = useCreateMutation(useCreateRoomMutation);

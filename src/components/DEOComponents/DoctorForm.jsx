@@ -168,7 +168,6 @@ function DoctorForm({ type, item }) {
 
                 <div className={classes.formAbout}>
                     <h3>DOCTOR ROOM</h3>
-                    {/* const FormSelect = ({label, value, options, onChange, id, name, defaultValue, ...props}) =>{ */}
                     <FormSelect
                         id="DRoom"
                         name="room"

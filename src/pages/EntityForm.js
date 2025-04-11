@@ -9,7 +9,6 @@ import { RoomForm } from '../components/DEOComponents/RoomForm';
 import { DrugForm } from '../components/DEOComponents/DrugForm';
 import { TestForm } from '../components/DEOComponents/TestForm';
 import { DiseaseForm } from '../components/DEOComponents/DiseaseForm';
-import { TreatmentForm } from '../components/DEOComponents/TreatmentFom';
 import { PatientForm } from '../components/DEOComponents/PatientForm';
 
 
@@ -32,7 +31,6 @@ function EntityForm({ isFDO }) {
             { entity === "drugs"                 && <DrugForm      type = {type} item = {item} /> }
             { entity === "tests"                 && <TestForm      type = {type} item = {item} /> }
             { entity === "diseases"              && <DiseaseForm   type = {type} item = {item} /> }
-            { entity === "treatment"             && <TreatmentForm type = {type} item = {item} /> }
         </div>
     )
 }

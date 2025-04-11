@@ -32,14 +32,14 @@ function BoxBarComponent({ appointment }) {
             />
           </div>
           <div className={classes.generalInformation}>
-            <div className={classes.name} title="Profile name">{appointment?.patient?.pname}</div>
+            <div className={classes.name} title="Profile name">{appointment?.patient?.name}</div>
             <div className={classes.genderAge}>
               <span title="gender">{appointment?.patient?.gender}</span>
-              <span title="age">{appointment?.patient?.page}</span>
+              <span title="age">{appointment?.patient?.age}</span>
             </div>
             <div className={classes.guardian}>
-              <span title="Guardian name">{appointment?.patient?.guardian_name}</span>
-              <span title="Guardian Phone Number">{appointment?.patient?.guardian_phoneNo}</span>
+              <span title="Guardian name">{appointment?.patient?.gname}</span>
+              <span title="Guardian Phone Number">{appointment?.patient?.gPhoneNo}</span>
             </div>
           </div>
         </div>
@@ -47,29 +47,29 @@ function BoxBarComponent({ appointment }) {
         <div className={classes.medicalInformation}>
           <div classname={classes.infoDisease}>
             <span title="disease">{appointment?.disease?.map((val) => val.name).join(", ")}</span>
-            <span title="patient room">{appointment?.room}</span>
+            <span title="patient room">{appointment?.room?.name}</span>
           </div>
           <hr/>
           <div className={classes.infoDoctor} title="doctor">
-            <span className={(appointment===undefined || appointment?.doctor===undefined || appointment?.doctor.d_name==="") ? classes.lightText : ""}>
-              {(appointment===undefined || appointment?.doctor===undefined || appointment?.doctor.d_name==="") ? "-- Doctor Currently Unavailable --" : appointment?.doctor.d_name}
+            <span className={(appointment===undefined || appointment?.doctor===undefined || appointment?.doctor.name==="") ? classes.lightText : ""}>
+              {(appointment===undefined || appointment?.doctor===undefined || appointment?.doctor.name==="") ? "-- Doctor Currently Unavailable --" : appointment?.doctor.name}
             </span>
             <span>{appointment?.doctor.phoneNumber}</span>
           </div>
           <hr/>
           <div className={classes.infoNurse} title="nurse">
             {console.log(nurseInfo)}
-            <span className={(nurseInfo===undefined || nurseInfo?.n_name==="") ? classes.lightText : ""}>
-              {(nurseInfo===undefined || nurseInfo?.n_name==="") ? "-- Nurse Currently Unavailable --" : nurseInfo?.n_name}
+            <span className={(nurseInfo===undefined || nurseInfo?.name==="") ? classes.lightText : ""}>
+              {(nurseInfo===undefined || nurseInfo?.name==="") ? "-- Nurse Currently Unavailable --" : nurseInfo?.name}
             </span>
-            <span>{nurseInfo?.n_phoneNumber}</span>
+            <span>{nurseInfo?.phoneNumber}</span>
           </div>
           <hr/>
           <div className={classes.infoHP} title="hospital professional">
-            <span className={(appointment===undefined || appointment?.hps===undefined || appointment?.hps[0]?.h_name==="") ? classes.lightText : ""}>
-              {(appointment===undefined || appointment?.hps===undefined || appointment?.hps[0]?.h_name==="") ? "-- Professional Currently Unavailable --" : appointment?.hps[0]?.h_name}
+            <span className={(appointment===undefined || appointment?.hps===undefined || appointment?.hps[0]?.name==="") ? classes.lightText : ""}>
+              {(appointment===undefined || appointment?.hps===undefined || appointment?.hps[0]?.name==="") ? "-- Professional Currently Unavailable --" : appointment?.hps[0]?.name}
             </span>
-            <span>{appointment?.hps[0]?.h_phoneNumber}</span>
+            <span>{appointment?.hps[0]?.phoneNumber}</span>
           </div>
         </div>
       </div>

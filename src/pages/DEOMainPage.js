@@ -15,7 +15,6 @@ import {
     useGetAllDoctorsQuery,
     useGetAllDiseasesQuery,
     useGetAllPatientsQuery,
-    useGetAllTreatmentsQuery,
     useDeleteDoctorMutation,
     useDeleteNurseMutation,
     useDeleteHPMutation,
@@ -25,7 +24,6 @@ import {
     useDeleteDrugMutation,
     useDeleteTestMutation,
     useDeleteDiseaseMutation,
-    useDeleteTreatmentMutation
 } from '../redux/api/api';
 import { useErrors } from '../hooks/hooks';
 
@@ -46,7 +44,6 @@ function DEOMainPage() {
         DRUGS: useGetAllDrugsQuery(undefined, { skip: selectedComponent !== "DRUGS" }),
         TESTS: useGetAllTestsQuery(undefined, { skip: selectedComponent !== "TESTS" }),
         DISEASES: useGetAllDiseasesQuery(undefined, { skip: selectedComponent !== "DISEASES" }),
-        TREATMENT: useGetAllTreatmentsQuery(undefined, { skip: selectedComponent !== "TREATMENT" }),
     };
 
     const selectedData = queryMap[selectedComponent] || {};
@@ -71,7 +68,6 @@ function DEOMainPage() {
     const [deleteDrug] = useDeleteDrugMutation();
     const [deleteTest] = useDeleteTestMutation();
     const [deleteDisease] = useDeleteDiseaseMutation();
-    const [deleteTreatment] = useDeleteTreatmentMutation();
 
     const deleteMap = {
         DOCTOR: deleteDoctor,
@@ -83,7 +79,6 @@ function DEOMainPage() {
         DRUGS: deleteDrug,
         TESTS: deleteTest,
         DISEASES: deleteDisease,
-        TREATMENT: deleteTreatment,
     };
 
 
@@ -109,12 +104,10 @@ function DEOMainPage() {
                         "HOSPITAL PROFESSIONALS",
                         "HOSPITAL STAFF",
                         "PATIENTS",
-                        "APPOINTMENTS",
                         "ROOM",
                         "DRUGS",
                         "TESTS",
-                        "DISEASES",
-                        "TREATMENT"
+                        "DISEASES"
                     ].map((item, index) => (
                         <span key={index} className={classes.navItem} onClick={() => {
                             setSelectedComponent(item)

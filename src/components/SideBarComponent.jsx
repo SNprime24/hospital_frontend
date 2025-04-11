@@ -110,7 +110,7 @@ function DoctorSideBarComponent({ user }) {
                         <div className={classes.profileCardTest}>
                             {user?.tests?.map((test, index) => (
                                 <div>
-                                    <span>{test?.tname}</span>
+                                    <span>{test?.name}</span>
                                     <p>{test?.room?.name}</p>
                                 </div>
                             ))}
@@ -123,7 +123,7 @@ function DoctorSideBarComponent({ user }) {
                         <div className={classes.profileCardHp}>
                             {user?.hps?.map((person, index) => (
                                 <div>
-                                    <span>{person?.h_name}</span>
+                                    <span>{person?.name}</span>
                                     <p>{person?.degree}</p>
                                 </div>
                             ))}
@@ -174,7 +174,7 @@ function NurseSideBarComponent({ user }) {
                         <div className={classes.profileCardTest}>
                             {user.test?.map((test, index) => (
                                 <div>
-                                    <span>{test.tname}</span>
+                                    <span>{test.name}</span>
                                     <p>{test.room}</p>
                                 </div>
                             ))}

@@ -17,7 +17,7 @@ function PatientForm({ type, item }) {
         guardianLastName: (type === "edit") ? item.item?.gname.split(' ')[1] : "",
         gender: (type === "edit") ? item.item?.gender : "",
         phoneNumber: (type === "edit") ? item.item?.phoneNumber : null,
-        guardianPhoneNumber: (type === "edit") ? item.item?.gPhoneNumber : null,
+        guardianPhoneNumber: (type === "edit") ? item.item?.gPhoneNo : null,
         address: (type === "edit") ? item.item?.addr : "",
         email: (type === "edit") ? item.item?.email : "",
         age: (type === "edit") ? item.item?.age : 0
@@ -36,8 +36,8 @@ function PatientForm({ type, item }) {
         setFormData(prev => ({
             ...prev,
             name: prev.firstName + " " + prev.lastName,
-            guardian_name: prev.guardianFirstName + " " + prev.guardianLastName,
-            guardian_phoneNo: prev.guardianPhoneNumber,
+            gname: prev.guardianFirstName + " " + prev.guardianLastName,
+            gPhoneNo: prev.guardianPhoneNumber,
             addr: prev.address,
             id: (type === "new") ? "" : item?.item._id
         }));

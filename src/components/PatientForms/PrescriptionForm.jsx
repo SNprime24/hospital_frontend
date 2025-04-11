@@ -11,32 +11,32 @@ import presClasses from "./PrescriptionForm.module.css";
 const fetchDrugs = [
     {
         "_id": "661555aaa6f2a1c1a2b3c4d1",
-        "dgname": "Paracetamol",
-        "dgcomposition": "500mg Acetaminophen",
+        "name": "Paracetamol",
+        "composition": "500mg Acetaminophen",
         "active": true
     },
     {
         "_id": "661555aaa6f2a1c1a2b3c4d2",
-        "dgname": "Ibuprofen",
-        "dgcomposition": "200mg Ibuprofen",
+        "name": "Ibuprofen",
+        "composition": "200mg Ibuprofen",
         "active": true
     },
     {
         "_id": "661555aaa6f2a1c1a2b3c4d3",
-        "dgname": "Amoxicillin",
-        "dgcomposition": "250mg Amoxicillin Trihydrate",
+        "name": "Amoxicillin",
+        "composition": "250mg Amoxicillin Trihydrate",
         "active": false
     },
     {
         "_id": "661555aaa6f2a1c1a2b3c4d4",
-        "dgname": "Cetirizine",
-        "dgcomposition": "10mg Cetirizine Hydrochloride",
+        "name": "Cetirizine",
+        "composition": "10mg Cetirizine Hydrochloride",
         "active": true
     },
     {
         "_id": "661555aaa6f2a1c1a2b3c4d5",
-        "dgname": "Metformin",
-        "dgcomposition": "500mg Metformin Hydrochloride",
+        "name": "Metformin",
+        "composition": "500mg Metformin Hydrochloride",
         "active": true
     }
 ]
@@ -51,7 +51,7 @@ function PrescriptionForm({type = "new", formData, setFormData,  handleSubmit}){
     // ]);
 
     const drugsOptions = fetchDrugs.map(drug=>({
-        label : drug.dgname,
+        label : drug.name,
         value : drug._id,
     }))
 
