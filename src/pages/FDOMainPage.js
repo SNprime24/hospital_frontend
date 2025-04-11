@@ -44,9 +44,9 @@ function FDOMainPage() {
     const appointments = currentAppointmentsData?.data?.appointments?.filter(item =>
         item?.patient?.pname?.toLowerCase().includes(searchText.toLowerCase())
     );
-    console.log(doctors);
-    console.log(nurses);
-    console.log(appointments);
+    // console.log(doctors);
+    // console.log(nurses);
+    // console.log(appointments);
 
     return (
         <div className={classes.mainWrapper}>

@@ -70,19 +70,14 @@ function App() {
               user?.role === "Nurse"  ? <NurseMainPage  /> :
               user?.role === "FDO"    ? <FDOMainPage    /> : <DEOMainPage />
             ) },
-            { path: "patient/:patientID", 
-              element: <SubRootLayout />,
-              children: [
-                { index: true, element: <PatientMedicalDetails /> }
-              ] 
-            },
+            { path: "patient/:patientID", element: <SubRootLayout /> },
             {
               path: "form/:type/:entity",
               element: user?.role === "DEO" ? 
                 <EntityForm /> : 
-                  user?.role === "FDO" ? <EntityForm isFDO = {true} /> :
-                  <Navigate to="/unauthorized" 
-                />,
+                user?.role === "FDO" ? 
+                  <EntityForm isFDO = {true} /> :
+                  <Navigate to="/unauthorized" />,
             }          
           ]
         }

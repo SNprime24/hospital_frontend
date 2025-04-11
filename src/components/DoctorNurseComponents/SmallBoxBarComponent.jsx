@@ -39,13 +39,13 @@ function SmallBoxBarComponent({ user, handleClick, isActive=false }) {
         </div>
 
         <div className={classes.contacts}>
-            <div classname={classes.contactInfo}>
+            <div className={classes.contactInfo}>
                 <span title="Email">{user?.email}</span>
                 <span title="Phone">{user?.phoneNumber}</span>
             </div>
             {user.role==="Doctor" && <hr/>}
             {user.role==="Doctor" &&
-                <div classname={classes.contactInfo}>
+                <div className={classes.contactInfo}>
                     <span title="in Time"> In Time - {user?.inTime}</span>
                     <div title="out Time">Out Time - {user?.outTime}</div>
                 </div>

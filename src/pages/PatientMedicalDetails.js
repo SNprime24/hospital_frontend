@@ -11,6 +11,8 @@ import { TestForm } from "../components/PatientForms/TestForm";
 
 import classes from "./PatientMedicalDetails.module.css";
 import { FormTextArea } from "../components/DEOComponents/FormInput";
+import { useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
 
 const user = {
   name: "Suprit Naik",
@@ -131,9 +133,11 @@ const appointment = {
     {
       _id: "66153ec2f8a3a9b6f0c9ef08",
       disname: "Hypertension",
+      disname: "Hypertension",
     },
     {
       _id: "66153ec2f8a3a9b6f0c9ef09",
+      disname: "Type 2 Diabetes",
       disname: "Type 2 Diabetes",
     },
   ],
@@ -163,13 +167,20 @@ const appointment = {
   ]
 };
 
-function PatientMedicalDetails() {
+function PatientMedicalDetails({ appointment, type = "edit" }) {
+  console.log(appointment);
+  const { user } = useSelector((state) => state.auth);
+  const params = useParams();
+  const location = useLocation();
+  console.log(location.state);
+  const patientId = params.patientId;
+
   // appoint logic
   const [appointEdit, setAppointEdit] = useState(0);
-  const [newAppointdata,setNewAppointData] = useState({date : "", time : "", doctor : null});
-  const handleAppointSubmit = ()=>{
+  const [newAppointdata,setNewAppointData] = useState({ date : "", time : "", doctor : null });
+  const handleAppointSubmit = () => {
     setAppointEdit(0)
-    alert("appoint Form submitted ")
+    
   }
 
   //admission logic
@@ -211,7 +222,6 @@ function PatientMedicalDetails() {
   }
 
   // const appointment = {}
-  const type = 'ne'
 
   if(type==="new"){
     return(
@@ -243,7 +253,8 @@ function PatientMedicalDetails() {
 
         {appointEdit===0 &&
           <>
-            <div>APPOINTMENT TIME : {appointment?.time}</div>
+            {console.log(appointment?.time)}
+            <div>APPOINTMENT TIME : {new Date(appointment?.time).toLocaleString()}</div><br/ >
             <div>
               <h5>DOCTOR : </h5>
               {appointment.doctor!==undefined && <StrechBarComponent appointment={appointment?.doctor} type={3} />}
@@ -256,7 +267,7 @@ function PatientMedicalDetails() {
           <AppointForm
             formData = {newAppointdata}
             setFormData = {setNewAppointData}
-            handleSubmit={handleAppointSubmit}
+            handleSubmit = {handleAppointSubmit}
             type = "edit"
           />
         }
@@ -282,6 +293,7 @@ function PatientMedicalDetails() {
           <>
             <div className={classes.divFlex}>
               <div>
+                <h5>ROOM No. </h5> {appointment?.assignedRoom?.name}
                 <h5>ROOM No. </h5> {appointment?.assignedRoom?.name}
               </div>
               <div>
@@ -326,6 +338,7 @@ function PatientMedicalDetails() {
         {examEdit===0 && <>
             <div>
               <h2>DISEASE : </h2>
+              {appointment?.disease?.map((val, _) => val.disname).join(", ")}
               {appointment?.disease?.map((val, _) => val.disname).join(", ")}
             </div>
             <div>
@@ -456,6 +469,3 @@ function PatientMedicalDetails() {
 }
 
 export default PatientMedicalDetails;
-
-
-
