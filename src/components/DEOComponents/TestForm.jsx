@@ -16,7 +16,8 @@ function TestForm({ type, item }) {
         doctor: (type === "edit") ? item.item?.doctor : "",
         nurse: (type === "edit") ? item.item?.nurse : "",
     })
-
+    
+    const navigate = useNavigate();
     const [create] = useCreateMutation(useCreateTestMutation);
     const [update] = useAsyncMutation(useUpdateTestMutation);
     const doctorsData = useGetAllDoctorsQuery();
@@ -34,8 +35,6 @@ function TestForm({ type, item }) {
     const doctorList = doctors?.map((doctor, index) => ({ value: doctor._id, label: doctor.name }));
     const nurseList = nurses?.map((nurse, index) => ({ value: nurse._id, label: nurse.name }));
     const roomList = rooms?.map((room, index) => ({ value: room._id, label: room.name }));
-
-    const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
@@ -80,7 +79,7 @@ function TestForm({ type, item }) {
 
                 <div className={classes.formFlex}>
                     <div className={classes.formAbout}>
-                        <h3>DOCTOR</h3> 
+                        <h3>DOCTOR</h3>
                         <FormSelect
                             id="Ddoctor"
                             name="doctor"

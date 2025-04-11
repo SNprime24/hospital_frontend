@@ -39,6 +39,7 @@ function HPForm({ type, item }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(item?.item?._id);
         setFormData(prev => ({
             ...prev,
             name: prev.firstName + " " + prev.lastName,
@@ -149,7 +150,7 @@ function HPForm({ type, item }) {
                         name="doctor"
                         defaultValue="Select a Doctor"
                         label="Doctor"
-                        value={formData.value}
+                        value={formData.supervisedBy}
                         onChange={handleFormChange}
                         options={doctorList}
                     />
