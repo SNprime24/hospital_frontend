@@ -9,6 +9,8 @@ import { ExaminationForm } from "../components/PatientForms/ExaminationForm";
 
 import classes from "./PatientMedicalDetails.module.css";
 import { FormTextArea } from "../components/DEOComponents/FormInput";
+import { useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
 
 const user = {
   name: "Suprit Naik",
@@ -88,11 +90,11 @@ const appointment = {
   disease: [
     {
       _id: "66153ec2f8a3a9b6f0c9ef08",
-      diseaseName: "Hypertension",
+      disname: "Hypertension",
     },
     {
       _id: "66153ec2f8a3a9b6f0c9ef09",
-      diseaseName: "Type 2 Diabetes",
+      disname: "Type 2 Diabetes",
     },
   ],
   assignedRoom: {
@@ -111,13 +113,20 @@ const appointment = {
   ],
 };
 
-function PatientMedicalDetails() {
+function PatientMedicalDetails({ appointment, type = "edit" }) {
+  console.log(appointment);
+  const { user } = useSelector((state) => state.auth);
+  const params = useParams();
+  const location = useLocation();
+  console.log(location.state);
+  const patientId = params.patientId;
+
   // appoint logic
   const [appointEdit, setAppointEdit] = useState(0);
-  const [newAppointdata,setNewAppointData] = useState({date : "", time : "", doctor : null});
-  const handleAppointSubmit = ()=>{
+  const [newAppointdata,setNewAppointData] = useState({ date : "", time : "", doctor : null });
+  const handleAppointSubmit = () => {
     setAppointEdit(0)
-    alert("appoint Form submitted ")
+    
   }
 
   //admission logic
@@ -139,7 +148,6 @@ function PatientMedicalDetails() {
   console.log(newAdmitData);
 
   // const appointment = {}
-  const type = 'ne'
 
   if(type==="new"){
     return(
@@ -171,7 +179,8 @@ function PatientMedicalDetails() {
 
         {appointEdit===0 &&
           <>
-            <div>APPOINTMENT TIME : {appointment?.time}</div>
+            {console.log(appointment?.time)}
+            <div>APPOINTMENT TIME : {new Date(appointment?.time).toLocaleString()}</div><br/ >
             <div>
               <h5>DOCTOR : </h5>
               {appointment.doctor!==undefined && <StrechBarComponent appointment={appointment?.doctor} type={3} />}
@@ -184,7 +193,7 @@ function PatientMedicalDetails() {
           <AppointForm
             formData = {newAppointdata}
             setFormData = {setNewAppointData}
-            handleSubmit={handleAppointSubmit}
+            handleSubmit = {handleAppointSubmit}
             type = "edit"
           />
         }
@@ -208,7 +217,7 @@ function PatientMedicalDetails() {
           <>
             <div className={classes.divFlex}>
               <div>
-                <h5>ROOM No. </h5> {appointment?.room?.name}
+                <h5>ROOM No. </h5> {appointment?.assignedRoom?.name}
               </div>
               <div>
                 <h5>Bed No. </h5> {appointment?.bed?.name}
@@ -249,7 +258,7 @@ function PatientMedicalDetails() {
         {examEdit===0 && <>
             <div>
               <h2>DISEASE : </h2>
-              {appointment?.disease?.map((val, _) => val.diseaseName).join(", ")}
+              {appointment?.disease?.map((val, _) => val.disname).join(", ")}
             </div>
             <div>
               <h5>HOSPITAL PROFESSIONALS : </h5>
@@ -272,7 +281,7 @@ function PatientMedicalDetails() {
         <hr />
         <div>
           <h2>DISEASE : </h2>
-          {appointment?.disease?.map((val, _) => val.diseaseName).join(", ")}
+          {appointment?.disease?.map((val, _) => val.disname).join(", ")}
         </div>
         <div>
           <h5>HOSPITAL PROFESSIONALS : </h5>
@@ -287,7 +296,7 @@ function PatientMedicalDetails() {
         <hr />
         <div>
           <h2>DISEASE : </h2>
-          {appointment?.disease?.map((val, _) => val.diseaseName).join(", ")}
+          {appointment?.disease?.map((val, _) => val.disname).join(", ")}
         </div>
         <div>
           <h5>HOSPITAL PROFESSIONALS : </h5>
@@ -321,6 +330,3 @@ function PatientMedicalDetails() {
 }
 
 export default PatientMedicalDetails;
-
-
-

@@ -103,9 +103,9 @@ const doctors = [
   ]
 
   
-function AppointForm({type = "new",formData, setFormData, handleSubmit}){
-    const [searchTime,setSearchTime] = useState("");          {/* You will know search time from here */}
-    const [searchSpec,setSearchSpec] = useState("");          {/* You will know search specialisation from here */}
+function AppointForm({ type = "new", formData, setFormData, handleSubmit }) {
+    const [searchTime,setSearchTime] = useState("");          /* You will know search time from here */
+    const [searchSpec,setSearchSpec] = useState("");          /* You will know search specialisation from here */
 
     // const [formData, setFormData] = useState({date : "", time : "", doctor : null});
     const [modalState,setModalState] = useState(0);

@@ -21,16 +21,21 @@ const useAsyncMutation = (mutationHook) => {
     const executeMutation = async(toastMessage, ...args) => {
         setIsLoading(true);
         const toastId = toast.loading(toastMessage || "Updating data....");
-        const [formData, navigate] = args;
+        const [formData, navigate, role] = args;
+
+        const data = {...formData, role};
 
         try {
-            const res = await mutate(formData); 
+            const res = await mutate(data); 
             if(res.data) {
                 toast.success(res.data.message || "Updated data successfully", {
                     id: toastId,
                 });
                 setData(res.data);
-                navigate('/');
+                if(role === "FDO") navigate(`/app/patient/${res.data.patient._id}`, {
+                    state: { patient: res.data.patient }
+                })
+                else navigate('/');
             }
             else toast.error(res?.error?.data?.message || "Something went wrong", { id: toastId })
         }

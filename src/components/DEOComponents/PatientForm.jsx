@@ -19,8 +19,10 @@ function PatientForm({ type, item }) {
         phoneNumber: (type === "edit") ? item.item?.phoneNumber : null,
         guardianPhoneNumber: (type === "edit") ? item.item?.gPhoneNumber : null,
         address: (type === "edit") ? item.item?.addr : "",
-        email: (type === "edit") ? item.item?.email : ""
+        email: (type === "edit") ? item.item?.email : "",
+        age: (type === "edit") ? item.item?.age : 0
     })
+
     const role = useSelector((state) => state.auth.user.role);
 
     const [create] = useCreateMutation(useCreatePatientMutation);
@@ -39,9 +41,8 @@ function PatientForm({ type, item }) {
             addr: prev.address,
             id: (type === "new") ? "" : item?.item._id
         }));
-        if (type === "new") create("Creating patient...", formData, navigate, role);
-        else update("Updating patient...", formData, navigate);
-        console.log(formData);
+        if (type === "new") await create("Creating patient...", formData, navigate, role);
+        else await update("Updating patient...", formData, navigate, role);
     }
 
     return (
@@ -73,14 +74,24 @@ function PatientForm({ type, item }) {
                                 value={formData.lastName}
                                 onChange={handleFormChange}
                             />
-                            <FormInput
-                                type="text"
-                                id="Dgender"
-                                name="gender"
-                                label="Gender"
-                                value={formData.gender}
-                                onChange={handleFormChange}
-                            />
+                            <div className={classes.formFlex}>
+                                <FormInput
+                                    type="text"
+                                    id="Dgender"
+                                    name="gender"
+                                    label="Gender"
+                                    value={formData.gender}
+                                    onChange={handleFormChange}
+                                />
+                                <FormInput
+                                    type="number"
+                                    id="Dage"
+                                    name="age"
+                                    label="Age"
+                                    value={formData.age}
+                                    onChange={handleFormChange}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

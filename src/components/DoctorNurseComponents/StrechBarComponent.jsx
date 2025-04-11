@@ -4,6 +4,7 @@ import ProfileImagePlaceholder from "./../../assets/ProfileImagePlaceholderGrey.
 import classes from "./StrechBarComponent.module.css";
 
 function StrechBarComponent({ appointment, handleClick, type = 1, discharged=false, isActive=0}) {
+  console.log(appointment);
   const date = new Date(appointment?.time);
   const dichargedDate = new Date(appointment?.dischargeTime);
 
@@ -69,7 +70,7 @@ function StrechBarComponent({ appointment, handleClick, type = 1, discharged=fal
             <pre>  </pre>
             <span>{appointment?.phoneNumber}</span>
             <pre>  </pre>
-            <span>{appointment?.room}</span>
+            {/* <span>{appointment?.room}</span> */}
           </div>
         }
 

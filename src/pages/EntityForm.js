@@ -17,7 +17,9 @@ function EntityForm({ isFDO }) {
     const { type, entity } = useParams();
     const location = useLocation();
     const item = location.state;
-    if(isFDO)  return( <div style={{paddingBottom : "20px"}}> <PatientForm type = "new"/> </div> )
+    if(isFDO) {
+        return( <div style={{paddingBottom : "20px"}}> <PatientForm type = {type} item = {item} /> </div> )
+    }
 
     return (
         <div style={{paddingBottom : "20px"}}>

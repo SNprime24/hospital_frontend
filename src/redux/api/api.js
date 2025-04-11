@@ -175,6 +175,7 @@ export const {
 
     useGetAllAppointmentsQuery,
     useGetThisAppointmentQuery,
+    useLazyGetThisAppointmentQuery,
     useCreateAppointmentMutation,
     useUpdateAppointmentMutation,
     useDeleteAppointmentMutation,

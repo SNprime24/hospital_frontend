@@ -32,7 +32,7 @@ function NewAppointment({ searchNumber, setSearchNumber, existingPatient, setExi
             toast.error(result.error.data.message);
             setExistingPatient(null);
         }
-        console.log(result?.data);
+        // console.log(result?.data);
         setSearchNumber("");
     }
 
