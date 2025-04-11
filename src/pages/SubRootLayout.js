@@ -13,7 +13,7 @@ const user = {
     role: "FDO",
 }
 
-const appointment = {
+const currentPatient = {
     time: "2025-04-09T10:30:00.000Z",
     dischargeTime: "2025-04-09T14:00:00.000Z",
     status: "InProgress",
@@ -110,15 +110,15 @@ export default function SubRootLayout() {
     const { user } = useSelector((state) => state.auth);
     const location = useLocation();
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const currentPatient = location.state.patient;
+    const currentPatient = location.state?.patient;
     console.log(currentPatient);
 
     const patient = {
         ...currentPatient,
-        currentAppointments: currentPatient.appointments?.filter(app =>
+        currentAppointments: currentPatient?.appointments?.filter(app =>
             app.status === "Scheduled" || app.status === "InProgress"
         ),
-        pastAppointments: currentPatient.appointments?.filter(app =>
+        pastAppointments: currentPatient?.appointments?.filter(app =>
             app.status === "Completed" || app.status === "Cancelled"
         ) ?? []
     }
@@ -131,26 +131,26 @@ export default function SubRootLayout() {
                 </div>
                 <div className={classes.info}>
                     <div className={classes.name}>
-                        {patient.name}
+                        {patient?.name}
                         <button className={classes.smallButton} title="Edit Profile">
                             <FontAwesomeIcon icon={faPen} />
                         </button>
                     </div>
                     <hr />
                     <div className={classes.genderAge} title="Gender">
-                        {patient.gender} <div title="Age">{patient.age}</div>
+                        {patient?.gender} <div title="Age">{patient?.age}</div>
                     </div>
                     <hr />
                     <div className={classes.contact}>
-                        {patient.phoneNumber} <span>{patient.email}</span>
+                        {patient?.phoneNumber} <span>{patient?.email}</span>
                     </div>
                     <hr />
                     <div className={classes.address}>
-                        {patient.addr} <span>{patient.userName}</span>
+                        {patient?.addr} <span>{patient?.userName}</span>
                     </div>
                     <hr />
                     <div className={classes.guardian} title={patient.guardian_phoneNo}>
-                        {patient.guardian_name} <span>{patient.guardian_phoneNo}</span>
+                        {patient?.guardian_name} <span>{patient?.guardian_phoneNo}</span>
                     </div>
                     <hr />
                 </div>
@@ -163,23 +163,23 @@ export default function SubRootLayout() {
                         {sidebarOpen ? <FontAwesomeIcon icon={faLessThan} /> : "<"}
                     </button>
                 </div>
-                <Outlet  appointment={appointment}/>
+                <Outlet/>
             </main>
 
             <aside className={`${classes.sidebar} ${sidebarOpen ? classes.open : classes.close}`}>
-                <h3>CURRENT</h3>
+             {/*   <h3>CURRENT</h3>
                 {
-                    (Object.keys(patient?.currentAppointments).length === 0 && user.role === 'FDO') &&
+                    (Object.keys(patient?.currentAppointments).length === 0 && user?.role === 'FDO') &&
                     <>
                         <button className={classes.newAppointmentButton} >NEW APPOINTMENT</button>
                     </>
                 }
-                {(patient?.currentAppointments && Object.keys(patient.currentAppointments).length) !== 0 ? (
+                {(patient?.currentAppointments && Object.keys(patient?.currentAppointments).length) !== 0 ? (
                     <>
                         <button>
                             {
                                 (() => {
-                                    const date = new Date(patient.currentAppointments.time);
+                                    const date = new Date(patient?.currentAppointments?.time);
 
                                     const datePart = date.toLocaleDateString(undefined, {
                                         month: 'short',
@@ -224,7 +224,7 @@ export default function SubRootLayout() {
                             <hr />
                         </>
                     );
-                })}
+                })}  */}
                 <div className={classes.sidebarCloseButton} style={{ right: '10px' }}>
                     <button
                         className={classes.smallButton}
@@ -237,7 +237,7 @@ export default function SubRootLayout() {
                         {"X"}
                     </button>
                 </div>
-            </aside>
+            </aside> 
 
         </div>
     );

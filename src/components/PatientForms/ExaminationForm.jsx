@@ -118,10 +118,10 @@ const fetchHP = [
   
   
 //   formData, setFormData
-function ExaminationForm({type = "new", handleSubmit}){
+function ExaminationForm({type = "new", formData, setFormData, handleSubmit}){
     const [searchName,setSearchName] = useState("");          {/* You will know search name from here */}
 
-    const [formData, setFormData] = useState({diseases : [], hps : []});
+    // const [formData, setFormData] = useState({diseases : [], hps : []});
     const [modalState,setModalState] = useState(0);
 
     const handleCloseModal = () =>{

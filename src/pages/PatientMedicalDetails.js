@@ -6,6 +6,8 @@ import { StrechBarComponent } from "../components/DoctorNurseComponents/StrechBa
 import { AppointForm } from "../components/PatientForms/AppointForm";
 import { AdmitForm } from "../components/PatientForms/AdmitForm";
 import { ExaminationForm } from "../components/PatientForms/ExaminationForm";
+import { PrescriptionForm } from "../components/PatientForms/PrescriptionForm";
+import { TestForm } from "../components/PatientForms/TestForm";
 
 import classes from "./PatientMedicalDetails.module.css";
 import { FormTextArea } from "../components/DEOComponents/FormInput";
@@ -29,9 +31,6 @@ const appointment = {
     phoneNumber: "+92-300-1234567",
     room: "305B",
     role: "Doctor",
-  },
-  room: {
-    name: "R-123",
   },
   bed: {
     name: "B-123",
@@ -71,7 +70,50 @@ const appointment = {
       remarkMsg: "Medication administered.",
     },
   ],
-  tests: ["66153a7e8db5e1b6c2d4ab04", "66153b89e3a7f9b6e3f5bc05"],
+  tests: [
+    {
+      test: {
+        _id: "661abc1234ef567890abcdeb",
+        tname: "MRI",
+        tequip: "MRI Scanner",
+        active: false,
+        room: {
+          _id: "660aaa1111aaa1111aaa1113",
+          name: "MRI Chamber"
+        },
+        doctor: {
+          _id: "660bbb2222bbb2222bbb2224",
+          name: "Dr. Ayesha Rahman"
+        },
+        nurse: {
+          _id: "660ccc3333ccc3333ccc3335",
+          name: "Priya Sharma"
+        }
+      },
+      remark: "MRI scan shows no signs of intracranial bleeding."
+    },
+    {
+      test: {
+        _id: "66153b89e3a7f9b6e3f5bc05",
+        tname: "ECG",
+        tequip: "ECG Machine",
+        active: true,
+        room: {
+          _id: "660aaa2222aaa2222aaa2223",
+          name: "Cardio Room 2"
+        },
+        doctor: {
+          _id: "660bbb3333bbb3333bbb3333",
+          name: "Dr. Faisal Khan"
+        },
+        nurse: {
+          _id: "660ccc4444ccc4444ccc4444",
+          name: "Anjali Mehra"
+        }
+      },
+      remark: "ECG indicates mild arrhythmia. Further monitoring recommended."
+    }
+  ],
   hps: [
     {
       _id: "66153ca4b2c7f0b6e6a7cd06",
@@ -88,11 +130,11 @@ const appointment = {
   disease: [
     {
       _id: "66153ec2f8a3a9b6f0c9ef08",
-      diseaseName: "Hypertension",
+      disname: "Hypertension",
     },
     {
       _id: "66153ec2f8a3a9b6f0c9ef09",
-      diseaseName: "Type 2 Diabetes",
+      disname: "Type 2 Diabetes",
     },
   ],
   assignedRoom: {
@@ -101,14 +143,24 @@ const appointment = {
   },
   drugs: [
     {
-      drug: "661540e7d5e1a2b6f4e1f10a",
-      dosage: "500mg twice a day",
+      drug: {
+        _id: "661555aaa6f2a1c1a2b3c4d4",
+        dgname: "Cetirizine",
+        dgcomposition: "10mg Cetirizine Hydrochloride",
+        active: true
+      },
+      dosage: "10mg once at night"
     },
     {
-      drug: "661541f6f9a4b3b6f6f2f20b",
-      dosage: "250mg before bedtime",
-    },
-  ],
+      drug: {
+        _id: "661555aaa6f2a1c1a2b3c4d5",
+        dgname: "Metformin",
+        dgcomposition: "500mg Metformin Hydrochloride",
+        active: true
+      },
+      dosage: "500mg twice daily after meals"
+    }
+  ]
 };
 
 function PatientMedicalDetails() {
@@ -131,12 +183,32 @@ function PatientMedicalDetails() {
 
   //examination logic
   const [examEdit, setExamEdit] = useState(0);
-  const [newExamData ,setNewExamData] = useState({room : "", bed : "", nurses : []});
+  const [newExamData ,setNewExamData] = useState({diseases : [], hps : []});
   const handleExamSubmit = () =>{
     setExamEdit(0);
     alert("Examination Form Submitted");
   }
   console.log(newAdmitData);
+
+  //prescription logic
+  const [presEdit,setPresEdit] = useState(0);
+  const [newPresData, setNewPresData] = useState([
+    {drug : null, dosage : ""}
+  ]);
+  const handlePresSubmit = () =>{
+    setPresEdit(0);
+    alert("Prescription Form Submitted");
+  }
+
+  //Test logic
+  const [testEdit, setTestEdit] = useState(0);
+  const [newTestData, setNewTestData] = useState([
+    {test : null, remark : ""}
+  ]);
+  const handleTestSubmit = () =>{
+    setTestEdit(0);
+    alert("Test Form Submitted");
+  }
 
   // const appointment = {}
   const type = 'ne'
@@ -191,6 +263,8 @@ function PatientMedicalDetails() {
 
       </div>
 
+
+
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>ADMISSION</h3>
@@ -208,7 +282,7 @@ function PatientMedicalDetails() {
           <>
             <div className={classes.divFlex}>
               <div>
-                <h5>ROOM No. </h5> {appointment?.room?.name}
+                <h5>ROOM No. </h5> {appointment?.assignedRoom?.name}
               </div>
               <div>
                 <h5>Bed No. </h5> {appointment?.bed?.name}
@@ -234,6 +308,9 @@ function PatientMedicalDetails() {
         }
       </div>
 
+
+
+
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>EXAMINATION</h3>
@@ -249,7 +326,7 @@ function PatientMedicalDetails() {
         {examEdit===0 && <>
             <div>
               <h2>DISEASE : </h2>
-              {appointment?.disease?.map((val, _) => val.diseaseName).join(", ")}
+              {appointment?.disease?.map((val, _) => val.disname).join(", ")}
             </div>
             <div>
               <h5>HOSPITAL PROFESSIONALS : </h5>
@@ -261,40 +338,98 @@ function PatientMedicalDetails() {
         }
         {examEdit===1 && 
           <ExaminationForm
+            formData = {newExamData}
+            setFormData = {setNewExamData}
             handleSubmit={handleExamSubmit}
             type = "edit"
           />
         }
       </div>
 
-      <div className={classes.wrapperForm}>
-        <h3>TESTS</h3>
-        <hr />
-        <div>
-          <h2>DISEASE : </h2>
-          {appointment?.disease?.map((val, _) => val.diseaseName).join(", ")}
-        </div>
-        <div>
-          <h5>HOSPITAL PROFESSIONALS : </h5>
-          {appointment?.hps?.map((val, _) => (
-            <StrechBarComponent appointment={val} type={5} />
-          ))}
-        </div>
-      </div>
+
 
       <div className={classes.wrapperForm}>
-        <h3>PRESCRIPTION</h3>
+        <div className={classes.divFlex}>
+          <h3>TESTS</h3>
+          <button 
+            className={classes.smallButton} 
+            title="Edit Tests Form"
+            onClick = {()=>setTestEdit((prev)=>prev^1)}
+          > 
+            <FontAwesomeIcon icon = {faPen}/> 
+          </button>
+        </div>
         <hr />
-        <div>
-          <h2>DISEASE : </h2>
-          {appointment?.disease?.map((val, _) => val.diseaseName).join(", ")}
+
+        {testEdit===0 && <>
+            <div>
+              {appointment?.tests?.map((test, _) => {
+                return(
+                  <>
+                    <h2>{test.test.tname}</h2>
+                    <div className={classes.testInfo}>
+                      <span>{test.test.doctor.name}</span>
+                      <span>{test.test.room.name}</span>
+                    </div>
+                    <p>
+                      {test.remark}
+                    </p>
+                  </>
+                );
+              })}
+            </div>
+          </>
+        }
+
+        {testEdit===1 && 
+          <TestForm
+            formData={newTestData}
+            setFormData={setNewTestData}
+            handleSubmit={handleTestSubmit}
+            type = "edit"
+          />
+        }
+      </div>
+
+
+
+      <div className={classes.wrapperForm}>
+        <div className={classes.divFlex}>
+          <h3>PRESCRIPTION</h3>
+          <button 
+            className={classes.smallButton} 
+            title="Edit Prescription Form"
+            onClick = {()=>setPresEdit((prev)=>prev^1)}
+          > 
+            <FontAwesomeIcon icon ={faPen}/> 
+          </button>
         </div>
-        <div>
-          <h5>HOSPITAL PROFESSIONALS : </h5>
-          {appointment?.hps?.map((val, _) => (
-            <StrechBarComponent appointment={val} type={5} />
-          ))}
-        </div>
+        <hr />
+
+        {presEdit===0 && <>
+            <div>
+              {appointment?.drugs?.map((drug, _) => {
+                return(
+                  <>
+                    <h4>{drug.drug.dgname}</h4>
+                    <p>
+                      {drug.dosage}
+                    </p>
+                  </>
+                );
+              })}
+            </div>
+          </>
+        }
+
+        {presEdit===1 && 
+          <PrescriptionForm
+            formData={newPresData}
+            setFormData={setNewPresData}
+            handleSubmit={handlePresSubmit}
+            type = "edit"
+          />
+        }
       </div>
 
       <div className={classes.wrapperForm}>

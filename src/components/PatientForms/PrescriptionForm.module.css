@@ -1,0 +1,18 @@
+.rmvBtn{
+    height : 50px !important;
+    margin-bottom : -10px !important;
+    width : 40%;
+
+    background : rgba(255, 105, 105, 0.686);
+}
+.rmvBtn svg{
+    color : red;
+}
+
+.rmvBtn:hover{
+    background : rgba(255, 105, 105, 0.858);
+}
+
+.presBtn{
+    height : 50px !important;
+}
