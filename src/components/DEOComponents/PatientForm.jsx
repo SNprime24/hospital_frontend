@@ -7,6 +7,7 @@ import { FormInput, FormSubmit } from './FormInput';
 
 import { useCreatePatientMutation,  useUpdatePatientMutation } from '../../redux/api/api';
 import { useCreateMutation, useAsyncMutation } from '../../hooks/hooks';
+import { useSelector } from 'react-redux';
 
 function PatientForm({ type, item }) {
     const [formData, setFormData] = useState({
@@ -17,16 +18,16 @@ function PatientForm({ type, item }) {
         gender: (type === "edit") ? item.item?.gender : "",
         phoneNumber: (type === "edit") ? item.item?.phoneNumber : null,
         guardianPhoneNumber: (type === "edit") ? item.item?.gPhoneNumber : null,
-        address: (type === "edit") ? item.item?.addr : ""
+        address: (type === "edit") ? item.item?.addr : "",
+        email: (type === "edit") ? item.item?.email : ""
     })
+    const role = useSelector((state) => state.auth.user.role);
 
     const [create] = useCreateMutation(useCreatePatientMutation);
     const [update] = useAsyncMutation(useUpdatePatientMutation);
     const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-
-    console.log(formData);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,7 +39,7 @@ function PatientForm({ type, item }) {
             addr: prev.address,
             id: (type === "new") ? "" : item?.item._id
         }));
-        if (type === "new") create("Creating patient...", formData, navigate);
+        if (type === "new") create("Creating patient...", formData, navigate, role);
         else update("Updating patient...", formData, navigate);
         console.log(formData);
     }
@@ -130,6 +131,16 @@ function PatientForm({ type, item }) {
                             name="phoneNumber"
                             label="Phone Number"
                             value={formData.phoneNumber}
+                            onChange={handleFormChange}
+                        />
+                    </div>
+                    <div className={classes.formFlex}>
+                        <FormInput
+                            type="email"
+                            id="Demail"
+                            name="email"
+                            label="Email"
+                            value={formData.email}
                             onChange={handleFormChange}
                         />
                     </div>

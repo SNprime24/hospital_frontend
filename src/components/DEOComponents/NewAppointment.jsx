@@ -8,31 +8,36 @@ import { StrechBarComponent } from "../DoctorNurseComponents/StrechBarComponent"
 
 import classes from "./NewAppointment.module.css";
 import { useLazyGetPatientByNumberQuery } from "../../redux/api/api";
+import toast from "react-hot-toast";
 
 
-function NewAppointment() {
+function NewAppointment({ searchNumber, setSearchNumber, existingPatient, setExistingPatient }) {
     const navigate = useNavigate();
     const [getPatient, { isSuccess }] = useLazyGetPatientByNumberQuery();
     const [selectedPage, setSelectedPage] = useState(1);
-    const [searchText, setSearchText] = useState("");
-    const [patient, setPatient] = useState();
 
-    const handleSelectedPageOne = () => setSelectedPage(1);
+    const handleSelectedPageOne = () => { 
+        setSelectedPage(1); 
+        setSearchNumber("");
+        setExistingPatient(null); 
+    }
     const handleSelectedPageTwo = () => setSelectedPage(2);
 
     const handleSearchClickAction = async () => {
-        console.log(searchText);
-        const result = await getPatient(searchText);
+        const result = await getPatient(searchNumber);
         if(result?.data?.success) {
-            setPatient(result.data.patient);
+            setExistingPatient(result.data.patient);
         } 
-        else setPatient(null);
-        setSearchText("");
+        else {
+            toast.error(result.error.data.message);
+            setExistingPatient(null);
+        }
+        console.log(result?.data);
+        setSearchNumber("");
     }
 
     const handleNewPatientButton = () => {
         navigate('form/new/patients');
-        console.log("new patient");
     }
 
     return (
@@ -82,9 +87,9 @@ function NewAppointment() {
                                 <input
                                     type="text"
                                     name="text"
-                                    value={searchText}
+                                    value={searchNumber}
                                     className={classes.searchInput}
-                                    onChange={(e) => setSearchText(e.target.value)}
+                                    onChange={(e) => setSearchNumber(e.target.value)}
                                     onKeyDown={(event) => {
                                         if (event.key === "Tab") {
                                             event.preventDefault();
@@ -93,21 +98,22 @@ function NewAppointment() {
                                     onClick={(e) => e.stopPropagation()}
                                     placeholder="Filter by Phone Number..."
                                 />
-                                <FontAwesomeIcon
+                                <FontAwesomeIcon 
                                     icon={faSearch}
                                     onClick={(e) => {
                                         e.stopPropagation()
                                         handleSearchClickAction()
                                     }}
                                 />
-                            </div>
-
-                            {isSuccess && patient && (<StrechBarComponent
+                            </div>                           
+                            {isSuccess && existingPatient && (<StrechBarComponent
                                 discharged={false}
-                                appointment={patient}
+                                appointment={existingPatient}
                                 type={0}
-                                handleClick={(e) => {
-                                    console.log("clicked");
+                                handleClick={() => {
+                                    navigate(`patient/${existingPatient._id}`, {
+                                        state: { patient: existingPatient }
+                                    })
                                 }}
                             />)}
                         </div>

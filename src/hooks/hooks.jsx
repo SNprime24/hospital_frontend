@@ -52,15 +52,20 @@ const useCreateMutation = (mutationHook) => {
     const executeMutation = async(toastMessage, ...args) => {
         setIsLoading(true);
         const toastId = toast.loading(toastMessage || "Creating data....");
-        const [formData, navigate] = args;
+        const [formData, navigate, role] = args;
+
+        const data = { ...formData, role }
 
         try {
-            const res = await mutate(formData); 
+            const res = await mutate(data); 
             if(res.data) {
                 toast.success(res.data.message || "Created data successfully", {
                     id: toastId,
                 });
-                navigate("/");
+                if(role === "FDO") navigate(`/app/patient/${res.data.patient._id}`, {
+                    state: { patient: res.data.patient }
+                })
+                else navigate("/");
             }
             else toast.error(res?.error?.data?.message || "Something went wrong", { id: toastId })
         }

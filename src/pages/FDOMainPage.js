@@ -14,8 +14,10 @@ import { useErrors } from '../hooks/hooks';
 
 
 function FDOMainPage() {
+    const [searchNumber, setSearchNumber] = useState("");
     const [selectedPage, setSelectedPage] = useState(1);
     const [searchText, setSearchText] = useState("");
+    const [existingPatient, setExistingPatient] = useState();
 
     const [modalState, setModalState] = useState(0);
 
@@ -130,9 +132,17 @@ function FDOMainPage() {
 
             <ModalComponent
                 modalState={modalState}
-                onHandleClose={() => setModalState(0)}
+                onHandleClose={() => {
+                    setExistingPatient(null);
+                    setModalState(0);
+                }}
             >
-                <NewAppointment />
+                <NewAppointment 
+                    searchNumber={searchNumber}
+                    setSearchNumber={setSearchNumber}
+                    existingPatient={existingPatient} 
+                    setExistingPatient={setExistingPatient}
+                />
             </ModalComponent>
 
         </div>
