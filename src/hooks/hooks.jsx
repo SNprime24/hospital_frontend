@@ -32,10 +32,10 @@ const useAsyncMutation = (mutationHook) => {
                     id: toastId,
                 });
                 setData(res.data);
-                if(role === "FDO") navigate(`/app/patient/${res.data.patient._id}`, {
+                if(navigate && role === "FDO") navigate(`/app/patient/${res.data.patient._id}`, {
                     state: { patient: res.data.patient }
                 })
-                else navigate('/');
+                else if(navigate) navigate('/');
             }
             else toast.error(res?.error?.data?.message || "Something went wrong", { id: toastId })
         }
@@ -67,10 +67,10 @@ const useCreateMutation = (mutationHook) => {
                 toast.success(res.data.message || "Created data successfully", {
                     id: toastId,
                 });
-                if(role === "FDO") navigate(`/app/patient/${res.data.patient._id}`, {
+                if(navigate && role === "FDO") navigate(`/app/patient/${res.data.patient._id}`, {
                     state: { patient: res.data.patient }
                 })
-                else navigate("/");
+                else if(navigate) navigate("/");
             }
             else toast.error(res?.error?.data?.message || "Something went wrong", { id: toastId })
         }

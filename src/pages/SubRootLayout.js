@@ -2,35 +2,54 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLessThan, faPen } from "@fortawesome/free-solid-svg-icons";
+import { v4 as uuidv4 } from 'uuid';
 
 import ProfileImagePlaceholder from "./../assets/ProfileImagePlaceholderGrey.jpg"
 
 import classes from "./SubRootLayout.module.css";
 import { useSelector } from "react-redux";
 import PatientMedicalDetails from "./PatientMedicalDetails";
-import { useLazyGetThisAppointmentQuery } from "../redux/api/api";
+import { useLazyGetThisAppointmentQuery, useUpdateAppointmentMutation } from "../redux/api/api";
+import { useAsyncMutation } from "../hooks/hooks";
 
 
 export default function SubRootLayout() {
     const { user } = useSelector((state) => state.auth);
 
     const location = useLocation();
+    console.log(location.state);
     const navigate = useNavigate();
-    const currentPatient = location.state.patient;
     const [getAppointment, { data, isSuccess }] = useLazyGetThisAppointmentQuery();
-
+    const [updateAppointment] = useAsyncMutation(useUpdateAppointmentMutation);
+    
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [newAppoint, setNewAppoint] = useState(false);
     const [id, setId] = useState(null);
+    const [currentPatient, setCurrentPatient] = useState();
     const [appointmentDetails, setAppointmentDetails] = useState();
+    console.log(id);
+    console.log(data);
 
     useEffect(() => {
-        if (id) {
+        if (location?.state?.appointmentID) {
+            setId(location.state.appointmentID);
+        }
+    }, [location?.state?.appointmentID]);
+
+    useEffect(() => {
+        if(location?.state?.patient) {
+            setCurrentPatient(location.state.patient);
+        }
+    }, [location?.state?.patient])
+
+    useEffect(() => {
+        if(id) {
             getAppointment(id);
         }
     }, [id, getAppointment]);
     
     useEffect(() => {
-        if (data && isSuccess) {
+        if(data && isSuccess) {
             setAppointmentDetails(data.appointment);
         }
     }, [data, isSuccess]);    
@@ -43,6 +62,12 @@ export default function SubRootLayout() {
         pastAppointments: currentPatient?.appointments?.filter(app =>
             app.status === "Completed" || app.status === "Cancelled"
         ) ?? []
+    }
+
+    const handleDischarge = () => {
+        const formData = { id: id, status: "Completed" }
+        updateAppointment("Updating appointment...", formData);
+        navigate('/');
     }
 
     return (
@@ -79,8 +104,8 @@ export default function SubRootLayout() {
                         {patient?.addr} <span>{patient?.userName}</span>
                     </div>
                     <hr />
-                    <div className={classes.guardian} title={patient.gPhoneNumber}>
-                        {patient.gname} <span>{patient.gPhoneNumber}</span>
+                    <div className={classes.guardian} title={patient.gPhoneNo}>
+                        {patient.gname} <span>{patient.gPhoneNo}</span>
                     </div>
                     <hr />
                 </div>
@@ -95,24 +120,34 @@ export default function SubRootLayout() {
                 </div>
 
                 {isSuccess && appointmentDetails && 
-                    <PatientMedicalDetails appointment = {appointmentDetails} />
+                    <PatientMedicalDetails 
+                        appointment = {appointmentDetails} 
+                        handleDischarge = {handleDischarge}
+                    />
                 }
+                {newAppoint && <PatientMedicalDetails type="new" setNewAppoint={setNewAppoint} />}
             </main>
 
             <aside className={`${classes.sidebar} ${sidebarOpen ? classes.open : classes.close}`}>
                <h3>CURRENT</h3>
                 {
-                    (Object.keys(patient?.currentAppointments).length === 0 && user?.role === 'FDO') &&
+                    (Array.isArray(patient?.currentAppointments) && patient.currentAppointments.length === 0 && user?.role === 'FDO')
+                    &&
                     <>
-                        <button className={classes.newAppointmentButton} >NEW APPOINTMENT</button>
+                        <button 
+                            className={classes.newAppointmentButton} 
+                            onClick={() => {setNewAppoint(true)}}
+                        >
+                            NEW APPOINTMENT
+                        </button>
                     </>
                 }
-                {(patient?.currentAppointments && Object.keys(patient?.currentAppointments).length) !== 0 ? (
+                {Array.isArray(patient?.currentAppointments) && patient?.currentAppointments?.length !== 0 ? (
                     <>
-                        <button onClick = {() => setId(patient.currentAppointments[0]._id)}>
+                        <button onClick = {() => setId(patient?.currentAppointments[0]?._id)}>
                             {
                                 (() => {
-                                    const date = new Date(patient.currentAppointments[0]?.time);
+                                    const date = new Date(patient?.currentAppointments[0]?.time);
 
                                     const datePart = date.toLocaleDateString(undefined, {
                                         month: 'short',
@@ -138,6 +173,7 @@ export default function SubRootLayout() {
                 <h3>PAST</h3>
                 {patient?.pastAppointments?.map((appointment, _) => {
                     const date = new Date(appointment?.time);
+                    const key = uuidv4();
 
                     const datePart = date.toLocaleDateString(undefined, {
                         month: 'short',
@@ -150,12 +186,12 @@ export default function SubRootLayout() {
                     });
 
                     return (
-                        <>
+                        <React.Fragment key = {key}>
                             <button onClick = {() => setId(appointment._id)}>
                                 {`${datePart} ${timePart}`}
                             </button>
                             <hr />
-                        </>
+                        </React.Fragment>
                     );
                 })} 
                 <div className={classes.sidebarCloseButton} style={{ right: '10px' }}>

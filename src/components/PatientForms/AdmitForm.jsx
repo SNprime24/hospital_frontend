@@ -1,121 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCross, faPenClip, faPlusCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faPenClip, faPlusCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-import { FormInput } from "../DEOComponents/FormInput";
+import { FormInput, FormSelect } from "../DEOComponents/FormInput";
 import { ModalComponent } from "../ModalComponent";
 import { SmallBoxBarComponent } from "../DoctorNurseComponents/SmallBoxBarComponent";
 import { StrechBarComponent } from "../DoctorNurseComponents/StrechBarComponent";
 
 import classes from "./AppointForm.module.css";
 import admitClasses from "./AdmitForm.module.css";
+import { useGetAllNursesQuery, useGetAllVacantRoomsQuery } from "../../redux/api/api";
+import { useErrors } from "../../hooks/hooks";
 
-
-const fetchNurses = [
-    {
-        _id: "nurse001",
-        name: "Alice Johnson",
-        email: "alice.johnson@example.com",
-        addr: "123 Park Lane, Delhi",
-        phoneNumber: "9876543210",
-        shift: "Morning",
-        password: "securePass1",
-        gender: "Female",
-        qualification: "B.Sc Nursing",
-        role: "Nurse"
-    },
-    {
-        _id: "nurse002",
-        name: "Manish Mehra",
-        email: "manish.mehra@example.com",
-        addr: "404 Sunrise Blvd, Jaipur",
-        phoneNumber: "9876501122",
-        shift: "Morning",
-        password: "securePass2",
-        gender: "Male",
-        qualification: "GNM",
-        role: "Nurse"
-    },
-    {
-        _id: "nurse003",
-        name: "Sneha Reddy",
-        email: "sneha.reddy@example.com",
-        addr: "789 Lake View, Hyderabad",
-        phoneNumber: "9988776655",
-        shift: "Afternoon",
-        password: "securePass3",
-        gender: "Female",
-        qualification: "B.Sc Nursing",
-        role: "Nurse"
-    },
-    {
-        _id: "nurse004",
-        name: "Rohit Kapoor",
-        email: "rohit.kapoor@example.com",
-        addr: "55 Lotus Enclave, Chandigarh",
-        phoneNumber: "9812345678",
-        shift: "Afternoon",
-        password: "securePass4",
-        gender: "Male",
-        qualification: "ANM",
-        role: "Nurse"
-    },
-    {
-        _id: "nurse005",
-        name: "Priya Menon",
-        email: "priya.menon@example.com",
-        addr: "81 Sea Breeze, Kochi",
-        phoneNumber: "9876543201",
-        shift: "Evening",
-        password: "securePass5",
-        gender: "Female",
-        qualification: "GNM",
-        role: "Nurse"
-    },
-    {
-        _id: "nurse006",
-        name: "Vikram Singh",
-        email: "vikram.singh@example.com",
-        addr: "23 Hilltop Road, Dehradun",
-        phoneNumber: "9001122334",
-        shift: "Evening",
-        password: "securePass6",
-        gender: "Male",
-        qualification: "B.Sc Nursing",
-        role: "Nurse"
-    },
-    {
-        _id: "nurse007",
-        name: "Neha Desai",
-        email: "neha.desai@example.com",
-        addr: "101 Garden Plaza, Ahmedabad",
-        phoneNumber: "9445566778",
-        shift: "Night",
-        password: "securePass7",
-        gender: "Female",
-        qualification: "ANM",
-        role: "Nurse"
-    },
-    {
-        _id: "nurse008",
-        name: "Karan Batra",
-        email: "karan.batra@example.com",
-        addr: "19 Galaxy Residency, Noida",
-        phoneNumber: "9554433221",
-        shift: "Night",
-        password: "securePass8",
-        gender: "Male",
-        qualification: "GNM",
-        role: "Nurse"
-    }
-]
-
-
-//   
+ 
 function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
-    const [searchName, setSearchName] = useState(""); /* You will know search time from here */ 
-
-    // const [formData, setFormData] = useState({room : "", bed : "", nurses : []});
+    const [modalState, setModalState] = useState(0);
+    const [searchName, setSearchName] = useState("");
     const [nurses, setNurses] = useState({ mNurse: null, aNurse: null, eNurse: null, nNurse: null });
 
     useEffect(() => {
@@ -128,9 +28,7 @@ function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
             };
             setNurses(newNurses);
         }
-    }, [])
-
-    const [modalState, setModalState] = useState(0);
+    }, [formData.nurses])
 
     const handleFormChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
@@ -143,19 +41,30 @@ function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
         setModalState(0);
     }
 
-    console.log(formData);
-    console.log(searchName);
+    const nursesData = useGetAllNursesQuery();
+    const roomsData = useGetAllVacantRoomsQuery("Test Room");
+    const errors = [
+        { isError: nursesData.isError, error: nursesData.error },
+        { isError: roomsData.isError, error: roomsData.error },
+    ];
+    useErrors(errors);
+    const fetchNurses = nursesData?.data?.data?.filter(item =>
+        item?.name?.toLowerCase().includes(searchName.toLowerCase())
+    )
+    const rooms = roomsData?.data?.data || [];
+    const roomsList = rooms?.map((room, index) => ({ value: room._id, label: room.name }));
 
     return (
         <div className={classes.wrapper}>
             <div className={classes.divFlex}>
-                <FormInput
-                    type="text"
+                <FormSelect
                     id="Aroom"
                     name="room"
                     label="Room No."
                     value={formData.room}
+                    defaultValue={formData.room}
                     onChange={handleFormChange}
+                    options={roomsList}
                 />
                 <FormInput
                     type="text"
@@ -163,6 +72,7 @@ function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
                     name="bed"
                     label="Bed No."
                     value={formData.bed}
+                    defaultValue={formData.bed}
                     onChange={handleFormChange}
                 />
             </div>
@@ -230,6 +140,7 @@ function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
                     setSearchName={setSearchName}
                     nurses={nurses}
                     setNurses={setNurses}
+                    fetchNurses={fetchNurses}
                 />
             </ModalComponent>
 
@@ -239,12 +150,13 @@ function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
 
 export { AdmitForm }
 
-function ChooseNurse({
+function ChooseNurse ({
     type = "ADD",
     searchName,
     setSearchName,
     nurses,
     setNurses,
+    fetchNurses
 }) {
     return (
         <div className={classes.chooseWrapper}>
@@ -305,7 +217,6 @@ function ChooseNurse({
                         />
                     ))}
             </div>
-
         </div>
     )
 }

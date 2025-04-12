@@ -7,107 +7,15 @@ import { ModalComponent } from "../ModalComponent";
 import { SmallBoxBarComponent } from "../DoctorNurseComponents/SmallBoxBarComponent";
 import { StrechBarComponent } from "../DoctorNurseComponents/StrechBarComponent";
 
-import classes from "./AppointForm.module.css";
+import { useGetAllDoctorsQuery } from "../../redux/api/api";
+import { useErrors } from '../../hooks/hooks'
 
-const doctors = [
-    {
-        "_id": "6615c6d1e725bfa2c832f7e1",
-        "name": "Dr. Arjun Mehta",
-        "addr": "123 Main Street, Delhi",
-        "spec": "Cardiologist",
-        "inTime": "09:00",
-        "outTime": "17:00",
-        "phoneNumber": "9876543210",
-        "email": "arjun.mehta@example.com",
-        "userName": "dr_arjun_mehta_arjun.mehta",
-        "gender": "Male",
-        "role": "Doctor",
-        "qualification": "MBBS, MD",
-        "DOJ": "2023-07-12T00:00:00.000Z",
-        "active": true,
-        "room": "B-107",
-        "hps": [
-            "6615bbac9d1bce7e27e8f21a"
-        ],
-        "appointments": [
-            "6615c632b45131a67e51d214",
-            "6615c640f99297c6a1c743aa"
-        ]
-    },
-    {
-        "_id": "6615c7a6e5c4bfb8e90cc8f2",
-        "name": "Dr. Sneha Kapoor",
-        "addr": "456 Green Lane, Mumbai",
-        "spec": "Dermatologist",
-        "inTime": "10:00",
-        "outTime": "16:00",
-        "phoneNumber": "9123456789",
-        "email": "sneha.kapoor@example.com",
-        "userName": "dr_sneha_kapoor_sneha.kapoor",
-        "gender": "Female",
-        "role": "Doctor",
-        "qualification": "MBBS, DDVL",
-        "DOJ": "2024-03-01T00:00:00.000Z",
-        "active": true,
-        "room": "6615babc7c728e4b1c1b45a2",
-        "hps": [
-            "6615bbac9d1bce7e27e8f21b",
-            "6615bbac9d1bce7e27e8f21c"
-        ],
-        "appointments": []
-    },
-    {
-        "_id": "6615c7a6e5c4bfb8e90cc8f2",
-        "name": "Dr. Sneha Kapoor",
-        "addr": "456 Green Lane, Mumbai",
-        "spec": "Dermatologist",
-        "inTime": "10:00",
-        "outTime": "16:00",
-        "phoneNumber": "9123456789",
-        "email": "sneha.kapoor@example.com",
-        "userName": "dr_sneha_kapoor_sneha.kapoor",
-        "gender": "Female",
-        "role": "Doctor",
-        "qualification": "MBBS, DDVL",
-        "DOJ": "2024-03-01T00:00:00.000Z",
-        "active": true,
-        "room": "B-103",
-        "hps": [
-            "6615bbac9d1bce7e27e8f21b",
-            "6615bbac9d1bce7e27e8f21c"
-        ],
-        "appointments": []
-    },
-    {
-        "_id": "6615c7a6e5c4bfb8e90cc8f2",
-        "name": "Dr. Sneha Kapoor",
-        "addr": "456 Green Lane, Mumbai",
-        "spec": "Dermatologist",
-        "inTime": "10:00",
-        "outTime": "16:00",
-        "phoneNumber": "9123456789",
-        "email": "sneha.kapoor@example.com",
-        "userName": "dr_sneha_kapoor_sneha.kapoor",
-        "gender": "Female",
-        "role": "Doctor",
-        "qualification": "MBBS, DDVL",
-        "DOJ": "2024-03-01T00:00:00.000Z",
-        "active": true,
-        "room": "6615babc7c728e4b1c1b45a2",
-        "hps": [
-            "6615bbac9d1bce7e27e8f21b",
-            "6615bbac9d1bce7e27e8f21c"
-        ],
-        "appointments": []
-    }
-]
+import classes from "./AppointForm.module.css";
 
 
 function AppointForm({ type = "new", formData, setFormData, handleSubmit }) {
-    const [searchTime, setSearchTime] = useState("");          /* You will know search time from here */
-    const [searchSpec, setSearchSpec] = useState("");          /* You will know search specialisation from here */
-
-    // const [formData, setFormData] = useState({date : "", time : "", doctor : null});
+    const [searchTime, setSearchTime] = useState("");       
+    const [searchSpec, setSearchSpec] = useState("");          
     const [modalState, setModalState] = useState(0);
 
     const handleFormChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -118,11 +26,19 @@ function AppointForm({ type = "new", formData, setFormData, handleSubmit }) {
         setModalState(0);
     }
 
-    console.log(formData);
-    console.log(searchTime, searchSpec);
+    const doctorsData = useGetAllDoctorsQuery();
+    const errors = [{ isError: doctorsData.isError, error: doctorsData.error }]
+    useErrors(errors);
+    let doctors = doctorsData?.data?.data;
+    if(searchTime) doctors = doctors?.filter(item =>
+        searchTime >= item?.inTime && searchTime <= item?.outTime
+    );
+    doctors = doctors?.filter(item =>
+        item?.spec?.toLowerCase().includes(searchSpec.toLowerCase())
+    );
 
     return (
-        <div className={classes.wrapper}>
+        <div className={classes.wrapper }>
             {type === "new" &&
                 <div className={classes.divFlex}>
                     <FormInput
@@ -178,16 +94,16 @@ function AppointForm({ type = "new", formData, setFormData, handleSubmit }) {
                     setSearchSpec={setSearchSpec}
                     formData={formData}
                     setFormData={setFormData}
+                    doctors={doctors}
                 />
             </ModalComponent>
-
         </div>
     );
 }
 
 export { AppointForm }
 
-function ChooseDoctor({
+function ChooseDoctor ({
     type = "ADD",
     searchTime,
     searchSpec,
@@ -195,6 +111,7 @@ function ChooseDoctor({
     setSearchSpec,
     formData,
     setFormData,
+    doctors
 }) {
     return (
         <div className={classes.chooseWrapper}>

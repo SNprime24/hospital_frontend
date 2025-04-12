@@ -410,7 +410,6 @@ async function SubmitForm({ param, formData, dispatch, navigate, setCurrentPage,
 
         if(resData.success) {
             toast.success(resData.message);
-            console.log(resData.user);
             if(param === "login") dispatch(userExists(resData.user));
             if(param === "login") navigate("/app");
             if(param === "verifyEmail") setData(formData);

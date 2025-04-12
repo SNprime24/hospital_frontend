@@ -46,7 +46,7 @@ const api = createApi({
         baseUrl: `${server}/api/v1/`,
         credentials: 'include',
     }),
-    tagTypes: ['Doctor', 'Nurse', 'HS', 'Appointment'],
+    tagTypes: ['Doctor', 'Nurse', 'HS', 'Appointment', 'Patient'],
     endpoints: (builder) => ({
         ...generateCrudEndpoints(builder, 'Doctor'),
         ...generateCrudEndpoints(builder, 'Nurse'),
@@ -55,10 +55,27 @@ const api = createApi({
         ...generateCrudEndpoints(builder, 'Patient'),
         ...generateCrudEndpoints(builder, 'Room'),
         ...generateCrudEndpoints(builder, 'Test'),
-        ...generateCrudEndpoints(builder, 'Treatment'),
         ...generateCrudEndpoints(builder, 'Disease'),
         ...generateCrudEndpoints(builder, 'Appointment'),
         ...generateCrudEndpoints(builder, 'Drug'),
+
+        createAppointment: builder.mutation({
+            query: (data) => ({
+                url: `appointment/new`,
+                method: 'POST',
+                body: data,
+            }),
+            invalidatesTags: ['Appointment', 'Doctor', 'Patient'], 
+        }),
+
+        updateAppointment: builder.mutation({
+            query: (data) => ({
+                url: `appointment/update`,
+                method: 'PUT',
+                body: data,
+            }),
+            invalidatesTags: ['Appointment', 'Doctor', 'Patient'], 
+        }),
 
         getAllVacantRooms: builder.query({
             query: (type) => ({
@@ -106,7 +123,7 @@ const api = createApi({
             query: (phoneNo) => ({
                 url: `patient/${phoneNo}`,
             }),
-            providesTags: ['Patients'],
+            providesTags: ['Patient', 'Appointment', 'Doctor'],
         }),
     }),
 });
@@ -160,12 +177,6 @@ export const {
     useCreateTestMutation,
     useUpdateTestMutation,
     useDeleteTestMutation,
-
-    useGetAllTreatmentsQuery,
-    useGetThisTreatmentQuery,
-    useCreateTreatmentMutation,
-    useUpdateTreatmentMutation,
-    useDeleteTreatmentMutation,
 
     useGetAllDiseasesQuery,
     useGetThisDiseaseQuery,

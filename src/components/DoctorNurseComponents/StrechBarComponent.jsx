@@ -4,9 +4,8 @@ import ProfileImagePlaceholder from "./../../assets/ProfileImagePlaceholderGrey.
 import classes from "./StrechBarComponent.module.css";
 
 function StrechBarComponent({ appointment, handleClick, type = 1, discharged=false, isActive=0}) {
-  console.log(appointment);
   const date = new Date(appointment?.time);
-  const dichargedDate = new Date(appointment?.dischargeTime);
+  const dischargedDate = new Date(appointment?.dischargeTime);
 
   const datePart = date.toLocaleDateString(undefined, {
     month: 'short',
@@ -17,11 +16,11 @@ function StrechBarComponent({ appointment, handleClick, type = 1, discharged=fal
     minute: '2-digit'
   }); 
 
-  const dischargeDatePart = dichargedDate.toLocaleDateString(undefined, {
+  const dischargeDatePart = dischargedDate.toLocaleDateString(undefined, {
     month: 'short',
     day: 'numeric'
   });
-  const dischargeTimePart = dichargedDate.toLocaleTimeString(undefined, {
+  const dischargeTimePart = dischargedDate.toLocaleTimeString(undefined, {
     hour: '2-digit',
     minute: '2-digit'
   }); 
@@ -59,8 +58,8 @@ function StrechBarComponent({ appointment, handleClick, type = 1, discharged=fal
           <span><div>Status - </div><pre> </pre>{appointment?.status}</span>
           {appointment?.status==="InProgress" && 
             <>
-              <span><div>Room no -  </div><pre> </pre>{appointment?.room}</span>
-              <span><div>Bed no - </div><pre> </pre>{appointment?.bed?.name}</span>
+              <span><div>Room no -  </div><pre> </pre>{appointment?.room?.name}</span>
+              <span><div>Bed no - </div><pre> </pre>{appointment?.room?.bed?.name}</span>
             </>
           }
         </div>}

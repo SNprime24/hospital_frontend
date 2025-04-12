@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePen, faUserDoctor, faUserNurse, faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -11,9 +12,11 @@ import { StrechBarComponent } from '../components/DoctorNurseComponents/StrechBa
 import classes from "./FDOMainPage.module.css";
 import { useGetAllCurrentDoctorsQuery, useGetAllCurrentNursesQuery, useGetAllCurrentAppointmentsQuery } from '../redux/api/api';
 import { useErrors } from '../hooks/hooks';
+import { useNavigate } from 'react-router-dom';
 
 
 function FDOMainPage() {
+    const navigate = useNavigate();
     const [searchNumber, setSearchNumber] = useState("");
     const [selectedPage, setSelectedPage] = useState(1);
     const [searchText, setSearchText] = useState("");
@@ -46,7 +49,7 @@ function FDOMainPage() {
     );
     // console.log(doctors);
     // console.log(nurses);
-    // console.log(appointments);
+    console.log(appointments);
 
     return (
         <div className={classes.mainWrapper}>
@@ -108,27 +111,39 @@ function FDOMainPage() {
                     <div className={`${classes.contentPage} ${classes.firstPage}`}>
                         {appointments && appointments
                             ?.map((appointment) => (
-                                <StrechBarComponent key={appointment._id} discharged={false} appointment={appointment} type={2} />
+                                <StrechBarComponent 
+                                    key={uuidv4()} 
+                                    discharged={false} 
+                                    appointment={appointment} 
+                                    type={2} 
+                                    handleClick={() => {
+                                        navigate(`patient/${appointment.patient._id}`, {
+                                            state: { 
+                                                appointmentID: appointment._id,
+                                                patient: appointment.patient
+                                            }
+                                        });
+                                    }}
+                                />
                             ))
                         }
                     </div>
                     <div className={`${classes.contentPage} ${classes.secondPage}`}>
                         {doctors && doctors
                             ?.map((doctor) => (
-                                <SmallBoxBarComponent user={doctor} />
+                                <SmallBoxBarComponent key={uuidv4()} user={doctor} />
                             ))
                         }
                     </div>
                     <div className={`${classes.contentPage} ${classes.thirdPage}`}>
                         {nurses && nurses
                             ?.map((nurse) => (
-                                <SmallBoxBarComponent user={nurse} />
+                                <SmallBoxBarComponent key={uuidv4()} user={nurse} />
                             ))
                         }
                     </div>
                 </div>
-
-            </div>
+            </div> 
 
             <ModalComponent
                 modalState={modalState}

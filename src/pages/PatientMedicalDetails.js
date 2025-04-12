@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,49 +12,66 @@ import { TestForm } from "../components/PatientForms/TestForm";
 import classes from "./PatientMedicalDetails.module.css";
 import { FormTextArea } from "../components/DEOComponents/FormInput";
 import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useCreateAppointmentMutation, useUpdateAppointmentMutation } from "../redux/api/api";
+import { useAsyncMutation, useCreateMutation } from "../hooks/hooks";
 
 
-function PatientMedicalDetails({ appointment, type = "edit" }) {
-  console.log(appointment);
+function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, handleDischarge }) {
   const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
   const params = useParams();
-  const location = useLocation();
-  console.log(location.state);
-  const patientId = params.patientId;
+  const patientID = params.patientID;
+
+  const [createAppointment] = useCreateMutation(useCreateAppointmentMutation);
+  const [updateAppointment] = useAsyncMutation(useUpdateAppointmentMutation);
 
   // appoint logic
   const [appointEdit, setAppointEdit] = useState(0);
-  const [newAppointdata,setNewAppointData] = useState({ date : "", time : "", doctor : null });
-  const handleAppointSubmit = () => {
+  const [newAppointData, setNewAppointData] = useState({ date: "", time: "", doctor: appointment.doctor || null });
+  const handleAppointSubmit = async () => {
     setAppointEdit(0)
-        
+    const dateTime = new Date(`${newAppointData.date}T${newAppointData.time}`);
+    const time = dateTime.toISOString();
+    const formData = { time, patient: patientID, doctor: newAppointData.doctor._id }
+    createAppointment("Creating new appointment...", formData);
+    setNewAppoint(false);
+    navigate('/');
   }
 
   //admission logic
   const [admitEdit, setAdmitEdit] = useState(0);
-  const [newAdmitData ,setNewAdmitData] = useState({room : "", bed : "", nurses : []});
-  const handleAdmitSubmit = () =>{
+  const [newAdmitData, setNewAdmitData] = useState({ 
+    room: appointment.room.name || "", 
+    bed: appointment.room.bed.name || "", 
+    nurses: appointment.nurse || [] 
+  });
+  const handleAdmitSubmit = () => {
     setAdmitEdit(0);
-    alert("Admit Form Submitted");
+    const admitData = {
+      room: newAdmitData.room, bed: newAdmitData.bed, nurse: newAdmitData.nurses
+    };
+    admitData.nurse = admitData.nurse.map(n => n._id);
+    const formData = { id: appointment._id, ...admitData };
+    updateAppointment("Updating current appointment...", formData);
   }
-  console.log(newAdmitData);
 
   //examination logic
   const [examEdit, setExamEdit] = useState(0);
-  const [newExamData ,setNewExamData] = useState({disease : [], hps : []});
-  const handleExamSubmit = () =>{
+  const [newExamData, setNewExamData] = useState({ disease: [], hps: [] });
+  const handleExamSubmit = () => {
     setExamEdit(0);
-    alert("Examination Form Submitted");
+    const formData = { id: appointment._id, ...newExamData };
+    updateAppointment("Updating current appointment...", formData);
   }
   console.log(newAdmitData);
 
   //prescription logic
   const [presEdit, setPresEdit] = useState(0);
   const [newPresData, setNewPresData] = useState([
-    {drug : null, dosage : ""}
+    { drug: null, dosage: "" }
   ]);
-  const handlePresSubmit = () =>{
+  const handlePresSubmit = () => {
     setPresEdit(0);
     alert("Prescription Form Submitted");
   }
@@ -62,25 +79,25 @@ function PatientMedicalDetails({ appointment, type = "edit" }) {
   //Test logic
   const [testEdit, setTestEdit] = useState(0);
   const [newTestData, setNewTestData] = useState([
-    {test : null, remark : ""}
+    { test: null, remark: "" }
   ]);
-  const handleTestSubmit = () =>{
+  const handleTestSubmit = () => {
     setTestEdit(0);
     alert("Test Form Submitted");
   }
 
   // const appointment = {}
 
-  if(type==="new"){
-    return(
-        <div className={classes.wrapper}>
-          <h2>NEW APPOINTMENT</h2>
-          <AppointForm
-            formData = {newAppointdata}
-            setFormData = {setNewAppointData}
-            handleSubmit = {handleAppointSubmit}
-          />
-        </div>
+  if (type === "new") {
+    return (
+      <div className={classes.wrapper}>
+        <h2>NEW APPOINTMENT</h2>
+        <AppointForm
+          formData={newAppointData}
+          setFormData={setNewAppointData}
+          handleSubmit={handleAppointSubmit}
+        />
+      </div>
     );
   }
 
@@ -89,59 +106,55 @@ function PatientMedicalDetails({ appointment, type = "edit" }) {
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>APPOINT</h3>
-          <button 
-            className={classes.smallButton} 
+          <button
+            className={classes.smallButton}
             title="Edit Appointment"
-            onClick = {()=>setAppointEdit((prev)=>prev^1)}
-          > 
-              <FontAwesomeIcon icon ={faPen}/> 
+            onClick={() => setAppointEdit((prev) => prev ^ 1)}
+          >
+            <FontAwesomeIcon icon={faPen} />
           </button>
         </div>
         <hr />
 
-        {appointEdit===0 &&
+        {appointEdit === 0 &&
           <>
             {console.log(appointment?.time)}
-            <div>APPOINTMENT TIME : {new Date(appointment?.time).toLocaleString()}</div><br/ >
+            <div>APPOINTMENT TIME : {new Date(appointment?.time).toLocaleString()}</div><br />
             <div>
               <h5>DOCTOR : </h5>
-              {appointment.doctor!==undefined && <StrechBarComponent appointment={appointment?.doctor} type={3} />}
+              {appointment.doctor !== undefined && <StrechBarComponent appointment={appointment?.doctor} type={3} />}
             </div>
-            {user.role === "FDO" && <button> DISCHARGE </button>}
+            {user.role === "FDO" && <button onClick={handleDischarge}> DISCHARGE </button>}
           </>
         }
 
-        {appointEdit===1 && 
+        {appointEdit === 1 &&
           <AppointForm
-            formData = {newAppointdata}
-            setFormData = {setNewAppointData}
-            handleSubmit = {handleAppointSubmit}
-            type = "edit"
+            formData={newAppointData}
+            setFormData={setNewAppointData}
+            handleSubmit={handleAppointSubmit}
+            type="edit"
           />
         }
-
       </div>
-
-
 
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>ADMISSION</h3>
-          <button 
-            className={classes.smallButton} 
+          <button
+            className={classes.smallButton}
             title="Edit Admission Form"
-            onClick = {()=>setAdmitEdit((prev)=>prev^1)}
-          > 
-              <FontAwesomeIcon icon ={faPen}/> 
+            onClick={() => setAdmitEdit((prev) => prev ^ 1)}
+          >
+            <FontAwesomeIcon icon={faPen} />
           </button>
         </div>
         <hr />
-        
-        {admitEdit===0 &&
+
+        {admitEdit === 0 &&
           <>
             <div className={classes.divFlex}>
               <div>
-                <h5>ROOM No. </h5> {appointment?.room?.name}
                 <h5>ROOM No. </h5> {appointment?.room?.name}
               </div>
               <div>
@@ -158,50 +171,49 @@ function PatientMedicalDetails({ appointment, type = "edit" }) {
           </>
         }
 
-        {admitEdit===1 && 
+        {admitEdit === 1 &&
           <AdmitForm
-            formData = {newAdmitData}
-            setFormData = {setNewAdmitData}
-            handleSubmit = {handleAdmitSubmit}
-            type = "edit"
+            formData={newAdmitData}
+            setFormData={setNewAdmitData}
+            handleSubmit={handleAdmitSubmit}
+            type="edit"
           />
         }
       </div>
 
-
-
-
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>EXAMINATION</h3>
-          <button 
-            className={classes.smallButton} 
+          <button
+            className={classes.smallButton}
             title="Edit Admission Form"
-            onClick = {()=>setExamEdit((prev)=>prev^1)}
-          > 
-              <FontAwesomeIcon icon ={faPen}/> 
+            onClick={() => setExamEdit((prev) => prev ^ 1)}
+          >
+            <FontAwesomeIcon icon={faPen} />
           </button>
         </div>
         <hr />
-        {examEdit===0 && <>
-            <div>
-              <h2>DISEASE : </h2>
-              {appointment?.disease?.map((val, _) => val.name).join(", ")}
-            </div>
-            <div>
-              <h5>HOSPITAL PROFESSIONALS : </h5>
-              {appointment?.hps?.map((val, _) => (
-                <StrechBarComponent appointment={val} type={5} />
-              ))}
-            </div>
-          </>
+
+        {examEdit === 0 && <>
+          <div>
+            <h2>DISEASE : </h2>
+            {appointment?.disease?.map((val, _) => val.name).join(", ")}
+          </div>
+          <div>
+            <h5>HOSPITAL PROFESSIONALS : </h5>
+            {appointment?.hps?.map((val, _) => (
+              <StrechBarComponent appointment={val} type={5} />
+            ))}
+          </div>
+        </>
         }
-        {examEdit===1 && 
+
+        {examEdit === 1 &&
           <ExaminationForm
-            formData = {newExamData}
-            setFormData = {setNewExamData}
-            handleSubmit = {handleExamSubmit}
-            type = "edit"
+            formData={newExamData}
+            setFormData={setNewExamData}
+            handleSubmit={handleExamSubmit}
+            type="edit"
           />
         }
       </div>
@@ -211,42 +223,42 @@ function PatientMedicalDetails({ appointment, type = "edit" }) {
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>TESTS</h3>
-          <button 
-            className={classes.smallButton} 
+          <button
+            className={classes.smallButton}
             title="Edit Tests Form"
-            onClick = {()=>setTestEdit((prev)=>prev^1)}
-          > 
-            <FontAwesomeIcon icon = {faPen}/> 
+            onClick={() => setTestEdit((prev) => prev ^ 1)}
+          >
+            <FontAwesomeIcon icon={faPen} />
           </button>
         </div>
         <hr />
 
-        {testEdit===0 && <>
-            <div>
-              {appointment?.tests?.map((test, _) => {
-                return(
-                  <>
-                    <h2>{test.test.name}</h2>
-                    <div className={classes.testInfo}>
-                      <span>{test.test.doctor.name}</span>
-                      <span>{test.test.room.name}</span>
-                    </div>
-                    <p>
-                      {test.remark}
-                    </p>
-                  </>
-                );
-              })}
-            </div>
-          </>
+        {testEdit === 0 && <>
+          <div>
+            {appointment?.tests?.map((test, _) => {
+              return (
+                <>
+                  <h2>{test.test.name}</h2>
+                  <div className={classes.testInfo}>
+                    <span>{test.test.doctor.name}</span>
+                    <span>{test.test.room.name}</span>
+                  </div>
+                  <p>
+                    {test.remark}
+                  </p>
+                </>
+              );
+            })}
+          </div>
+        </>
         }
 
-        {testEdit===1 && 
+        {testEdit === 1 &&
           <TestForm
-            formData = {newTestData}
-            setFormData = {setNewTestData}
-            handleSubmit = {handleTestSubmit}
-            type = "edit"
+            formData={newTestData}
+            setFormData={setNewTestData}
+            handleSubmit={handleTestSubmit}
+            type="edit"
           />
         }
       </div>
@@ -256,38 +268,38 @@ function PatientMedicalDetails({ appointment, type = "edit" }) {
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>PRESCRIPTION</h3>
-          <button 
-            className={classes.smallButton} 
+          <button
+            className={classes.smallButton}
             title="Edit Prescription Form"
-            onClick = {()=>setPresEdit((prev)=>prev^1)}
-          > 
-            <FontAwesomeIcon icon ={faPen}/> 
+            onClick={() => setPresEdit((prev) => prev ^ 1)}
+          >
+            <FontAwesomeIcon icon={faPen} />
           </button>
         </div>
         <hr />
 
-        {presEdit===0 && <>
-            <div>
-              {appointment?.drugs?.map((drug, _) => {
-                return(
-                  <>
-                    <h4>{drug.drug.name}</h4>
-                    <p>
-                      {drug.dosage}
-                    </p>
-                  </>
-                );
-              })}
-            </div>
-          </>
+        {presEdit === 0 && <>
+          <div>
+            {appointment?.drugs?.map((drug, _) => {
+              return (
+                <>
+                  <h4>{drug.drug.name}</h4>
+                  <p>
+                    {drug.dosage}
+                  </p>
+                </>
+              );
+            })}
+          </div>
+        </>
         }
 
-        {presEdit===1 && 
+        {presEdit === 1 &&
           <PrescriptionForm
-            formData = {newPresData}
-            setFormData = {setNewPresData}
-            handleSubmit = {handlePresSubmit}
-            type = "edit"
+            formData={newPresData}
+            setFormData={setNewPresData}
+            handleSubmit={handlePresSubmit}
+            type="edit"
           />
         }
       </div>
@@ -295,18 +307,18 @@ function PatientMedicalDetails({ appointment, type = "edit" }) {
       <div className={classes.wrapperForm}>
         <h3>REMARKS</h3>
         <hr />
-        {(user.role==="Doctor" && {/*(user._id===appointment.doctor._id)*/}) && 
+        {(user.role === "Doctor" && {/*(user._id===appointment.doctor._id)*/ }) &&
           <>
             <h5>TODAY's REMARK ({new Date().toLocaleDateString()})</h5>
-            <FormTextArea/>
+            <FormTextArea />
             <button>SUBMIT</button>
           </>
         }
-        {appointment?.remarks?.map((val,_)=>(
+        {appointment?.remarks?.map((val, _) => (
           <>
             <h5>{val.remarkTime}</h5>
             <span>{val.remarkUser}({val.remarkUserRole})</span>
-            <p>{val.remarkMsg}</p> 
+            <p>{val.remarkMsg}</p>
           </>
         ))}
       </div>

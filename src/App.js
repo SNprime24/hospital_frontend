@@ -26,7 +26,6 @@ import EntityForm from './pages/EntityForm';
 function App() {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  console.log(user);
 
   useEffect(() =>{
     axios
@@ -87,7 +86,6 @@ function App() {
 
   return (
     <>
-      {console.log(user)}
       <RouterProvider router = {router} />
       <Toaster position = 'bottom-center' />
     </>
