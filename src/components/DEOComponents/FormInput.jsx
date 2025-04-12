@@ -44,7 +44,7 @@ const FormSelect = ({label, value, options, onChange, id, name, defaultValue, ..
         {...props}
       >
         <option value= "" hidden>{defaultValue}</option>
-        {options.map((opt, index)=>(
+        {options?.map((opt, index)=>(
           <option key={index} value={opt.value}>
             {opt.label}
           </option>

@@ -8,62 +8,8 @@ import { StrechBarComponent } from "../DoctorNurseComponents/StrechBarComponent"
 
 import classes from "./AppointForm.module.css";
 import examClasses from "./ExaminationForm.module.css";
-
-
-const fetchHP = [
-    {
-        _id: "6617c1f6e9a5f19b3c1a0001",
-        name: "Dr. Ayesha Sharma",
-        addr: "123 Medical Lane, Delhi",
-        phoneNumber: "9876543210",
-        email: "ayesha.sharma@example.com",
-        password: "securePass1",
-        gender: "Female",
-        uni: "AIIMS Delhi",
-        degree: "MBBS",
-        supervisedBy: [],
-        appointments: []
-    },
-    {
-        _id: "6617c1f6e9a5f19b3c1a0002",
-        name: "Dr. Rohan Mehta",
-        addr: "456 Wellness Avenue, Mumbai",
-        phoneNumber: "9811122233",
-        email: "rohan.mehta@example.com",
-        password: "strongPass2",
-        gender: "Male",
-        uni: "Grant Medical College",
-        degree: "MD",
-        supervisedBy: [],
-        appointments: []
-    },
-    {
-        _id: "6617c1f6e9a5f19b3c1a0003",
-        name: "Dr. Neha Patel",
-        addr: "78 Cure Street, Ahmedabad",
-        phoneNumber: "9008899776",
-        email: "neha.patel@example.com",
-        password: "neha12345",
-        gender: "Female",
-        uni: "BJ Medical College",
-        degree: "MBBS",
-        supervisedBy: [],
-        appointments: []
-    },
-    {
-        _id: "6617c1f6e9a5f19b3c1a0004",
-        name: "Dr. Ankit Verma",
-        addr: "12 Health Plaza, Lucknow",
-        phoneNumber: "8123456789",
-        email: "ankit.verma@example.com",
-        password: "ankitSecure99",
-        gender: "Male",
-        uni: "King George Medical University",
-        degree: "MS",
-        supervisedBy: [],
-        appointments: []
-    }
-];
+import { useGetAllDiseasesQuery, useGetAllHPsQuery } from "../../redux/api/api";
+import { useErrors } from "../../hooks/hooks";
 
 
 const fetchDisease = [
@@ -114,35 +60,39 @@ const fetchDisease = [
     }
 ];
 
-
-
-
-//   formData, setFormData
 function ExaminationForm({ type = "new", formData, setFormData, handleSubmit }) {
-    const [searchName, setSearchName] = useState(""); {/* You will know search name from here */ }
-
-    // const [formData, setFormData] = useState({diseases : [], hps : []});
     const [modalState, setModalState] = useState(0);
+    const [searchName, setSearchName] = useState(""); 
 
     const handleCloseModal = () => {
         setSearchName("");
         setModalState(0);
     }
 
-    const diseaseOptions = fetchDisease.map(disease => ({
-        label: disease.name,
-        value: disease._id,
-    }))
+    const hpsData = useGetAllHPsQuery();
+    const diseasesData = useGetAllDiseasesQuery();
+    const errors = [
+        { isError: hpsData.isError, error: hpsData.error },
+        { isError: diseasesData.isError, error: diseasesData.error },
+    ];
+    useErrors(errors);
+    const fetchHP = hpsData?.data?.data;
+    const diseases = diseasesData?.data?.data || [];
+    const diseaseOptions = diseases?.map((disease, index) => ({ value: disease._id, label: disease.name }));
 
     const handleSelectDiseases = (e) => {
         const selected = e.target.value;
         if (!selected) return;
-
+    
+        const disease = fetchDisease.find(d => d._id === selected);
+        if (!disease) return;
+    
         setFormData(prev => {
-            if (prev.diseases.includes(selected)) return prev;
-            return { ...prev, diseases: [...prev.diseases, fetchDisease.find((disease) => disease._id === selected)] };
+            const existingDiseases = prev.diseases || [];
+            if (existingDiseases.some(d => d._id === selected)) return prev;
+            return { ...prev, diseases: [...existingDiseases, disease] };
         });
-    };
+    };    
 
     console.log("formData", formData);
     console.log(searchName);
@@ -151,7 +101,7 @@ function ExaminationForm({ type = "new", formData, setFormData, handleSubmit }) 
         <div className={classes.wrapper}>
             <h5>DISEASES : </h5>
             <div className={classes.tagContainer}>
-                {formData.diseases.map((disease, index) => (
+                {formData?.diseases?.map((disease, index) => (
                     <div key={index} className={classes.diseaseTag}>
                         {disease.name}
                         <button
@@ -225,6 +175,7 @@ function ExaminationForm({ type = "new", formData, setFormData, handleSubmit }) 
                     setSearchName={setSearchName}
                     formData={formData}
                     setFormData={setFormData}
+                    fetchHP={fetchHP}
                 />
             </ModalComponent>
 
@@ -234,12 +185,13 @@ function ExaminationForm({ type = "new", formData, setFormData, handleSubmit }) 
 
 export { ExaminationForm }
 
-function ChooseHPS({
+function ChooseHPS ({
     type = "ADD",
     searchName,
     setSearchName,
     formData,
     setFormData,
+    fetchHP
 }) {
     const handleSelectHP = (selectedHP) => {
         setFormData((prev) => {

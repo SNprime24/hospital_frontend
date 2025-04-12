@@ -58,7 +58,10 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
 
   //examination logic
   const [examEdit, setExamEdit] = useState(0);
-  const [newExamData, setNewExamData] = useState({ disease: [], hps: [] });
+  const [newExamData, setNewExamData] = useState({ 
+    disease: appointment.disease || [], 
+    hps: appointment.hps || [] 
+  });
   const handleExamSubmit = () => {
     setExamEdit(0);
     const formData = { id: appointment._id, ...newExamData };
@@ -66,24 +69,22 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
   }
   console.log(newAdmitData);
 
-  //prescription logic
-  const [presEdit, setPresEdit] = useState(0);
-  const [newPresData, setNewPresData] = useState([
-    { drug: null, dosage: "" }
-  ]);
-  const handlePresSubmit = () => {
-    setPresEdit(0);
-    alert("Prescription Form Submitted");
-  }
-
   //Test logic
   const [testEdit, setTestEdit] = useState(0);
-  const [newTestData, setNewTestData] = useState([
-    { test: null, remark: "" }
-  ]);
+  const [newTestData, setNewTestData] = useState(appointment.tests || [ { test: null, remark: "" } ]);
   const handleTestSubmit = () => {
     setTestEdit(0);
-    alert("Test Form Submitted");
+    const formData = { id: appointment._id, tests: newTestData};
+    updateAppointment("Updating current appointment...", formData);
+  }
+
+  //prescription logic
+  const [presEdit, setPresEdit] = useState(0);
+  const [newPresData, setNewPresData] = useState(appointment.drugs || [{ drug: null, dosage: "" }]);
+  const handlePresSubmit = () => {
+    setPresEdit(0);
+    const formData = { id: appointment._id, drugs: newPresData };
+    updateAppointment("Updating current appointment...", formData);
   }
 
   // const appointment = {}
@@ -262,8 +263,6 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
           />
         }
       </div>
-
-
 
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>

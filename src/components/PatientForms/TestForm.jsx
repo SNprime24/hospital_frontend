@@ -6,6 +6,8 @@ import { FormInput, FormSelect } from "../DEOComponents/FormInput";
 
 import classes from "./AppointForm.module.css";
 import presClasses from "./PrescriptionForm.module.css";
+import { useGetAllTestsQuery } from "../../redux/api/api";
+import { useErrors } from "../../hooks/hooks";
 
 
 const fetchTests = [
@@ -49,14 +51,11 @@ const fetchTests = [
 
 
 
-
-
-// formData, setFormData,
 function TestForm({ type = "new", formData, setFormData, handleSubmit }) {
-    // const [formData, setFormData] = useState([
-    //     {test : null, remark : ""}
-    // ]);
-
+    const testsData = useGetAllTestsQuery();
+    const errors = [{ isError: testsData.isError, error: testsData.error }];
+    useErrors(errors);
+    const fetchTests = testsData?.data?.data;
     const testsOptions = fetchTests.map(test => ({
         label: `${test.name} (${test.room.name})`,
         value: test._id,
