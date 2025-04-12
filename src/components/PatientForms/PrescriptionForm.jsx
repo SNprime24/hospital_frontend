@@ -56,7 +56,7 @@ function PrescriptionForm({ type = "new", formData, setFormData, handleSubmit })
                         value={entry.drug}
                         onChange={(e) => handleFieldChange(index, "drug", e.target.value)}
                         options={drugsOptions}
-                        defaultValue="Choose Medicine"
+                        defaultValue={entry?.drug?.name || "Choose Medicine"}
                     />
                     <FormInput
                         type="text"

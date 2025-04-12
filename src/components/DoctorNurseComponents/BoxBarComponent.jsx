@@ -2,7 +2,7 @@ import React from "react";
 
 import classes from "./BoxBarComponent.module.css";
 
-function BoxBarComponent({ appointment }) {
+function BoxBarComponent({ appointment, handleClick }) {
   // console.log(appointment);
   const date = new Date();
   const hours = date.getHours();
@@ -22,7 +22,12 @@ function BoxBarComponent({ appointment }) {
   const nurseInfo = appointment?.nurse?.find((val) => val.shift === timeOfDay);
 
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrapper}
+      onClick={(e)=>{
+        e.stopPropagation();
+        handleClick()
+      }}
+    >
       <div className={classes.sketch}>
         <div className={classes.sketchGeneral}>
           <div className={classes.generalProfileImage} title="Profile Image">

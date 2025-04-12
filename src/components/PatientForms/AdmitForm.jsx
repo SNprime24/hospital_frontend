@@ -42,7 +42,7 @@ function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
     }
 
     const nursesData = useGetAllNursesQuery();
-    const roomsData = useGetAllVacantRoomsQuery("Test Room");
+    const roomsData = useGetAllVacantRoomsQuery("General Ward");
     const errors = [
         { isError: nursesData.isError, error: nursesData.error },
         { isError: roomsData.isError, error: roomsData.error },

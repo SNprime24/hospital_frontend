@@ -65,7 +65,7 @@ export default function SubRootLayout() {
     }
 
     const handleDischarge = () => {
-        const formData = { id: id, status: "Completed" }
+        const formData = { id: id, dischargeTime: Date.now, status: "Completed" }
         updateAppointment("Updating appointment...", formData);
         navigate('/');
     }

@@ -10,9 +10,11 @@ import classes from "./DoctorMainPage.module.css";
 
 import { useErrors } from '../hooks/hooks'
 import { useGetAppointmentsQuery, useGetCurrentAppointmentsQuery } from '../redux/api/api';
+import { useNavigate } from 'react-router-dom';
 
 
 function DoctorMainPage() {
+    const navigate = useNavigate();
     const { user } = useSelector((state) => state.auth);
     const [selectedPage, setSelectedPage] = useState(1);
     const [searchText, setSearchText] = useState("");
@@ -40,6 +42,9 @@ function DoctorMainPage() {
     const currentAppointments = currentAppointmentsData?.data?.appointments?.filter(item =>
         item?.patient?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
+
+    console.log(appointments);
+    console.log(currentAppointments);
 
     return (
         <div className={classes.mainWrapper}>
@@ -97,14 +102,37 @@ function DoctorMainPage() {
                         {appointments && appointments
                             ?.filter(appointment => appointment?.status === "Scheduled")
                             ?.map((appointment) => (
-                                <StrechBarComponent key={appointment._id} discharged={false} appointment={appointment} />
+                                <StrechBarComponent 
+                                    key={appointment._id} 
+                                    discharged={false} 
+                                    appointment={appointment}
+                                    handleClick={() => {
+                                        navigate(`patient/${appointment.patient._id}`, {
+                                            state: { 
+                                                appointmentID: appointment._id,
+                                                patient: appointment.patient
+                                            }
+                                        });
+                                    }}
+                                />
                             ))
                         }
                     </div>
                     <div className={`${classes.contentPage} ${classes.secondPage}`}>
                         {currentAppointments && currentAppointments
                             ?.map((appointment) => (
-                                <BoxBarComponent key={appointment._id} appointment={appointment} />
+                                <BoxBarComponent 
+                                    key={appointment._id} 
+                                    appointment={appointment}
+                                    handleClick={() => {
+                                        navigate(`patient/${appointment.patient._id}`, {
+                                            state: { 
+                                                appointmentID: appointment._id,
+                                                patient: appointment.patient
+                                            }
+                                        });
+                                    }}
+                                />
                             ))
                         }
                     </div>
@@ -112,7 +140,19 @@ function DoctorMainPage() {
                         {appointments && appointments
                             ?.filter(appointment => appointment?.status === "Completed")
                             ?.map((appointment) => (
-                                <StrechBarComponent key={appointment._id} discharged={true} appointment={appointment} />
+                                <StrechBarComponent 
+                                    key={appointment._id} 
+                                    discharged={true} 
+                                    appointment={appointment} 
+                                    handleClick={() => {
+                                        navigate(`patient/${appointment.patient._id}`, {
+                                            state: { 
+                                                appointmentID: appointment._id,
+                                                patient: appointment.patient
+                                            }
+                                        });
+                                    }}
+                                />
                             ))
                         }
                     </div>

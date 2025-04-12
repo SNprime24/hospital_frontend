@@ -8,57 +8,19 @@ import classes from "./AppointForm.module.css";
 import presClasses from "./PrescriptionForm.module.css";
 import { useGetAllTestsQuery } from "../../redux/api/api";
 import { useErrors } from "../../hooks/hooks";
-
-
-const fetchTests = [
-    {
-        _id: "661abc1234ef567890abcdef",
-        name: "Blood Test",
-        equip: "Syringe, Test Tubes",
-        active: true,
-        room: {
-            _id: "660aaa1111aaa1111aaa1111",
-            name: "Lab Room 1"
-        },
-        doctor: "660bbb2222bbb2222bbb2222",
-        nurse: "660ccc3333ccc3333ccc3333"
-    },
-    {
-        _id: "661abc1234ef567890abcdea",
-        name: "X-Ray",
-        equip: "X-Ray Machine",
-        active: true,
-        room: {
-            _id: "660aaa1111aaa1111aaa1112",
-            name: "Radiology Room"
-        },
-        doctor: "660bbb2222bbb2222bbb2223",
-        nurse: "660ccc3333ccc3333ccc3334"
-    },
-    {
-        _id: "661abc1234ef567890abcdeb",
-        name: "MRI",
-        equip: "MRI Scanner",
-        active: false,
-        room: {
-            _id: "660aaa1111aaa1111aaa1113",
-            name: "MRI Chamber"
-        },
-        doctor: "660bbb2222bbb2222bbb2224",
-        nurse: "660ccc3333ccc3333ccc3335"
-    }
-];
-
+import { useSelector } from "react-redux";
 
 
 function TestForm({ type = "new", formData, setFormData, handleSubmit }) {
+    const { user } = useSelector((state) => state.auth);
+
     const testsData = useGetAllTestsQuery();
     const errors = [{ isError: testsData.isError, error: testsData.error }];
     useErrors(errors);
     const fetchTests = testsData?.data?.data;
-    const testsOptions = fetchTests.map(test => ({
-        label: `${test.name} (${test.room.name})`,
-        value: test._id,
+    const testsOptions = fetchTests?.map(test => ({
+        label: `${test.name} (${test?.room?.name})`,
+        value: test._id, 
     }))
 
     const handleFieldChange = (index, field, value) => {
@@ -78,8 +40,17 @@ function TestForm({ type = "new", formData, setFormData, handleSubmit }) {
     }
 
     const onSubmit = () => {
-        const validDrugs = formData.filter(data => data.test || data.remark);
-        setFormData(validDrugs);
+        const validTests = formData
+            .filter(data => data.test || data.remark)
+            .map(data => {
+                const fullTest = fetchTests?.find(test => test._id === data.test);
+                return {
+                    test: fullTest || data.test,
+                    remark: data.remark
+                };
+            });
+
+        setFormData(validTests);
         handleSubmit();
     }
 
@@ -98,7 +69,7 @@ function TestForm({ type = "new", formData, setFormData, handleSubmit }) {
                             value={entry.test}
                             onChange={(e) => handleFieldChange(index, "test", e.target.value)}
                             options={testsOptions}
-                            defaultValue="Choose Test"
+                            defaultValue={entry?.test?.name || "Choose Test"}
                         />
                         <button
                             className={`${classes.chooseInput} ${presClasses.rmvBtn}`}
@@ -107,14 +78,17 @@ function TestForm({ type = "new", formData, setFormData, handleSubmit }) {
                             <FontAwesomeIcon icon={faXmark} />
                         </button>
                     </div>
-                    <FormInput
-                        type="text"
-                        id={`Remark-${index}`}
-                        name={`remark-${index}`}
-                        label="Remark"
-                        value={entry.remark}
-                        onChange={(e) => handleFieldChange(index, "remark", e.target.value)}
-                    />
+                    {console.log("testing",user._id, entry)}
+                    {(user?._id === entry?.test?.doctor || user?._id === entry?.test?.nurse) && 
+                        <FormInput
+                            type="text"
+                            id={`Remark-${index}`}
+                            name={`remark-${index}`}
+                            label="Remark"
+                            value={entry.remark}
+                            onChange={(e) => handleFieldChange(index, "remark", e.target.value)}
+                        />
+                    }
                 </>
             ))}
 

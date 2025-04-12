@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNotesMedical, faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +13,8 @@ import { useGetCurrentAppointmentsQuery } from '../redux/api/api'
 
 
 function NurseMainPage() {
+  const navigate = useNavigate();
+
   const { user } = useSelector((state) => state.auth);
   const [selectedPage, setSelectedPage] = useState(1);
   const [searchText, setSearchText] = useState("");
@@ -69,7 +72,18 @@ function NurseMainPage() {
 
             {currentAppointments && currentAppointments
               ?.map((appointment) => (
-                <BoxBarComponent key={appointment._id} appointment={appointment} />
+                <BoxBarComponent
+                  key={appointment._id}
+                  appointment={appointment}
+                  handleClick={() => {
+                    navigate(`patient/${appointment.patient._id}`, {
+                      state: {
+                        appointmentID: appointment._id,
+                        patient: appointment.patient
+                      }
+                    });
+                  }}
+                />
               ))
             }
           </div>

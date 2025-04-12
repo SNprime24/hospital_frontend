@@ -83,6 +83,7 @@ function DoctorSideBarComponent({ user }) {
                     <FontAwesomeIcon icon={faSuitcaseMedical} />
                 </button>
             </div>
+            {console.log(user)}
 
             <div className={classes.sideMainContent}>
                 <div className={`${classes.sideContentWrapper} ${selectedPage === 1 ? classes.one : selectedPage === 2 ? classes.two : classes.three}`}>
@@ -160,6 +161,7 @@ function NurseSideBarComponent({ user }) {
                     <FontAwesomeIcon icon={faFlaskVial} />
                 </button>
             </div>
+            {console.log(user)}
 
             <div className={classes.sideMainContent}>
                 <div className={`${classes.sideContentWrapper} ${selectedPage === 1 ? classes.one : selectedPage === 2 ? classes.two : classes.three}`}>
@@ -172,10 +174,10 @@ function NurseSideBarComponent({ user }) {
                         <h3>TESTS SUPERVISION</h3>
                         <hr />
                         <div className={classes.profileCardTest}>
-                            {user.test?.map((test, index) => (
-                                <div>
-                                    <span>{test.name}</span>
-                                    <p>{test.room}</p>
+                            {user.tests?.map((test, index) => (
+                                <div key={index}>
+                                    <span>{test?.name}</span>
+                                    <p>{test?.room?.name}</p>
                                 </div>
                             ))}
                         </div>

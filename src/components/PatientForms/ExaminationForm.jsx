@@ -77,22 +77,18 @@ function ExaminationForm({ type = "new", formData, setFormData, handleSubmit }) 
     ];
     useErrors(errors);
     const fetchHP = hpsData?.data?.data;
-    const diseases = diseasesData?.data?.data || [];
-    const diseaseOptions = diseases?.map((disease, index) => ({ value: disease._id, label: disease.name }));
+    const fetchDiseases = diseasesData?.data?.data || [];
+    const diseaseOptions = fetchDiseases?.map((disease, index) => ({ value: disease._id, label: disease.name }));
 
     const handleSelectDiseases = (e) => {
         const selected = e.target.value;
         if (!selected) return;
-    
-        const disease = fetchDisease.find(d => d._id === selected);
-        if (!disease) return;
-    
+
         setFormData(prev => {
-            const existingDiseases = prev.diseases || [];
-            if (existingDiseases.some(d => d._id === selected)) return prev;
-            return { ...prev, diseases: [...existingDiseases, disease] };
+          if (prev.disease.includes(selected)) return prev;
+          return { ...prev, disease: [...prev.disease, fetchDiseases.find((disease)=>disease._id===selected)] };
         });
-    };    
+    };   
 
     console.log("formData", formData);
     console.log(searchName);
@@ -101,7 +97,7 @@ function ExaminationForm({ type = "new", formData, setFormData, handleSubmit }) 
         <div className={classes.wrapper}>
             <h5>DISEASES : </h5>
             <div className={classes.tagContainer}>
-                {formData?.diseases?.map((disease, index) => (
+                {formData?.disease?.map((disease, index) => (
                     <div key={index} className={classes.diseaseTag}>
                         {disease.name}
                         <button
@@ -109,7 +105,7 @@ function ExaminationForm({ type = "new", formData, setFormData, handleSubmit }) 
                             onClick={() => {
                                 setFormData(prev => ({
                                     ...prev,
-                                    diseases: prev.diseases.filter(d => d !== disease)
+                                    disease: prev.disease.filter(d => d !== disease)
                                 }));
                             }}
                         >
