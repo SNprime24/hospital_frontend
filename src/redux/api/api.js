@@ -46,7 +46,7 @@ const api = createApi({
         baseUrl: `${server}/api/v1/`,
         credentials: 'include',
     }),
-    tagTypes: ['Doctor', 'Nurse', 'HS', 'Appointment', 'Patient'],
+    tagTypes: ['Doctor', 'Nurse', 'HS', 'Appointment', 'Patient', 'HP'],
     endpoints: (builder) => ({
         ...generateCrudEndpoints(builder, 'Doctor'),
         ...generateCrudEndpoints(builder, 'Nurse'),
