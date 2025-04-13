@@ -11,7 +11,7 @@ import { useCreateRoomMutation, useUpdateRoomMutation } from '../../redux/api/ap
 
 function RoomForm ({ type, item }) {
     const [formData, setFormData] = useState({
-        name: (type === "edit") ? item.item?.name.split(' ')[0] : "",
+        name: (type === "edit") ? item.item?.name : "",
         type : (type === "edit") ? item.item?.type : "",
         capacity : (type === "edit") ? item.item?.capacity : 0,
         isAC : (type === "edit") ? item.item?.isAC : true,
