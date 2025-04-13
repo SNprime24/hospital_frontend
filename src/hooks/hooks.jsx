@@ -58,8 +58,10 @@ const useCreateMutation = (mutationHook) => {
         setIsLoading(true);
         const toastId = toast.loading(toastMessage || "Creating data....");
         const [formData, navigate, role] = args;
+        console.log(args);
 
         const data = { ...formData, role }
+        console.log(data);
 
         try {
             const res = await mutate(data); 

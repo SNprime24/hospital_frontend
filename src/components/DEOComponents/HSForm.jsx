@@ -39,9 +39,9 @@ function HSForm({ type, item }) {
             addr: prev.address,
             id: (type === "edit") ? item.item?._id : ""
         }))
-        if (type === "new") create("Creating treatment...", formData, navigate);
-        else update("Updating treatment...", formData, navigate);
-        console.log(formData);
+        const role = formData.role;
+        if (type === "new") create("Creating treatment...", formData, navigate, role);
+        else update("Updating treatment...", formData, navigate, role);
     }
 
     return (
