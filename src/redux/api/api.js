@@ -8,7 +8,7 @@ const generateCrudEndpoints = (builder, entity) => ({
     }),
 
     [`getThis${entity}`]: builder.query({
-        query: (id) => ({ url: `${entity.toLowerCase()}/${id}` }),
+        query: (id) => ({ url: `${entity.toLowerCase()}/this/${id}` }),
         providesTags: [entity],
     }),
 
