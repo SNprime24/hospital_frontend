@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./DEOFormsDesign.module.css";
 
@@ -20,7 +22,7 @@ function HPForm({ type, item }) {
         gender: (type === "edit") ? item.item?.gender : "",
         uni: (type === "edit") ? item.item?.uni : "",
         degree: (type === "edit") ? item.item?.degree : "",
-        supervisedBy: (type === "edit") ? item.item?.supervisedBy : "",
+        supervisedBy: (type === "edit") ? item.item?.supervisedBy : [],
     })
     
     const [create] = useCreateMutation(useCreateHPMutation);
@@ -32,13 +34,42 @@ function HPForm({ type, item }) {
     useErrors(errors);
 
     const doctors = doctorData?.data?.data || [];
-    const doctorList = doctors?.map((doctor, index) => ({ value: doctor._id, label: doctor.name }));
+
+    const doctorOptions = doctors?.map(doctor => ({
+        label: doctor.name,
+        value: doctor._id, 
+    }))
+
+    const handleFieldChange = (index,  value) => {
+        setFormData(prev =>{
+            const updated = [...prev.supervisedBy];
+            updated[index] = value;
+            return {...prev, supervisedBy:updated};
+        })
+    }
+
+    const addNewField = () => {
+        setFormData(prev => ({
+            ...prev, 
+            supervisedBy : [...prev.supervisedBy,""],
+        }));
+    }
+
+    const removeField = (index) => {
+        setFormData(prev => {
+            const updated = prev.supervisedBy.filter((_,i) => i!==index );
+            return {...prev,supervisedBy : updated};
+        });
+    }
 
     const handleFormChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     console.log(formData);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const validDoctor = formData?.supervisedBy?.filter(data=>data!=="")
+        setFormData((prev)=>({...prev,supervisedBy : validDoctor}))
+
         console.log(item?.item?._id);
         setFormData(prev => ({
             ...prev,
@@ -145,15 +176,38 @@ function HPForm({ type, item }) {
 
                 <div className={classes.formAbout}>
                     <h3>SUPERVISION</h3>
-                    <FormSelect
-                        id="Ddoctor"
-                        name="doctor"
-                        defaultValue="Select a Doctor"
-                        label="Doctor"
-                        value={formData.supervisedBy}
-                        onChange={handleFormChange}
-                        options={doctorList}
-                    />
+                    {formData.supervisedBy?.map((entry, index) => (
+                        <>
+                            <div key={entry} className={classes.divFlex}>
+                                <FormSelect
+                                    label={`Doctor ${index + 1}`}
+                                    name={`doctor-${index}`}
+                                    value={entry.name}
+                                    onChange={(e) => handleFieldChange(index, e.target.value)}
+                                    options={doctorOptions}
+                                    defaultValue={entry?.name || "Choose Doctor"}
+                                />
+                                <button
+                                    className={`${classes.chooseInput} ${classes.rmvBtn}`}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        removeField(index);
+                                    }}
+                                >
+                                    <FontAwesomeIcon icon={faXmark} />
+                                </button>
+                            </div>
+                        </>
+                    ))}
+                    <button
+                        className={`${classes.chooseInput} ${classes.presBtn}`}
+                        onClick={(e)=>{
+                            e.preventDefault();
+                            addNewField();
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faPlusCircle} />
+                    </button>
                 </div>
 
                 <div className={classes.formSubmit}>
