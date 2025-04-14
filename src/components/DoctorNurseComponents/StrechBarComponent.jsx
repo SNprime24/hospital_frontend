@@ -87,7 +87,7 @@ function StrechBarComponent({ appointment, handleClick, type = 1, discharged=fal
 
       </div>
 
-      {!discharged && (
+      {type !== 0 && !discharged && (
         <div className={classes.medicalInfo}>
           <div title="Appointment time">
             {appointment?.time===undefined?"" : `${datePart} ${timePart}`}

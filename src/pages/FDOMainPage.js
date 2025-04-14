@@ -49,7 +49,7 @@ function FDOMainPage() {
     );
     // console.log(doctors);
     // console.log(nurses);
-    // console.log(appointments);
+    // console.log(currentAppointmentsData);
 
     return (
         <div className={classes.mainWrapper}>
