@@ -125,6 +125,15 @@ const api = createApi({
             }),
             providesTags: ['Patient', 'Appointment', 'Doctor'],
         }),
+
+        dischargeAppointment: builder.mutation({
+            query: (body) => ({
+                url:  `appointment/discharge`,
+                method: 'PUT',
+                body: body
+            }),
+            invalidatesTags: ['Appointment', 'Patient'],
+        }),
     }),
 });
 
@@ -191,6 +200,7 @@ export const {
     useUpdateAppointmentMutation,
     useDeleteAppointmentMutation,
     useGetCurrentAppointmentsQuery,
+    useDischargeAppointmentMutation,
 
     useGetAllDrugsQuery,
     useGetThisDrugQuery,

@@ -28,12 +28,12 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
 
   // appoint logic
   const [appointEdit, setAppointEdit] = useState(0);
-  const [newAppointData, setNewAppointData] = useState({ date: "", time: "", doctor: appointment.doctor || null });
+  const [newAppointData, setNewAppointData] = useState({ date: "", time: "", doctor: appointment?.doctor || null });
   const handleAppointSubmit = async () => {
     setAppointEdit(0)
     const dateTime = new Date(`${newAppointData.date}T${newAppointData.time}`);
     const time = dateTime.toISOString();
-    const formData = { time, patient: patientID, doctor: newAppointData.doctor._id }
+    const formData = { time, patient: patientID, doctor: newAppointData.doctor._id, user: user._id }
     createAppointment("Creating new appointment...", formData);
     setNewAppoint(false);
     navigate('/');
@@ -52,26 +52,26 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
       room: newAdmitData.room, bed: newAdmitData.bed, nurse: newAdmitData.nurses
     };
     admitData.nurse = admitData.nurse.map(n => n._id);
-    const formData = { id: appointment._id, ...admitData };
+    const formData = { id: appointment?._id, ...admitData };
     updateAppointment("Updating current appointment...", formData);
   }
 
   //examination logic
   const [examEdit, setExamEdit] = useState(0);
   const [newExamData, setNewExamData] = useState({
-    disease: appointment.disease || [],
-    hps: appointment.hps || []
+    disease: appointment?.disease || [],
+    hps: appointment?.hps || []
   });
   const handleExamSubmit = () => {
     setExamEdit(0);
-    const formData = { id: appointment._id, ...newExamData };
+    const formData = { id: appointment?._id, ...newExamData };
     updateAppointment("Updating current appointment...", formData);
   }
   console.log(newAdmitData);
 
   //Test logic
   const [testEdit, setTestEdit] = useState(0);
-  const [newTestData, setNewTestData] = useState(appointment.tests || [{ test: null, remark: "" }]);
+  const [newTestData, setNewTestData] = useState(appointment?.tests || [{ test: null, remark: "" }]);
   const handleTestSubmit = () => {
     setTestEdit(0);
     const formData = { id: appointment._id, tests: newTestData };
@@ -80,10 +80,10 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
 
   //prescription logic
   const [presEdit, setPresEdit] = useState(0);
-  const [newPresData, setNewPresData] = useState(appointment.drugs || [{ drug: null, dosage: "" }]);
+  const [newPresData, setNewPresData] = useState(appointment?.drugs || [{ drug: null, dosage: "" }]);
   const handlePresSubmit = () => {
     setPresEdit(0);
-    const formData = { id: appointment._id, drugs: newPresData };
+    const formData = { id: appointment?._id, drugs: newPresData };
     updateAppointment("Updating current appointment...", formData);
   }
 
@@ -92,7 +92,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
     const remarkTime = Date.now;
     const formData = {
       id: appointment._id,
-      remarks: [...appointment.remarks, {
+      remarks: [...appointment?.remarks, {
         remarkTime,
         remarkUser: user?.name,
         remarkUserRole: user?.role,
@@ -106,7 +106,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
   const appRemarks = appointment?.remarks?.slice()
     .sort((a,b)=>new Date(b.remarkTime) - new Date(a.remarkTime));
   
-  console.log("tuu",appRemarks);
+  console.log("tuu", appRemarks);
 
   // const appointment = {}
 

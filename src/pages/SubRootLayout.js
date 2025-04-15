@@ -9,18 +9,18 @@ import ProfileImagePlaceholder from "./../assets/ProfileImagePlaceholderGrey.jpg
 import classes from "./SubRootLayout.module.css";
 import { useSelector } from "react-redux";
 import PatientMedicalDetails from "./PatientMedicalDetails";
-import { useLazyGetThisAppointmentQuery, useUpdateAppointmentMutation } from "../redux/api/api";
+import { useDischargeAppointmentMutation, useLazyGetThisAppointmentQuery } from "../redux/api/api";
 import { useAsyncMutation } from "../hooks/hooks";
 
 
 export default function SubRootLayout() {
     const { user } = useSelector((state) => state.auth);
-
-    const location = useLocation();
-    console.log(location.state);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    console.log(location.state);
     const [getAppointment, { data, isSuccess }] = useLazyGetThisAppointmentQuery();
-    const [updateAppointment] = useAsyncMutation(useUpdateAppointmentMutation);
+    const [dischargeAppointment] = useAsyncMutation(useDischargeAppointmentMutation);
     
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [newAppoint, setNewAppoint] = useState(false);
@@ -66,7 +66,7 @@ export default function SubRootLayout() {
 
     const handleDischarge = () => {
         const formData = { id: id, dischargeTime: Date.now, status: "Completed" }
-        updateAppointment("Updating appointment...", formData);
+        dischargeAppointment("Dischraging appointment...", formData);
         navigate('/');
     }
 
