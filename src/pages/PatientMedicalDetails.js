@@ -12,14 +12,13 @@ import { TestForm } from "../components/PatientForms/TestForm";
 import classes from "./PatientMedicalDetails.module.css";
 import { FormTextArea } from "../components/DEOComponents/FormInput";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useCreateAppointmentMutation, useUpdateAppointmentMutation } from "../redux/api/api";
 import { useAsyncMutation, useCreateMutation } from "../hooks/hooks";
 
 
 function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, handleDischarge }) {
   const { user } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
   const params = useParams();
   const patientID = params.patientID;
 
@@ -31,12 +30,14 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
   const [newAppointData, setNewAppointData] = useState({ date: "", time: "", doctor: appointment?.doctor || null });
   const handleAppointSubmit = async () => {
     setAppointEdit(0)
-    const dateTime = new Date(`${newAppointData.date}T${newAppointData.time}`);
-    const time = dateTime.toISOString();
-    const formData = { time, patient: patientID, doctor: newAppointData.doctor._id, user: user._id }
-    createAppointment("Creating new appointment...", formData);
-    setNewAppoint(false);
-    navigate('/');
+    const dateTime = (type === "new") ? new Date(`${newAppointData.date}T${newAppointData.time}`) : "";
+    const time = (dateTime) ? dateTime.toISOString() : "";
+    let formData;
+    if(type === "new") formData = { time, patient: patientID, doctor: newAppointData.doctor._id, user: user._id }
+    else formData = { id: appointment?._id, doctor: newAppointData.doctor._id };
+    if(type === "new" )createAppointment("Creating new appointment...", formData);
+    else updateAppointment("Updating current appointment...", formData);
+    if(type === "new") setNewAppoint(false);
   }
 
   //admission logic
@@ -89,10 +90,11 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
 
   const [remark, setRemark] = useState("");
   const handleRemarkSubmit = () => {
-    const remarkTime = Date.now;
+    const remarkTime = new Date(Date.now());
     const formData = {
       id: appointment._id,
       remarks: [...appointment?.remarks, {
+        remarkUserId: user._id,
         remarkTime,
         remarkUser: user?.name,
         remarkUserRole: user?.role,
@@ -210,7 +212,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>EXAMINATION</h3>
-          {user.role === "Doctor" && user._id === appointment?.doctor &&
+          {user.role === "Doctor" && user._id === appointment?.doctor?._id &&
             <button
               className={classes.smallButton}
               title="Edit Admission Form"
@@ -250,8 +252,8 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
         <div className={classes.divFlex}>
           <h3>TESTS</h3>
           {user.role === "Doctor" &&
-            (user._id === appointment?.doctor ||
-              appointment?.tests.find((test) => test.doctor === user._id)) &&
+            (user._id === appointment?.doctor?._id ||
+              appointment?.tests.find((test) => test.doctor._id === user._id)) &&
             <button
               className={classes.smallButton}
               title="Edit Tests Form"
@@ -296,7 +298,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>PRESCRIPTION</h3>
-          {user.role === "Doctor" && user._id === appointment?.doctor &&
+          {user.role === "Doctor" && user._id === appointment?.doctor?._id &&
             <button
               className={classes.smallButton}
               title="Edit Prescription Form"

@@ -9,7 +9,7 @@ import ProfileImagePlaceholder from "./../assets/ProfileImagePlaceholderGrey.jpg
 import classes from "./SubRootLayout.module.css";
 import { useSelector } from "react-redux";
 import PatientMedicalDetails from "./PatientMedicalDetails";
-import { useDischargeAppointmentMutation, useLazyGetThisAppointmentQuery } from "../redux/api/api";
+import { useDischargeAppointmentMutation, useLazyGetThisAppointmentQuery, useLazyGetThisPatientQuery } from "../redux/api/api";
 import { useAsyncMutation } from "../hooks/hooks";
 
 
@@ -20,12 +20,14 @@ export default function SubRootLayout() {
 
     console.log(location.state);
     const [getAppointment, { data, isSuccess }] = useLazyGetThisAppointmentQuery();
+    const [getPatientById, { data: patientData, isSuccess: isPatientSuccess }] = useLazyGetThisPatientQuery();
     const [dischargeAppointment] = useAsyncMutation(useDischargeAppointmentMutation);
     
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [newAppoint, setNewAppoint] = useState(false);
     const [id, setId] = useState(null);
-    const [currentPatient, setCurrentPatient] = useState();
+    const [patientID, setPatientID] = useState(null);
+    const [currentPatient, setCurrentPatient] = useState(null);
     const [appointmentDetails, setAppointmentDetails] = useState();
     console.log(id);
     console.log(data);
@@ -37,22 +39,37 @@ export default function SubRootLayout() {
     }, [location?.state?.appointmentID]);
 
     useEffect(() => {
-        if(location?.state?.patient) {
-            setCurrentPatient(location.state.patient);
+        if(location?.state?.patientID) {
+            setPatientID(location.state.patientID);
         }
-    }, [location?.state?.patient])
+    }, [location?.state?.patientID])
 
     useEffect(() => {
         if(id) {
             getAppointment(id);
         }
     }, [id, getAppointment]);
+
+    useEffect(() => {
+        console.log(patientID);
+        if(patientID) {
+            getPatientById(patientID);
+        }
+    }, [patientID, getPatientById]);
     
     useEffect(() => {
         if(data && isSuccess) {
             setAppointmentDetails(data.appointment);
         }
     }, [data, isSuccess]);    
+
+    useEffect(() => {
+        if(patientData && isPatientSuccess) {
+            setCurrentPatient(patientData.patient);
+        }
+    }, [patientData, isPatientSuccess]);  
+
+    console.log(data?.appointment);
 
     const patient = {
         ...currentPatient,

@@ -111,7 +111,7 @@ function NewAppointment({ searchNumber, setSearchNumber, existingPatient, setExi
                                 type={0}
                                 handleClick={() => {
                                     navigate(`patient/${existingPatient._id}`, {
-                                        state: { patient: existingPatient }
+                                        state: { patientID: existingPatient._id }
                                     })
                                 }}
                             />)}

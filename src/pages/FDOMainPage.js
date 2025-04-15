@@ -120,7 +120,7 @@ function FDOMainPage() {
                                         navigate(`patient/${appointment.patient._id}`, {
                                             state: { 
                                                 appointmentID: appointment._id,
-                                                patient: appointment.patient
+                                                patientID: appointment.patient._id
                                             }
                                         });
                                     }}

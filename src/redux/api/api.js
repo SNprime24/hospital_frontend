@@ -169,6 +169,7 @@ export const {
 
     useGetAllPatientsQuery,
     useGetThisPatientQuery,
+    useLazyGetThisPatientQuery,
     useLazyGetPatientByNumberQuery,
     useCreatePatientMutation,
     useUpdatePatientMutation,

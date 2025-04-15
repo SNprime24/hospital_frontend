@@ -28,23 +28,23 @@ function DoctorMainPage() {
         alert("You clicked the search buttton")
     }
 
-    // const appointmentData = useGetAppointmentsQuery({ _id: user._id });
+    const appointmentData = useGetAppointmentsQuery({ _id: user._id });
     const currentAppointmentsData =  useGetCurrentAppointmentsQuery({ entity: "doctor", _id: user._id })
     const errors = [
-        // { isError: appointmentData.isError, error: appointmentData.error },
+        { isError: appointmentData.isError, error: appointmentData.error },
         { isError: currentAppointmentsData.isError, error: currentAppointmentsData.error }
     ]
     useErrors(errors);
 
-    // const appointments = appointmentData?.data?.appointments?.filter(item =>
-    //     item?.patient?.name?.toLowerCase().includes(searchText.toLowerCase())
-    // );
+    const appointments = appointmentData?.data?.appointments?.filter(item =>
+        item?.patient?.name?.toLowerCase().includes(searchText.toLowerCase())
+    );
     const currentAppointments = currentAppointmentsData?.data?.appointments?.filter(item =>
         item?.patient?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
 
     // console.log(appointments);
-    console.log(currentAppointmentsData);
+    // console.log(currentAppointmentsData);
 
     return (
         <div className={classes.mainWrapper}>
@@ -99,7 +99,7 @@ function DoctorMainPage() {
 
                 <div className={`${classes.contentWrapper} ${selectedPage === 1 ? classes.one : selectedPage === 2 ? classes.two : classes.three}`}>
                     <div className={`${classes.contentPage} ${classes.firstPage}`}>                        
-                        {/* {appointments && appointments
+                        {appointments && appointments
                             ?.filter(appointment => appointment?.status === "Scheduled")
                             ?.map((appointment) => (
                                 <StrechBarComponent 
@@ -110,13 +110,13 @@ function DoctorMainPage() {
                                         navigate(`patient/${appointment.patient._id}`, {
                                             state: { 
                                                 appointmentID: appointment._id,
-                                                patient: appointment.patient
+                                                patientID: appointment.patient._id
                                             }
                                         });
                                     }}
                                 />
                             ))
-                        } */}
+                        }
                     </div>
                     <div className={`${classes.contentPage} ${classes.secondPage}`}>
                         {currentAppointments && currentAppointments
@@ -128,7 +128,7 @@ function DoctorMainPage() {
                                         navigate(`patient/${appointment.patient._id}`, {
                                             state: { 
                                                 appointmentID: appointment._id,
-                                                patient: appointment.patient
+                                                patientID: appointment.patient._id
                                             }
                                         });
                                     }}
@@ -137,7 +137,7 @@ function DoctorMainPage() {
                         }
                     </div>
                     <div className={`${classes.contentPage} ${classes.thirdPage}`}>
-                        {/* {appointments && appointments
+                        {appointments && appointments
                             ?.filter(appointment => appointment?.status === "Completed")
                             ?.map((appointment) => (
                                 <StrechBarComponent 
@@ -148,13 +148,13 @@ function DoctorMainPage() {
                                         navigate(`patient/${appointment.patient._id}`, {
                                             state: { 
                                                 appointmentID: appointment._id,
-                                                patient: appointment.patient
+                                                patientID: appointment.patient._id
                                             }
                                         });
                                     }}
                                 />
                             ))
-                        } */}
+                        }
                     </div>
                 </div>
             </div>
