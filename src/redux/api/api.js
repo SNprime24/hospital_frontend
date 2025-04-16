@@ -46,7 +46,7 @@ const api = createApi({
         baseUrl: `${server}/api/v1/`,
         credentials: 'include',
     }),
-    tagTypes: ['Doctor', 'Nurse', 'HS', 'Appointment', 'Patient', 'HP'],
+    tagTypes: ['Doctor', 'Nurse', 'HS', 'Appointment', 'Patient', 'HP', 'Bed'],
     endpoints: (builder) => ({
         ...generateCrudEndpoints(builder, 'Doctor'),
         ...generateCrudEndpoints(builder, 'Nurse'),
@@ -75,6 +75,13 @@ const api = createApi({
                 body: data,
             }),
             invalidatesTags: ['Appointment', 'Doctor', 'Patient'], 
+        }),
+
+        getAllVacantBeds: builder.query({
+            query: () => ({
+                url: `/room/bed/allVacantBeds`,
+            }),
+            providesTags: ['Room', 'Bed'],
         }),
 
         getAllVacantRooms: builder.query({
@@ -181,6 +188,7 @@ export const {
     useCreateRoomMutation,
     useUpdateRoomMutation,
     useDeleteRoomMutation,
+    useGetAllVacantBedsQuery,
 
     useGetAllTestsQuery,
     useGetThisTestQuery,

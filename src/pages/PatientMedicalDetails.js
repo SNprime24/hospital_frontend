@@ -21,6 +21,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
   const { user } = useSelector((state) => state.auth);
   const params = useParams();
   const patientID = params.patientID;
+  console.log(appointment);
 
   const [createAppointment] = useCreateMutation(useCreateAppointmentMutation);
   const [updateAppointment] = useAsyncMutation(useUpdateAppointmentMutation);
@@ -44,7 +45,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
   const [admitEdit, setAdmitEdit] = useState(0);
   const [newAdmitData, setNewAdmitData] = useState({
     room: appointment?.room?.name || "",
-    bed: appointment?.room?.bed?.name || "",
+    bed: appointment?.bed?.name || "",
     nurses: appointment?.nurse || []
   });
   const handleAdmitSubmit = () => {
@@ -183,10 +184,10 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
           <>
             <div className={classes.divFlex}>
               <div>
-                <h5>ROOM No. </h5> {appointment?.room?.name}
+                <h5>ROOM No. </h5> {appointment?.bed?.name.split('-')[0]}
               </div>
               <div>
-                <h5>Bed No. </h5> {appointment?.room?.bed?.name}
+                <h5>Bed No. </h5> {appointment?.bed?.name.split('-')[2]}
               </div>
             </div>
             <div>

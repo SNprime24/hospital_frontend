@@ -59,7 +59,7 @@ function StrechBarComponent({ appointment, handleClick, type = 1, discharged=fal
           {(appointment?.status==="InProgress" || appointment?.status==="Scheduled") && 
             <>
               <span><div>Room no -  </div><pre> </pre>{appointment?.room?.name}</span>
-              <span><div>Bed no - </div><pre> </pre>{appointment?.room?.bed?.name}</span>
+              <span><div>Bed no - </div><pre> </pre>{appointment?.bed?.name}</span>
             </>
           }
         </div>}

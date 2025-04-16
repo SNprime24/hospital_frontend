@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenClip, faPlusCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-import { FormInput, FormSelect } from "../DEOComponents/FormInput";
+import { FormSelect } from "../DEOComponents/FormInput";
 import { ModalComponent } from "../ModalComponent";
 import { SmallBoxBarComponent } from "../DoctorNurseComponents/SmallBoxBarComponent";
 import { StrechBarComponent } from "../DoctorNurseComponents/StrechBarComponent";
 
 import classes from "./AppointForm.module.css";
 import admitClasses from "./AdmitForm.module.css";
-import { useGetAllNursesQuery, useGetAllVacantRoomsQuery } from "../../redux/api/api";
+import { useGetAllNursesQuery, useGetAllVacantRoomsQuery, useGetAllVacantBedsQuery } from "../../redux/api/api";
 import { useErrors } from "../../hooks/hooks";
 
  
@@ -43,16 +43,21 @@ function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
 
     const nursesData = useGetAllNursesQuery();
     const roomsData = useGetAllVacantRoomsQuery("General Ward");
+    const bedsData = useGetAllVacantBedsQuery();
     const errors = [
         { isError: nursesData.isError, error: nursesData.error },
         { isError: roomsData.isError, error: roomsData.error },
+        { isError: bedsData.isError, error: bedsData.error }
     ];
     useErrors(errors);
     const fetchNurses = nursesData?.data?.data?.filter(item =>
         item?.name?.toLowerCase().includes(searchName.toLowerCase())
     )
     const rooms = roomsData?.data?.data || [];
+    const beds = bedsData?.data?.data || [];
     const roomsList = rooms?.map((room, index) => ({ value: room._id, label: room.name }));
+    const selectedRoom = roomsList.find(room => room.value === formData.room)?.label;
+    const bedsList = beds[selectedRoom]?.map((bed, index) => ({ value: bed._id, label: bed.name }));
 
     return (
         <div className={classes.wrapper}>
@@ -66,14 +71,14 @@ function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
                     onChange={handleFormChange}
                     options={roomsList}
                 />
-                <FormInput
-                    type="text"
+                <FormSelect
                     id="Abed"
                     name="bed"
                     label="Bed No."
                     value={formData.bed}
                     defaultValue={formData.bed}
                     onChange={handleFormChange}
+                    options={bedsList}
                 />
             </div>
 
