@@ -26,3 +26,39 @@
 .cross:hover{
     background:rgba(255, 134, 134, 0.783);
 }
+
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.diseaseTag {
+  display: flex;
+  align-items: center;
+  background-color: #bcdcfe;
+  color: black;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 17px;
+  position: relative;  
+}
+
+.removeTagBtn {
+  background: none;
+  border: none;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px;
+  display: flex;
+  align-items: center;  
+}
+.removeTagBtn svg{
+  transition: all 0.7s;
+}
+
+.removeTagBtn svg:hover {
+  transform : scale(1.2);
+  color: #d32f2f;
+}

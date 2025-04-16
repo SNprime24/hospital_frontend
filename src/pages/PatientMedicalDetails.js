@@ -144,15 +144,15 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
         <hr />
 
         {appointEdit === 0 &&
-          <>
+          <div className={classes.appointPart}>
             {console.log(appointment?.time)}
-            <div>APPOINTMENT TIME : {new Date(appointment?.time).toLocaleString()}</div><br />
+            <div className={classes.subHeading}><span>APPOINTMENT <pre> </pre> TIME <pre> </pre>:<pre> </pre></span> {new Date(appointment?.time).toLocaleString()}</div><br />
             <div>
               <h5>DOCTOR : </h5>
               {appointment.doctor !== undefined && <StrechBarComponent appointment={appointment?.doctor} type={3} />}
             </div>
-            {user.role === "FDO" && <button onClick={handleDischarge}> DISCHARGE </button>}
-          </>
+            {user.role === "FDO" && <button onClick={handleDischarge} className={`${classes.appBtn} ${classes.discharge}`}> DISCHARGE </button>}
+          </div>
         }
 
         {appointEdit === 1 &&
@@ -196,7 +196,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
                 <StrechBarComponent appointment={val} type={4} />
               ))}
             </div>
-            {user.role === "FDO" && <button> DISCHARGE </button>}
+            {user.role === "FDO" && <button className={`${classes.appBtn} ${classes.discharge}`}> DISCHARGE </button>}
           </>
         }
 
@@ -225,18 +225,19 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
         </div>
         <hr />
 
-        {examEdit === 0 && <>
-          <div>
-            <h2>DISEASE : </h2>
-            {appointment?.disease?.map((val, _) => val.name).join(", ")}
+        {examEdit === 0 && 
+          <div className={classes.appExam}>
+            <div className={classes.firstPart}>
+              <h2>DISEASE : </h2>
+              <span>{appointment?.disease?.map((val, _) => val.name).join(", ")}</span>
+            </div>
+            <div className={classes.secondPart}>
+              <h5>HOSPITAL PROFESSIONALS : </h5>
+              {appointment?.hps?.map((val, _) => (
+                <StrechBarComponent appointment={val} type={5} />
+              ))}
+            </div>
           </div>
-          <div>
-            <h5>HOSPITAL PROFESSIONALS : </h5>
-            {appointment?.hps?.map((val, _) => (
-              <StrechBarComponent appointment={val} type={5} />
-            ))}
-          </div>
-        </>
         }
 
         {examEdit === 1 &&
@@ -270,16 +271,20 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
           <div>
             {appointment?.tests?.map((test, _) => {
               return (
-                <>
-                  <h2>{test?.test?.name}</h2>
-                  <div className={classes.testInfo}>
-                    <span>{test?.test?.doctor?.name}</span>
-                    <span>{test?.test?.room?.name}</span>
+                <div className={classes.appTest}>
+                  <div>
+                    <p>{test?.test?.name}</p>
+                    <div>
+                      <span>{test?.test?.doctor?.name}</span>
+                      <span>•</span>
+                      <span>{test?.test?.room?.name}</span>
+                    </div>
                   </div>
                   <p>
                     {test?.remark}
                   </p>
-                </>
+                  <hr/>
+                </div>
               );
             })}
           </div>
@@ -315,12 +320,10 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
           <div>
             {appointment?.drugs?.map((drug, _) => {
               return (
-                <>
-                  <h4>{drug?.drug?.name}</h4>
-                  <p>
-                    {drug.dosage}
-                  </p>
-                </>
+                <div className={classes.medicine}>
+                  <div>{drug?.drug?.name}</div>
+                  <p>-{drug.dosage}</p>
+                </div>
               );
             })}
           </div>
@@ -355,15 +358,19 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
               value={remark}
               onChange={(e) => setRemark(e.target.value)}
             />
-            <button onClick={handleRemarkSubmit}>SUBMIT</button>
+            <button onClick={handleRemarkSubmit} className={classes.appBtn}>SUBMIT</button>
           </>
         }
         {appRemarks?.map((val, _) => (
-          <>
-            <h5>{new Date(val.remarkTime).toLocaleDateString()}</h5>
-            <span>{val.remarkUser}({val.remarkUserRole})</span>
+          <div className={classes.remarkEntry}>
+            <div>
+              <div>
+                <div>{val.remarkUser}</div><pre> </pre><p>({val.remarkUserRole})</p>
+              </div>
+              <h5>{new Date(val.remarkTime).toLocaleDateString()}</h5>
+            </div>
             <p>{val.remarkMsg}</p>
-          </>
+          </div>
         ))}
       </div>
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenClip, faPlusCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-import { FormInput, FormSelect } from "../DEOComponents/FormInput";
+import { FormSelect } from "../DEOComponents/FormInput";
 import { ModalComponent } from "../ModalComponent";
 import { StrechBarComponent } from "../DoctorNurseComponents/StrechBarComponent";
 
@@ -11,54 +11,6 @@ import examClasses from "./ExaminationForm.module.css";
 import { useGetAllDiseasesQuery, useGetAllHPsQuery } from "../../redux/api/api";
 import { useErrors } from "../../hooks/hooks";
 
-
-const fetchDisease = [
-    {
-        _id: "6618d2a1e9a5f19b3c1a1001",
-        name: "Diabetes Mellitus",
-        dissymp: "Increased thirst, frequent urination, fatigue, blurred vision",
-        disdesc: "A chronic condition where the body fails to regulate blood sugar levels properly.",
-        active: true,
-        appointments: [],
-        treatment: []
-    },
-    {
-        _id: "6618d2a1e9a5f19b3c1a1002",
-        name: "Hypertension",
-        dissymp: "Headache, shortness of breath, nosebleeds (often asymptomatic)",
-        disdesc: "A condition in which the force of the blood against artery walls is too high.",
-        active: true,
-        appointments: [],
-        treatment: []
-    },
-    {
-        _id: "6618d2a1e9a5f19b3c1a1003",
-        name: "Asthma",
-        dissymp: "Shortness of breath, wheezing, coughing, chest tightness",
-        disdesc: "A respiratory condition marked by spasms in the bronchi of the lungs.",
-        active: true,
-        appointments: [],
-        treatment: []
-    },
-    {
-        _id: "6618d2a1e9a5f19b3c1a1004",
-        name: "COVID-19",
-        dissymp: "Fever, cough, fatigue, loss of taste or smell, difficulty breathing",
-        disdesc: "An infectious disease caused by the SARS-CoV-2 virus.",
-        active: true,
-        appointments: [],
-        treatment: []
-    },
-    {
-        _id: "6618d2a1e9a5f19b3c1a1005",
-        name: "Migraine",
-        dissymp: "Intense headaches, nausea, sensitivity to light and sound",
-        disdesc: "A neurological condition causing recurring headaches with sensory disturbances.",
-        active: true,
-        appointments: [],
-        treatment: []
-    }
-];
 
 function ExaminationForm({ type = "new", formData, setFormData, handleSubmit }) {
     const [modalState, setModalState] = useState(0);
@@ -96,12 +48,12 @@ function ExaminationForm({ type = "new", formData, setFormData, handleSubmit }) 
     return (
         <div className={classes.wrapper}>
             <h5>DISEASES : </h5>
-            <div className={classes.tagContainer}>
+            <div className={examClasses.tagContainer}>
                 {formData?.disease?.map((disease, index) => (
-                    <div key={index} className={classes.diseaseTag}>
+                    <div key={index} className={examClasses.diseaseTag}>
                         {disease.name}
                         <button
-                            className={classes.removeTagBtn}
+                            className={examClasses.removeTagBtn}
                             onClick={() => {
                                 setFormData(prev => ({
                                     ...prev,
@@ -123,7 +75,7 @@ function ExaminationForm({ type = "new", formData, setFormData, handleSubmit }) 
             />
 
             <h5>ASSIGN HOSPITAL PROFESSIONALS : </h5>
-            {formData?.hps.length === 0 ?
+            {formData?.hps?.length === 0 ?
                 <button
                     className={classes.chooseInput}
                     onClick={() => setModalState(1)}
@@ -134,7 +86,7 @@ function ExaminationForm({ type = "new", formData, setFormData, handleSubmit }) 
                 <>
                     {formData?.hps.map((val, _) => (
                         <div className={classes.divFlex} key={val?._id || _}>
-                            <StrechBarComponent appointment={val} type={4} />
+                            <StrechBarComponent appointment={val} type={5} />
                             <button
                                 className={`${classes.chooseInput} ${classes.edit}`}
                                 onClick={() => setModalState(1)}

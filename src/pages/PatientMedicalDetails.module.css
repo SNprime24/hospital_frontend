@@ -49,6 +49,179 @@ hr {
   opacity: 40% !important;
 }
 
-/* new appoint form design  */
+/* appoint fiels design start  */
+.appointPart .subHeading{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 110%;
+  display : flex;
+}
+@media (max-width: 420px) {
+  .appointPart .subHeading{
+      font-size: 95%;
+  }
+}
+.appointPart .subHeading span{
+  font-weight: 600;
+  display: flex;
+}
 
-/* new appoint form design ends  */
+.appBtn{
+  width : 170px;
+  height: 40px;
+  background:white;
+
+  margin-left : 100%;
+  transform: translateX(-101%);
+
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px #1d7de465;
+
+  color: #1d7ee4;
+  font-size: large;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.appBtn:hover{
+  transform : translateX(-101%) scale(1.02);
+  background:#1d7ee4;
+  color: white;
+}
+.appBtn:active { /*to get a good clicking effect */
+  transform: translateX(-101%) scale(0.8); 
+  opacity: 0.8;
+}
+.appBtn.discharge{
+  color: #ff5353;
+}
+.appBtn.discharge:hover{
+  background:#ff5353;
+  color: white;
+}
+.appointPart h5{
+  margin-bottom: 10px;
+}
+
+/* appoint field design ends  */
+
+/*examination field design starts */
+.appExam .firstPart{
+  display : flex;
+  gap : 7px;
+  font-weight: 600;
+}
+.appExam .firstPart span{
+  padding-top: 8px;
+}
+.appExam .secondPart{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap : 7px;
+}
+/*examination field design ends */
+
+/* test design starts  */
+.appTest{
+  width : 100%;
+  margin-bottom: 15px;
+  padding-inline: 5px;
+}
+.appTest > div{
+  width : 100%;
+  display : flex;
+  justify-content: space-between;
+}
+.appTest > div > p{
+  width : 40%;
+  font-size: 150%;
+  font-weight: 600;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+  white-space: nowrap;        /* Prevents text from wrapping */
+  overflow: hidden;           /* Hides the overflow */
+  text-overflow: ellipsis;
+}
+.appTest > div > div{
+  padding-top: 7px;
+  display : flex;
+  gap : 7px;
+
+  font-size: small;
+  color : gray;
+
+  white-space: nowrap;        /* Prevents text from wrapping */
+  overflow: hidden;           /* Hides the overflow */
+  text-overflow: ellipsis;
+}
+.appTest > p{
+  margin-top: 2px;
+  width : 90%;
+}
+.appTest > hr{
+  margin-top : 4px;
+  width : 30%;
+  margin-left : 50%;
+  transform: translateX(-50%);
+  background: #1d7ee4;
+}
+
+/* test design ends  */
+
+/* medicine design starts  */
+.medicine{
+  margin-left : 10px;
+  margin-bottom: 15px;
+  width : 100%;
+}
+.medicine>div{
+  font-size: 130%;
+  font-family: 'Times New Roman';
+}
+.medicine>p{
+  width : 100%;
+  text-wrap: wrap;
+  margin-left: 30px;
+  font-family: sans-serif;
+  font-size: small;
+  color : gray
+}
+/* medicine design ends  */
+
+/* remark design starts  */
+.remarkEntry{
+  margin-top : 10px;
+  width : 100%;
+}
+.remarkEntry>div{
+  width : 100%;
+  display : flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+.remarkEntry>div>div{
+  width : 80%;
+  display: flex;
+}
+.remarkEntry>div>div>div{
+  font-size: 150%;
+  white-space: nowrap;        /* Prevents text from wrapping */
+  overflow: hidden;           /* Hides the overflow */
+  text-overflow: ellipsis;    /* Shows "..." at the end */
+}
+.remarkEntry>div>div>p{
+  padding-top: 10px;
+  font-size: small;
+  color:grey;
+}
+.remarkEntry>div>h5{
+  padding-top: 10px;
+}
+.remarkEntry > p{
+  color:#292929;
+}
+
+/* remark design ends  */
