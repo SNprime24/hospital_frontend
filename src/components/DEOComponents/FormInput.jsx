@@ -32,7 +32,7 @@ const FormSubmit = ({ children, handleSubmit, ...props }) =>{
   );
 }
 
-const FormSelect = ({label, value, options, onChange, id, name, defaultValue, ...props}) =>{
+const FormSelect = ({label, value, options, onChange, id, name, defaultValue, defaultValueID, ...props}) =>{
   return (
     <div className={classes.inputWrapper}>
       <select 
@@ -43,7 +43,7 @@ const FormSelect = ({label, value, options, onChange, id, name, defaultValue, ..
         onChange={onChange}
         {...props}
       >
-        <option value= "" hidden>{defaultValue}</option>
+        <option value= {defaultValueID} hidden>{defaultValue}</option>
         {options?.map((opt, index)=>(
           <option key={index} value={opt.value}>
             {opt.label}

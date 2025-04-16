@@ -172,8 +172,9 @@ function DoctorForm({ type, item }) {
                         id="DRoom"
                         name="room"
                         defaultValue={(formData.room) ? formData.room : "Choose a room"}
+                        defaultValueID={item.item?.room?._id}
                         label="Room"
-                        value={formData.value}
+                        value={formData.room}
                         onChange={handleFormChange}
                         options={roomList}
                     />

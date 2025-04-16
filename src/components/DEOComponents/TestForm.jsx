@@ -12,9 +12,9 @@ function TestForm({ type, item }) {
     const [formData, setFormData] = useState({
         name: (type === "edit") ? item.item?.name : "",
         equip: (type === "edit") ? item.item?.equip : "",
-        room: (type === "edit") ? item.item?.room : "",
-        doctor: (type === "edit") ? item.item?.doctor : "",
-        nurse: (type === "edit") ? item.item?.nurse : "",
+        room: (type === "edit") ? item.item?.room?.name : "",
+        doctor: (type === "edit") ? item.item?.doctor?.name : "",
+        nurse: (type === "edit") ? item.item?.nurse?.name : "",
     })
     
     const navigate = useNavigate();
@@ -85,6 +85,8 @@ function TestForm({ type, item }) {
                             name="doctor"
                             label="Doctor"
                             value={formData.value}
+                            defaultValue={formData.doctor}
+                            defaultValueID={item.item?.doctor?._id}
                             onChange={handleFormChange}
                             options={doctorList}
                         />
@@ -96,6 +98,8 @@ function TestForm({ type, item }) {
                             name="nurse"
                             label="nurse"
                             value={formData.value}
+                            defaultValue={formData.nurse}
+                            defaultValueID={item.item?.nurse?._id}
                             onChange={handleFormChange}
                             options={nurseList}
                         />
@@ -107,6 +111,8 @@ function TestForm({ type, item }) {
                             name="room"
                             label="Room"
                             value={formData.value}
+                            defaultValue={formData.room}
+                            defaultValueID={item.item?.room?._id}
                             onChange={handleFormChange}
                             options={roomList}
                         />

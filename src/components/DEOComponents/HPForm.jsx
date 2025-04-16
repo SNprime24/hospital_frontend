@@ -187,6 +187,7 @@ function HPForm({ type, item }) {
                                     onChange={(e) => handleFieldChange(index, e.target.value)}
                                     options={doctorOptions}
                                     defaultValue={entry?.name || "Choose Doctor"}
+                                    defaultValueID={entry?._id}
                                 />
                                 <button
                                     className={`${classes.chooseInput} ${classes.rmvBtn}`}
