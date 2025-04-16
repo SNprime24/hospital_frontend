@@ -79,7 +79,7 @@ function TestForm({ type = "new", formData, setFormData, handleSubmit }) {
                         </button>
                     </div>
                     {console.log("testing",user._id, entry)}
-                    {(user?._id === entry?.test?.doctor || user?._id === entry?.test?.nurse) && 
+                    {(user?._id === entry?.test?.doctor?._id || user?._id === entry?.test?.nurse?._id) && 
                         <FormInput
                             type="text"
                             id={`Remark-${index}`}
