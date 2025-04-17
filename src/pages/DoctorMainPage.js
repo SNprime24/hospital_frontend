@@ -43,7 +43,7 @@ function DoctorMainPage() {
         item?.patient?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
 
-    // console.log(appointments);
+    console.log(appointments);
     // console.log(currentAppointmentsData);
 
     return (

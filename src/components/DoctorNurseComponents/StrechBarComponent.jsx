@@ -98,7 +98,7 @@ function StrechBarComponent({ appointment, handleClick, type = 1, discharged=fal
         <div className={classes.medicalInfo}>
           <div title="disease">
             <span>DISEASE :</span>{" "}
-            {appointment?.disease?.map((val) => val).join(", ")}
+            {appointment?.disease?.map((val) => val.name).join(", ")}
             {/* {appointment.disease} */}
           </div>
           <div title="Discharge time">
