@@ -86,7 +86,7 @@ function TestForm({ type, item }) {
                             label="Doctor"
                             value={formData.value}
                             defaultValue={formData.doctor}
-                            defaultValueID={item.item?.doctor?._id}
+                            defaultValueID={item?.item?.doctor?._id}
                             onChange={handleFormChange}
                             options={doctorList}
                         />
@@ -99,7 +99,7 @@ function TestForm({ type, item }) {
                             label="nurse"
                             value={formData.value}
                             defaultValue={formData.nurse}
-                            defaultValueID={item.item?.nurse?._id}
+                            defaultValueID={item?.item?.nurse?._id}
                             onChange={handleFormChange}
                             options={nurseList}
                         />
@@ -112,7 +112,7 @@ function TestForm({ type, item }) {
                             label="Room"
                             value={formData.value}
                             defaultValue={formData.room}
-                            defaultValueID={item.item?.room?._id}
+                            defaultValueID={item?.item?.room?._id}
                             onChange={handleFormChange}
                             options={roomList}
                         />

@@ -40,8 +40,8 @@ function HSForm({ type, item }) {
             id: (type === "edit") ? item.item?._id : ""
         }))
         const role = formData.role;
-        if (type === "new") create("Creating treatment...", formData, navigate, role);
-        else update("Updating treatment...", formData, navigate, role);
+        if (type === "new") create("Creating hospital staff...", formData, navigate, role);
+        else update("Updating hospital staff...", formData, navigate, role);
     }
 
     return (

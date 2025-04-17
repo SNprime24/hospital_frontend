@@ -27,19 +27,17 @@ function NurseForm({ type, item }) {
     const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(formData);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setFormData(prev => ({
-            ...prev,
-            name: prev.firstName + " " + prev.lastName,
-            addr: prev.address,
+        const newFormData = {
+            ...formData,
+            name: formData.firstName + " " + formData.lastName,
+            addr: formData.address,
             id: (type === "new") ? "" : item.item?._id
-        }));
-        if (type === "new") create("Creating nurse...", formData, navigate);
-        else update("Updating nurse...", formData, navigate);
-        console.log(formData);
+        };
+        if (type === "new") create("Creating nurse...", newFormData, navigate);
+        else update("Updating nurse...", newFormData, navigate);
     }
 
     return (
