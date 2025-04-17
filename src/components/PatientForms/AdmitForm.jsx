@@ -62,12 +62,14 @@ function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
     return (
         <div className={classes.wrapper}>
             <div className={classes.divFlex}>
+                {console.log(rooms,beds)}
                 <FormSelect
                     id="Aroom"
                     name="room"
                     label="Room No."
                     value={formData.room}
-                    defaultValue={formData.room}
+                    defaultValue={rooms?.find((room)=>room._id===formData.room)?.name}
+                    defaultValueID={formData.room}
                     onChange={handleFormChange}
                     options={roomsList}
                 />
@@ -76,7 +78,8 @@ function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
                     name="bed"
                     label="Bed No."
                     value={formData.bed}
-                    defaultValue={formData.bed}
+                    defaultValue={beds[selectedRoom]?.find((bed)=>bed._id===formData.bed)?.name}
+                    defaultValueID={formData.bed}
                     onChange={handleFormChange}
                     options={bedsList}
                 />

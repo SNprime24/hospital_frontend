@@ -32,9 +32,9 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
   const handleAppointSubmit = async () => {
     setAppointEdit(0)
     const dateTime = (type === "new") ? new Date(`${newAppointData.date}T${newAppointData.time}`) : "";
-    const time = (dateTime) ? dateTime.toISOString() : "";
+    const time = (dateTime) ? dateTime.toLocaleString() : "";
     let formData;
-    if(type === "new") formData = { time, patient: patientID, doctor: newAppointData.doctor._id, user: user._id }
+    if(type === "new") formData = { time, patient: patientID, doctor: newAppointData?.doctor?._id, user: user?._id }
     else formData = { id: appointment?._id, doctor: newAppointData.doctor._id };
     if(type === "new" )createAppointment("Creating new appointment...", formData);
     else updateAppointment("Updating current appointment...", formData);
@@ -44,8 +44,8 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
   //admission logic
   const [admitEdit, setAdmitEdit] = useState(0);
   const [newAdmitData, setNewAdmitData] = useState({
-    room: appointment?.room?.name || "",
-    bed: appointment?.bed?.name || "",
+    room: appointment?.room?._id || "",
+    bed: appointment?.bed?._id || "",
     nurses: appointment?.nurse || []
   });
   const handleAdmitSubmit = () => {
