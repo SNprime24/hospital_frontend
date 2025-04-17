@@ -88,12 +88,12 @@ function DoctorSideBarComponent({ user }) {
             <div className={classes.sideMainContent}>
                 <div className={`${classes.sideContentWrapper} ${selectedPage === 1 ? classes.one : selectedPage === 2 ? classes.two : classes.three}`}>
                     <div className={`${classes.sideContentPage} ${classes.firstPage}`}>
-
+                        {console.log(user)}
                         <div className={classes.section}>
                             <h3>INFO</h3>
                             <span>Specialisation : </span> {user?.spec} <br />
                             <span>Qualification : </span> {user?.qualification} <br />
-                            {/* <span>Room : </span> {user?.room.name} <br /> */}
+                            <span>Room : </span> {user?.room} <br />
                         </div>
 
                         <div className={classes.section}>
