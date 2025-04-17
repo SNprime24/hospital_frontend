@@ -9,12 +9,13 @@ import { useCreateTestMutation, useGetAllDoctorsQuery, useGetAllNursesQuery, use
 import { useCreateMutation, useErrors, useAsyncMutation } from '../../hooks/hooks';
 
 function TestForm({ type, item }) {
+    console.log(item);
     const [formData, setFormData] = useState({
         name: (type === "edit") ? item.item?.name : "",
         equip: (type === "edit") ? item.item?.equip : "",
-        room: (type === "edit") ? item.item?.room?.name : "",
-        doctor: (type === "edit") ? item.item?.doctor?.name : "",
-        nurse: (type === "edit") ? item.item?.nurse?.name : "",
+        room: (type === "edit") ? item.item?.room?._id : "",
+        doctor: (type === "edit") ? item.item?.doctor?._id : "",
+        nurse: (type === "edit") ? item.item?.nurse?._id : "",
     })
     
     const navigate = useNavigate();
@@ -85,8 +86,8 @@ function TestForm({ type, item }) {
                             name="doctor"
                             label="Doctor"
                             value={formData.value}
-                            defaultValue={formData.doctor}
-                            defaultValueID={item?.item?.doctor?._id}
+                            defaultValue={doctors?.find((doc)=>doc._id===formData?.doctor)?.name || "Choose a Doctor"}
+                            defaultValueID={formData?.doctor}
                             onChange={handleFormChange}
                             options={doctorList}
                         />
@@ -98,8 +99,8 @@ function TestForm({ type, item }) {
                             name="nurse"
                             label="nurse"
                             value={formData.value}
-                            defaultValue={formData.nurse}
-                            defaultValueID={item?.item?.nurse?._id}
+                            defaultValue={nurses?.find((nurse)=>nurse._id===formData?.nurse)?.name || "Choose a Nurse"}
+                            defaultValueID={formData?.nurse}
                             onChange={handleFormChange}
                             options={nurseList}
                         />
@@ -111,8 +112,8 @@ function TestForm({ type, item }) {
                             name="room"
                             label="Room"
                             value={formData.value}
-                            defaultValue={formData.room}
-                            defaultValueID={item?.item?.room?._id}
+                            defaultValue={rooms?.find((room)=>room._id===formData?.room)?.name || "Choose a Room"}
+                            defaultValueID={formData?.room}
                             onChange={handleFormChange}
                             options={roomList}
                         />

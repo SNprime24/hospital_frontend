@@ -20,7 +20,7 @@ function DoctorForm({ type, item }) {
         address: (type === "edit") ? item.item?.addr : "",
         inTime: (type === "edit") ? item.item?.inTime : null,
         outTime: (type === "edit") ? item.item?.outTime : null,
-        room: (type === "edit") ? item.item?.room.name : "",
+        room: (type === "edit") ? item.item?.room._id : "",
     })
 
     const [create] = useCreateMutation(useCreateDoctorMutation);
@@ -171,7 +171,7 @@ function DoctorForm({ type, item }) {
                     <FormSelect
                         id="DRoom"
                         name="room"
-                        defaultValue={(formData.room) ? formData.room : "Choose a room"}
+                        defaultValue={(item?.item?.room?.name) ? item?.item?.room?.name : "Choose a room"}
                         defaultValueID={item?.item?.room?._id}
                         label="Room"
                         value={formData.room}

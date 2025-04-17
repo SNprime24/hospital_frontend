@@ -22,7 +22,7 @@ function HPForm({ type, item }) {
         gender: (type === "edit") ? item.item?.gender : "",
         uni: (type === "edit") ? item.item?.uni : "",
         degree: (type === "edit") ? item.item?.degree : "",
-        supervisedBy: (type === "edit") ? item.item?.supervisedBy : [],
+        supervisedBy: (type === "edit") ? item.item?.supervisedBy.map((entry)=>entry._id) : [],
     })
     
     const [create] = useCreateMutation(useCreateHPMutation);
@@ -179,14 +179,14 @@ function HPForm({ type, item }) {
                     {formData.supervisedBy?.map((entry, index) => (
                         <>
                             {console.log(entry)}
-                            <div key={entry} className={classes.divFlex}>
+                            <div key={entry._id} className={classes.divFlex}>
                                 <FormSelect
                                     label={`Doctor ${index + 1}`}
                                     name={`doctor-${index}`}
                                     value={entry.name}
                                     onChange={(e) => handleFieldChange(index, e.target.value)}
                                     options={doctorOptions}
-                                    defaultValue={entry?.name || "Choose Doctor"}
+                                    defaultValue={doctors?.find((doc)=>doc._id===entry)?.name || "Choose Doctor"}
                                     defaultValueID={entry?._id}
                                 />
                                 <button
