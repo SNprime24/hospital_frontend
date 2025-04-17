@@ -33,7 +33,7 @@ const useAsyncMutation = (mutationHook) => {
                 });
                 setData(res.data);
                 if(navigate && role === "FDO") navigate(`/app/patient/${res.data.patient._id}`, {
-                    state: { patient: res.data.patient }
+                    state: { patientID: res.data.patient._id }
                 })
                 else if(navigate) navigate('/');
             }
@@ -70,7 +70,7 @@ const useCreateMutation = (mutationHook) => {
                     id: toastId,
                 });
                 if(navigate && role === "FDO") navigate(`/app/patient/${res.data.patient._id}`, {
-                    state: { patient: res.data.patient }
+                    state: { patientID: res.data.patient._id }
                 })
                 else if(navigate) navigate("/");
             }
