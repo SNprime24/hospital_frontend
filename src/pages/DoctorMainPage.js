@@ -42,7 +42,6 @@ function DoctorMainPage() {
     const currentAppointments = currentAppointmentsData?.data?.appointments?.filter(item =>
         item?.patient?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
-
     console.log(appointments);
     // console.log(currentAppointmentsData);
 
@@ -98,7 +97,11 @@ function DoctorMainPage() {
             <div className={classes.mainContent}>
 
                 <div className={`${classes.contentWrapper} ${selectedPage === 1 ? classes.one : selectedPage === 2 ? classes.two : classes.three}`}>
-                    <div className={`${classes.contentPage} ${classes.firstPage}`}>                        
+                    <div className={`${classes.contentPage} ${classes.firstPage}`}>   
+                        {(!appointments || appointments?.filter(appointment => appointment?.status === "Scheduled").length === 0) && 
+                            <p className={classes.unavailableData}>-- No Scheduled Appointments due --</p>
+                        }     
+
                         {appointments && appointments
                             ?.filter(appointment => appointment?.status === "Scheduled")
                             ?.map((appointment) => (
@@ -119,6 +122,10 @@ function DoctorMainPage() {
                         }
                     </div>
                     <div className={`${classes.contentPage} ${classes.secondPage}`}>
+                        {(!currentAppointments || currentAppointments.length === 0) && 
+                            <p className={classes.unavailableData}>-- No Current Appointments due --</p>
+                        }   
+
                         {currentAppointments && currentAppointments
                             ?.map((appointment) => (
                                 <BoxBarComponent 
@@ -137,6 +144,9 @@ function DoctorMainPage() {
                         }
                     </div>
                     <div className={`${classes.contentPage} ${classes.thirdPage}`}>
+                        {(!appointments || appointments?.filter(appointment => appointment?.status === "Completed").length === 0) && 
+                            <p className={classes.unavailableData}>-- Patient Archive is Empty !! --</p>
+                        } 
                         {appointments && appointments
                             ?.filter(appointment => appointment?.status === "Completed")
                             ?.map((appointment) => (

@@ -3,14 +3,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAddressCard, faFlaskVial, faSuitcaseMedical } from "@fortawesome/free-solid-svg-icons";
 
 import classes from "./SideBarComponent.module.css";
-import ImagePlaceHolder from "./../assets/ProfileImagePlaceHolder.png"
+import ImagePlaceHolder from "./../assets/ProfileImagePlaceholderGrey.jpg";
 
 
 export default function SideBarComponent({ user }) {
     return (
         <div className={classes.sideBarWrapper}>
             <div className={classes.imageDiv}>
-                <img src={ImagePlaceHolder} alt="Profile Images" />
+                <img 
+                    src={ImagePlaceHolder} 
+                    alt="Profile Images" 
+                    className={`
+                        ${user.role==='Doctor'? classes.uDoctor : 
+                        user.role==='Nurse'?classes.uNurse : 
+                        user.role==='DEO'? classes.uDEO : classes.uFDO}
+                    `}
+                />
             </div>
 
             <div className={classes.mainSection}>
@@ -189,6 +197,7 @@ function NurseSideBarComponent({ user }) {
 }
 
 function HospitalStaffSideBarComponent({ user }) {
+    console.log(user)
     const [selectedPage, setSelectedPage] = useState(1);
 
     const handleSelectedPageOne = () => setSelectedPage(1);
@@ -207,7 +216,12 @@ function HospitalStaffSideBarComponent({ user }) {
             <div className={classes.sideMainContent}>
                 <div className={`${classes.sideContentWrapper} ${selectedPage === 1 ? classes.one : selectedPage === 2 ? classes.two : classes.three}`}>
                     <div className={`${classes.sideContentPage} ${classes.firstPage}`}>
-
+                        <div className={classes.section}>
+                            <h3>INFO</h3>
+                            <span>Department : </span> {user?.department} <br />
+                            <span>Designation : </span> {user?.designation} <br />
+                            <span>Shift : </span> {user?.shift} <br />
+                        </div>
                     </div>
                 </div>
             </div>

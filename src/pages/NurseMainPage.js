@@ -66,10 +66,13 @@ function NurseMainPage() {
       </div>
       <div className={classes.mainContent}>
         <div className={classes.contentWrapper}>
+            {(!currentAppointments || currentAppointments.length === 0) && 
+              <p className={classes.unavailableData}>-- No Current Patients due --</p>
+            }
           <div className={classes.contentPage}>
 
             {/* <BoxBarComponent appointment={patient[0]}/> */}
-
+            
             {currentAppointments && currentAppointments
               ?.map((appointment) => (
                 <BoxBarComponent
@@ -86,6 +89,7 @@ function NurseMainPage() {
                 />
               ))
             }
+            
           </div>
         </div>
       </div>

@@ -37,10 +37,22 @@
 }
 
 .imageDiv img {
-    height: 300%;
+    height: 250%;
     aspect-ratio: 1;
     border-radius: 100%;
-    transform: translateY(-19%);
+    transform: translateY(-25%);    
+}
+.imageDiv img.uDoctor{
+    box-shadow : 0 0 0 2px red, 0 -2px 7px 1px red;
+}
+.imageDiv img.uNurse{
+    box-shadow : 0 0 0 2px blue, 0 -2px 7px 1px blue;
+}
+.imageDiv img.uDEO{
+    box-shadow : 0 0 0 2px green, 0 -2px 7px 1px green;
+}
+.imageDiv img.uFDO{
+    box-shadow : 0 0 0 2px purple, 0 -2px 7px 1px purple;
 }
 
 .mainSection {
@@ -70,6 +82,8 @@
     border-radius: 20px;
     font-family: Tahoma;
     font-weight: 500;
+
+    color : white;
 }
 
 .section {

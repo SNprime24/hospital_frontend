@@ -109,6 +109,9 @@ function FDOMainPage() {
             <div className={classes.mainContent}>
                 <div className={`${classes.contentWrapper} ${selectedPage === 1 ? classes.one : selectedPage === 2 ? classes.two : classes.three}`}>
                     <div className={`${classes.contentPage} ${classes.firstPage}`}>
+                        {(!appointments || appointments.length === 0) && 
+                            <p className={classes.unavailableData}>-- No Appointment due --</p>
+                        }
                         {appointments && appointments
                             ?.map((appointment) => (
                                 <StrechBarComponent 
@@ -129,6 +132,9 @@ function FDOMainPage() {
                         }
                     </div>
                     <div className={`${classes.contentPage} ${classes.secondPage}`}>
+                        {(!doctors || doctors.length === 0) && 
+                            <p className={classes.unavailableData}>-- No Doctors currently available --</p>
+                        }
                         {doctors && doctors
                             ?.map((doctor) => (
                                 <SmallBoxBarComponent key={uuidv4()} user={doctor} />
@@ -136,6 +142,9 @@ function FDOMainPage() {
                         }
                     </div>
                     <div className={`${classes.contentPage} ${classes.thirdPage}`}>
+                        {(!nurses || nurses.length === 0) && 
+                            <p className={classes.unavailableData}>-- No Doctors currently available --</p>
+                        }
                         {nurses && nurses
                             ?.map((nurse) => (
                                 <SmallBoxBarComponent key={uuidv4()} user={nurse} />

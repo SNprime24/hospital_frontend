@@ -106,11 +106,27 @@
   border-radius: 10px;
   box-shadow: 2px 2px 5px 1px grey;
 
-  background-color: #202584;
-  color: white;
+  background: #d2e8fff3;
+  color: black;
 
   transition: left 1s ease-in-out;
   z-index: 999;
+}
+.sidebar.uNurse{
+  border : 2px solid blue;
+  box-shadow: 0 0 7px 0 blue;
+}
+.sidebar.uDoctor{
+  border : 2px solid red;
+  box-shadow: 0 0 7px 0 red;
+}
+.sidebar.uFDO{
+  border : 2px solid purple;
+  box-shadow: 0 0 7px 0 purple;
+}
+.sidebar.uDEO{
+  border : 2px solid green;
+  box-shadow: 0 0 7px 0 green;
 }
 
 .mainContent {

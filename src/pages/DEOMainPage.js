@@ -109,7 +109,7 @@ function DEOMainPage() {
                         "TESTS",
                         "DISEASES"
                     ].map((item, index) => (
-                        <span key={index} className={classes.navItem} onClick={() => {
+                        <span key={index} className={`${classes.navItem} ${item===selectedComponent ? classes.active : ""}`} onClick={() => {
                             setSelectedComponent(item)
                         }}>
                             {item}

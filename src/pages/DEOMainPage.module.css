@@ -41,6 +41,10 @@
   background-color: #373960;
   border-radius: 5px;
 }
+.navItem.active{
+  background-color: #373960;
+  border-radius: 5px;
+}
 .scrollBtn {
   margin-inline: 5px;
   padding: 5px;

@@ -48,7 +48,13 @@ export default function RootLayout() {
         <button className={classes.navBarLogoutButton} onClick={handleLogOut}>Logout</button>
       </nav>
 
-      <aside className={`${classes.sidebar} ${sidebarOpen ? classes.open : classes.close}`}>
+      <aside className={`
+        ${classes.sidebar} 
+        ${sidebarOpen ? classes.open : classes.close}
+        ${user.role==='Doctor'? classes.uDoctor : 
+          user.role==='Nurse'?classes.uNurse : 
+          user.role==='DEO'? classes.uDEO : classes.uFDO}
+      `}>
         <SideBarComponent user={user} />
       </aside>
 

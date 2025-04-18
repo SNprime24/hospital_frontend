@@ -182,3 +182,17 @@
   .searchInputDiv:focus-within svg {
     color: white;
   }
+
+.unavailableData{
+  width : 100%;
+  display: flex;
+  justify-content: center;
+  font-size: x-large;
+  margin-top : 20px;
+  color: grey;
+}
+@media (max-width: 400px) {
+  .unavailableData{ 
+    font-size: large;
+  }
+}
