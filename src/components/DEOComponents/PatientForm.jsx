@@ -33,16 +33,16 @@ function PatientForm({ type, item }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setFormData(prev => ({
-            ...prev,
-            name: prev.firstName + " " + prev.lastName,
-            gname: prev.guardianFirstName + " " + prev.guardianLastName,
-            gPhoneNo: prev.guardianPhoneNumber,
-            addr: prev.address,
+        const newFormData = {
+            ...formData,
+            name: formData.firstName + " " + formData.lastName,
+            gname: formData.guardianFirstName + " " + formData.guardianLastName,
+            gPhoneNo: formData.guardianPhoneNumber,
+            addr: formData.address,
             id: (type === "new") ? "" : item?.item._id
-        }));
-        if (type === "new") await create("Creating patient...", formData, navigate, role);
-        else await update("Updating patient...", formData, navigate, role);
+        }
+        if (type === "new") await create("Creating patient...", newFormData, navigate, role);
+        else await update("Updating patient...", newFormData, navigate, role);
     }
 
     return (

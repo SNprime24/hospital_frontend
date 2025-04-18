@@ -63,23 +63,19 @@ function HPForm({ type, item }) {
     }
 
     const handleFormChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(formData);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const validDoctor = formData?.supervisedBy?.filter(data=>data!=="")
-        setFormData((prev)=>({...prev,supervisedBy : validDoctor}))
-
-        console.log(item?.item?._id);
-        setFormData(prev => ({
-            ...prev,
-            name: prev.firstName + " " + prev.lastName,
-            addr: prev.address,
-            id: (type === "edit") ? item.item?._id : ""
-        }))
-        if (type === "new") create("Creating treatment...", formData, navigate);
-        else update("Updating treatment...", formData, navigate);
-        console.log(formData);
+        const newFormData = {
+            ...formData,
+            name: formData.firstName + " " + formData.lastName,
+            addr: formData.address,
+            id: (type === "new") ? "" : item?.item._id,
+            supervisedBy: validDoctor
+        }
+        if (type === "new") create("Creating treatment...", newFormData, navigate);
+        else update("Updating treatment...", newFormData, navigate);
     }
 
     return (

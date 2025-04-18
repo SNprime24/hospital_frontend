@@ -29,19 +29,18 @@ function HSForm({ type, item }) {
     const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(formData);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setFormData(prev => ({
-            ...prev,
-            name: prev.firstName + " " + prev.lastName,
-            addr: prev.address,
-            id: (type === "edit") ? item.item?._id : ""
-        }))
+        const newFormData = {
+            ...formData,
+            name: formData.firstName + " " + formData.lastName,
+            addr: formData.address,
+            id: (type === "new") ? "" : item?.item._id
+        }
         const role = formData.role;
-        if (type === "new") create("Creating hospital staff...", formData, navigate, role);
-        else update("Updating hospital staff...", formData, navigate, role);
+        if (type === "new") create("Creating hospital staff...", newFormData, navigate, role);
+        else update("Updating hospital staff...", newFormData, navigate, role);
     }
 
     return (

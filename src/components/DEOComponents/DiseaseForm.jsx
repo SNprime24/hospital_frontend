@@ -19,18 +19,15 @@ function DiseaseForm ({ type, item }) {
     const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev)=>({...prev, [e.target.name] : e.target.value}));
-    console.log(formData);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log(type);
-        setFormData(prev => ({
-            ...prev,
+        const newFormData = {
+            ...formData,
             id: (type === "edit") ? item.item?._id : ""
-        }))
-        if(type === "new") create("Creating disease...", formData, navigate);
-        else update("Updating disease...", formData, navigate);
-        console.log(formData);
+        }
+        if(type === "new") create("Creating disease...", newFormData, navigate);
+        else update("Updating disease...", newFormData, navigate);
     }
 
     return(

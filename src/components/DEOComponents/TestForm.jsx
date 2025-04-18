@@ -9,7 +9,6 @@ import { useCreateTestMutation, useGetAllDoctorsQuery, useGetAllNursesQuery, use
 import { useCreateMutation, useErrors, useAsyncMutation } from '../../hooks/hooks';
 
 function TestForm({ type, item }) {
-    console.log(item);
     const [formData, setFormData] = useState({
         name: (type === "edit") ? item.item?.name : "",
         equip: (type === "edit") ? item.item?.equip : "",
@@ -39,17 +38,14 @@ function TestForm({ type, item }) {
 
     const handleFormChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-    console.log(formData);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setFormData(prev => ({
-            ...prev,
-            id: (type === "new") ? "" : item?.item._id
-        }));
-        if (type === "new") create("Creating Test...", formData, navigate);
-        else update("Updating Test...", formData, navigate);
-        console.log(formData);
+        const newFormData = {
+            ...formData,
+            id: (type === "new") ? "" : item.item?._id
+        }
+        if (type === "new") create("Creating Test...", newFormData, navigate);
+        else update("Updating Test...", newFormData, navigate);
     }
 
     return (

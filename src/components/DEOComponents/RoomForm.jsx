@@ -22,17 +22,15 @@ function RoomForm ({ type, item }) {
     const navigate = useNavigate();
 
     const handleFormChange = (e) => setFormData((prev)=>({...prev, [e.target.name] : e.target.value}));
-    console.log(formData);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        setFormData(prev => ({
-            ...prev, 
+        const newFormData = {
+            ...formData,
             id: (type === "new") ? "" : item.item?._id
-        }))
-        if(type === "new") create("Creating room...", formData, navigate);
-        else update("Updating room...", formData, navigate);
-        console.log(formData);
+        }
+        if(type === "new") create("Creating room...", newFormData, navigate);
+        else update("Updating room...", newFormData, navigate);
     }
 
     return(
