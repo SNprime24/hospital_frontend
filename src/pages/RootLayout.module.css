@@ -106,13 +106,13 @@
   border-radius: 10px;
   box-shadow: 2px 2px 5px 1px grey;
 
-  background: #d2e8fff3;
-  color: black;
+  background: #202584;
+  color: white;
 
   transition: left 1s ease-in-out;
   z-index: 999;
 }
-.sidebar.uNurse{
+/* .sidebar.uNurse{
   border : 2px solid blue;
   box-shadow: 0 0 7px 0 blue;
 }
@@ -127,7 +127,7 @@
 .sidebar.uDEO{
   border : 2px solid green;
   box-shadow: 0 0 7px 0 green;
-}
+} */
 
 .mainContent {
   width: 100%;
