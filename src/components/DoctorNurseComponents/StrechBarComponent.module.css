@@ -106,11 +106,12 @@
     font-size : 120%;
     color : black;
 }
-@media (max-width: 709px) {
+@media (max-width: 1250px) {
     .genderAge span div{    
         display : none;
     }
 }
+
 .medicalInfo{
     height : 100%;
     width : 40%;

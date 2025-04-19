@@ -153,7 +153,10 @@ export default function SubRootLayout() {
                     <>
                         <button 
                             className={classes.newAppointmentButton} 
-                            onClick={() => {setNewAppoint(true)}}
+                            onClick={() => {
+                                setAppointmentDetails(null);
+                                setNewAppoint(true)
+                            }}
                         >
                             NEW APPOINTMENT
                         </button>
@@ -161,7 +164,10 @@ export default function SubRootLayout() {
                 }
                 {Array.isArray(patient?.currentAppointments) && patient?.currentAppointments?.length !== 0 ? (
                     <>
-                        <button onClick = {() => setId(patient?.currentAppointments[0]?._id)}>
+                        <button onClick = {() => {
+                            setId(patient?.currentAppointments[0]?._id)
+                            setNewAppoint(false)
+                        }}>
                             {
                                 (() => {
                                     const date = new Date(patient?.currentAppointments[0]?.time);
@@ -204,7 +210,10 @@ export default function SubRootLayout() {
 
                     return (
                         <React.Fragment key = {key}>
-                            <button onClick = {() => setId(appointment._id)}>
+                            <button onClick = {() => {
+                                setId(appointment._id)
+                                setNewAppoint(false)
+                            }}>
                                 {`${datePart} ${timePart}`}
                             </button>
                             <hr />
