@@ -38,7 +38,7 @@ https://github.com/SNprime24/hospital_frontend.git
 <img src="public/TechStackUsed.jpg" alt="Tech Stack" width="600" height="auto" />
 
 ## ER Diagram
-![ER Diagram](public/DatabaseERDiagram.png)
+![ER Diagram](public/DatabaseERD.png)
 
 ## Frontend Routes
 
