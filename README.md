@@ -35,10 +35,10 @@ https://github.com/SNprime24/hospital_frontend.git
 - Run the backend and frontend repositories separately by typing the command `npm start`
 
 ## Tech Stack
-<img src="Public/TechStackUsed.jpg" alt="Tech Stack" width="600" height="auto" />
+<img src="public/TechStackUsed.jpg" alt="Tech Stack" width="600" height="auto" />
 
 ## ER Diagram
-![ER Diagram](Public/DatabaseERDiagram.png)
+![ER Diagram](public/DatabaseERDiagram.png)
 
 ## Frontend Routes
 
