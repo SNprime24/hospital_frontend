@@ -42,9 +42,6 @@ function ExaminationForm({ type = "new", formData, setFormData, handleSubmit }) 
         });
     };   
 
-    console.log("formData", formData);
-    console.log(searchName);
-
     return (
         <div className={classes.wrapper}>
             <h5>DISEASES : </h5>

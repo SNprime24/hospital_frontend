@@ -42,8 +42,6 @@ function PrescriptionForm({ type = "new", formData, setFormData, handleSubmit })
         handleSubmit();
     }
 
-    console.log("formData", formData);
-
     return (
         <div className={classes.wrapper}>
             <h5>MEDICINES : </h5>

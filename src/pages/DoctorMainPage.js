@@ -23,10 +23,6 @@ function DoctorMainPage() {
     const handleSelectedPageTwo = () => setSelectedPage(2);
     const handleSelectedPageThree = () => setSelectedPage(3);
 
-    const handleSearchClickAction = () => {
-        console.log(searchText);
-        alert("You clicked the search buttton")
-    }
 
     const appointmentData = useGetAppointmentsQuery({ _id: user._id });
     const currentAppointmentsData =  useGetCurrentAppointmentsQuery({ entity: "doctor", _id: user._id })
@@ -42,8 +38,6 @@ function DoctorMainPage() {
     const currentAppointments = currentAppointmentsData?.data?.appointments?.filter(item =>
         item?.patient?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
-    console.log(appointments);
-    // console.log(currentAppointmentsData);
 
     return (
         <div className={classes.mainWrapper}>
@@ -91,7 +85,7 @@ function DoctorMainPage() {
                     }}
                     placeholder="Filter by name..."
                 />
-                <FontAwesomeIcon icon={faSearch} onClick={handleSearchClickAction} />
+                <FontAwesomeIcon icon={faSearch} />
             </div>
 
             <div className={classes.mainContent}>

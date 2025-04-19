@@ -3,7 +3,6 @@ import React from "react";
 import classes from "./BoxBarComponent.module.css";
 
 function BoxBarComponent({ appointment, handleClick }) {
-  // console.log(appointment);
   const date = new Date();
   const hours = date.getHours();
 
@@ -63,7 +62,6 @@ function BoxBarComponent({ appointment, handleClick }) {
           </div>
           <hr/>
           <div className={classes.infoNurse} title="nurse">
-            {console.log(nurseInfo)}
             <span className={(nurseInfo===undefined || nurseInfo?.name==="") ? classes.lightText : ""}>
               {(nurseInfo===undefined || nurseInfo?.name==="") ? "-- Nurse Currently Unavailable --" : nurseInfo?.name}
             </span>

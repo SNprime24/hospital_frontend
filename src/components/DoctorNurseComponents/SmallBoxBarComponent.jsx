@@ -5,8 +5,6 @@ import ProfileImagePlaceholder from "./../../assets/ProfileImagePlaceholderGrey.
 import classes from "./SmallBoxBarComponent.module.css";
 
 function SmallBoxBarComponent({ user, handleClick, isActive=false }) {
-  // console.log(user);
-  
   return (
     <div 
       className={`${classes.wrapper} 

@@ -62,7 +62,6 @@ function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
     return (
         <div className={classes.wrapper}>
             <div className={classes.divFlex}>
-                {console.log(rooms,beds)}
                 <FormSelect
                     id="Aroom"
                     name="room"

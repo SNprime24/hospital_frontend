@@ -91,12 +91,10 @@ function DoctorSideBarComponent({ user }) {
                     <FontAwesomeIcon icon={faSuitcaseMedical} />
                 </button>
             </div>
-            {console.log(user)}
 
             <div className={classes.sideMainContent}>
                 <div className={`${classes.sideContentWrapper} ${selectedPage === 1 ? classes.one : selectedPage === 2 ? classes.two : classes.three}`}>
                     <div className={`${classes.sideContentPage} ${classes.firstPage}`}>
-                        {console.log(user)}
                         <div className={classes.section}>
                             <h3>INFO</h3>
                             <span>Specialisation : </span> {user?.spec} <br />
@@ -169,7 +167,6 @@ function NurseSideBarComponent({ user }) {
                     <FontAwesomeIcon icon={faFlaskVial} />
                 </button>
             </div>
-            {console.log(user)}
 
             <div className={classes.sideMainContent}>
                 <div className={`${classes.sideContentWrapper} ${selectedPage === 1 ? classes.one : selectedPage === 2 ? classes.two : classes.three}`}>
@@ -197,7 +194,6 @@ function NurseSideBarComponent({ user }) {
 }
 
 function HospitalStaffSideBarComponent({ user }) {
-    console.log(user)
     const [selectedPage, setSelectedPage] = useState(1);
 
     const handleSelectedPageOne = () => setSelectedPage(1);

@@ -54,8 +54,6 @@ function TestForm({ type = "new", formData, setFormData, handleSubmit }) {
         handleSubmit();
     }
 
-    console.log("formData", formData);
-
     return (
         <div className={classes.wrapper}>
             <h5>TESTS : </h5>
@@ -78,7 +76,6 @@ function TestForm({ type = "new", formData, setFormData, handleSubmit }) {
                             <FontAwesomeIcon icon={faXmark} />
                         </button>
                     </div>
-                    {console.log("testing",user._id, entry)}
                     {(user?._id === entry?.test?.doctor?._id || user?._id === entry?.test?.nurse?._id) && 
                         <FormInput
                             type="text"

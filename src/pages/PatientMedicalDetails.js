@@ -21,7 +21,6 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
   const { user } = useSelector((state) => state.auth);
   const params = useParams();
   const patientID = params.patientID;
-  console.log(appointment);
 
   const [createAppointment] = useCreateMutation(useCreateAppointmentMutation);
   const [updateAppointment] = useAsyncMutation(useUpdateAppointmentMutation);
@@ -69,7 +68,6 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
     const formData = { id: appointment?._id, ...newExamData };
     updateAppointment("Updating current appointment...", formData);
   }
-  console.log(newAdmitData);
 
   //Test logic
   const [testEdit, setTestEdit] = useState(0);
@@ -106,12 +104,8 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
     setRemark("");
   }
 
-  const appRemarks = appointment?.remarks?.slice()
-    .sort((a,b)=>new Date(b.remarkTime) - new Date(a.remarkTime));
+  const appRemarks = appointment?.remarks?.slice().sort((a,b)=>new Date(b.remarkTime) - new Date(a.remarkTime));
   
-  console.log("tuu", appRemarks);
-
-  // const appointment = {}
 
   if (type === "new") {
     return (
@@ -145,7 +139,6 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
 
         {appointEdit === 0 &&
           <div className={classes.appointPart}>
-            {console.log(appointment?.time)}
             <div className={classes.subHeading}><span>APPOINTMENT <pre> </pre> TIME <pre> </pre>:<pre> </pre></span> {new Date(appointment?.time).toLocaleString()}</div><br />
             <div>
               <h5>DOCTOR : </h5>

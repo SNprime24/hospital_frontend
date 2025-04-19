@@ -17,8 +17,7 @@ export default function SubRootLayout() {
     const { user } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const location = useLocation();
-
-    console.log(location.state);
+    
     const [getAppointment, { data, isSuccess }] = useLazyGetThisAppointmentQuery();
     const [getPatientById, { data: patientData, isSuccess: isPatientSuccess }] = useLazyGetThisPatientQuery();
     const [dischargeAppointment] = useAsyncMutation(useDischargeAppointmentMutation);
@@ -29,8 +28,6 @@ export default function SubRootLayout() {
     const [patientID, setPatientID] = useState(null);
     const [currentPatient, setCurrentPatient] = useState(null);
     const [appointmentDetails, setAppointmentDetails] = useState();
-    console.log(id);
-    console.log(data);
 
     useEffect(() => {
         if (location?.state?.appointmentID) {
@@ -51,7 +48,6 @@ export default function SubRootLayout() {
     }, [id, getAppointment]);
 
     useEffect(() => {
-        console.log(patientID);
         if(patientID) {
             getPatientById(patientID);
         }
@@ -69,7 +65,6 @@ export default function SubRootLayout() {
         }
     }, [patientData, isPatientSuccess]);  
 
-    console.log(data?.appointment);
 
     const patient = {
         ...currentPatient,

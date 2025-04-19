@@ -174,7 +174,6 @@ function HPForm({ type, item }) {
                     <h3>SUPERVISION</h3>
                     {formData.supervisedBy?.map((entry, index) => (
                         <>
-                            {console.log(entry)}
                             <div key={entry._id} className={classes.divFlex}>
                                 <FormSelect
                                     label={`Doctor ${index + 1}`}

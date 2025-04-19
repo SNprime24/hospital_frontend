@@ -88,10 +88,6 @@ function DEOMainPage() {
     const scrollRight = () => {
         navBarRef.current.scrollLeft += 150;
     }
-    const handleSearchClickAction = () => {
-        console.log(searchText);
-        alert("You clicked the search buttton")
-    }
 
     return (
         <div className={classes.mainWrapper}>
@@ -134,7 +130,7 @@ function DEOMainPage() {
                                 }
                             }}
                         />
-                        <FontAwesomeIcon icon={faSearch} onClick={handleSearchClickAction} />
+                        <FontAwesomeIcon icon={faSearch} />
                     </div>
                     <button
                         className={classes.addNewData}

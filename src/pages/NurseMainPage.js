@@ -21,11 +21,6 @@ function NurseMainPage() {
 
   const handleSelectedPageOne = () => setSelectedPage(1);
 
-  const handleSearchClickAction = () => {
-    console.log(searchText);
-    alert("You clicked the search buttton")
-  }
-
   const currentAppointmentsData = useGetCurrentAppointmentsQuery({ entity: "nurse", _id: user._id })
   const errors = [
     { isError: currentAppointmentsData.isError, error: currentAppointmentsData.error }
@@ -62,7 +57,7 @@ function NurseMainPage() {
           }}
           placeholder="Filter by name..."
         />
-        <FontAwesomeIcon icon={faSearch} onClick={handleSearchClickAction} />
+        <FontAwesomeIcon icon={faSearch} />
       </div>
       <div className={classes.mainContent}>
         <div className={classes.contentWrapper}>
