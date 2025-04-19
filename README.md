@@ -1,70 +1,232 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Hospital Management System
 
-## Available Scripts
+A full-stack Hospital Management System with a structured relational database and a responsive web interface. Built to streamline hospital operations like patient appointments, doctor scheduling, room assignments, and test/drug tracking.
 
-In the project directory, you can run:
+## Table of Contents
+- [Features](#features)
+- [Setup Instructions](#setup-instructions)
+- [Tech Stack](#tech-stack)
+- [ER Diagram](#er-diagram)
+- [Frontend Routes](#frontend-routes)
+- [API Endpoints](#api-endpoints)
+- [ENV Format](#env-format)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
+- [Contributors](#contributors)
 
-### `npm start`
+## Features
+- Manage doctors, nurses, hospital staff & professionals
+- Administer patients, appointments, beds, and room allocations
+- Track prescriptions, drugs, and tests
+- Test and disease management with assigned doctors and nurses
+- Handles shifts, roles, specializations, and departments
+- Web-based interface for easy interaction
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Setup Instructions
+**Backend Github repo:**
+https://github.com/sauravatgithub-web/hospital_sql_server.git
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Frontend Github repo:**
+https://github.com/SNprime24/hospital_frontend.git
+- Clone the repositories of the backend and the frontend
+- Install the required library by using the command `npm install`
+- Add `.env` file in frontend and backend separately as specified [below](#env-format).
+- Run the backend and frontend repositories separately by typing the command `npm start`
 
-### `npm test`
+## Tech Stack
+<img src="Public/TechStackUsed.jpg" alt="Tech Stack" width="600" height="auto" />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ER Diagram
+![ER Diagram](Public/DatabaseERDiagram.png)
 
-### `npm run build`
+## Frontend Routes
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The application uses **React Router v6** for client-side routing. Here's an overview of all frontend routes and their access control:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Public Route**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Path   | Component     | Description                 |
+|--------|---------------|-----------------------------|
+| `/`    | `FrontPage`   | Login page for Employees   |
 
-### `npm run eject`
+> Protected using `<ProtectRoute user={!user} />` → redirects to `/app` if already logged in.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Main Authenticated Area**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> Protected using `<ProtectRoute user={user} />` → redirects to `/` if not authenticated.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+| Path                                  | Component                 | Description                        |
+|---------------------------------------|----------------------------|------------------------------------|
+| `/app`                                | Role-based main page:     | Redirects to respective dashboard: |
+|                                       | - `DoctorMainPage`        | For Doctors                        |
+|                                       | - `NurseMainPage`         | For Nurses                         |
+|                                       | - `FDOMainPage`           | For Front Desk Operators (FDO)     |
+|                                       | - `DEOMainPage`           | For Data Entry Operators (DEO)     |
+| `/app/patient/:patientID`            | `SubRootLayout`           | Patient dashboard root             |
+| `/app/form/:type/:entity`           | `EntityForm` / `Navigate` | Form view for creating/editing entities; role-specific access |
+|                                       |                            | - `DEO`: Full access               |
+|                                       |                            | - `FDO`: Limited form access       |
+|                                       |                            | - Others: Redirect to `/unauthorized` |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Error Handling**
 
-## Learn More
+| Route Area        | Component     | Description              |
+|-------------------|---------------|--------------------------|
+| All routes        | `ErrorPage`   | Generic fallback UI      |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> **Note:** All authenticated routes (`/app`) are dynamically rendered based on user roles using conditional logic within `ProtectRoute` and route children.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## API Endpoints
 
-### Code Splitting
+All endpoints are prefixed with `/api/v1/`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Authentication**
+| Method | Endpoint                   | Description                  |
+|--------|----------------------------|------------------------------|
+| POST   | `/auth/login`              | User login                   |
+| POST   | `/auth/verifyEmail`        | Send OTP to email            |
+| POST   | `/auth/verifyOTP`          | Verify OTP                   |
+| POST   | `/auth/setPassword`        | Set new password             |
+| GET    | `/auth/me`                 | Get current user profile     |
+| GET    | `/auth/logOut`             | Log out user                 |
 
-### Analyzing the Bundle Size
+**Appointments**
+| Method | Endpoint                                 | Description                    |
+|--------|------------------------------------------|--------------------------------|
+| GET    | `/appointment/all`                       | Get all appointments           |
+| GET    | `/appointment/this/:id`                  | Get appointment by ID          |
+| GET    | `/appointment/currentAppointments`       | Get current appointments       |
+| POST   | `/appointment/new`                       | Create new appointment         |
+| PUT    | `/appointment/update`                    | Update appointment details     |
+| PUT    | `/appointment/discharge`                 | Discharge a patient            |
+| DELETE | `/appointment/delete`                    | Delete an appointment          |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**Diseases**
+| Method | Endpoint                    | Description           |
+|--------|-----------------------------|-----------------------|
+| GET    | `/disease/all`              | Get all diseases      |
+| GET    | `/disease/this/:id`         | Get disease by ID     |
+| POST   | `/disease/new`              | Create new disease    |
+| PUT    | `/disease/update`           | Update disease info   |
+| PUT    | `/disease/delete`           | Delete disease entry  |
 
-### Making a Progressive Web App
+**Doctors**
+| Method | Endpoint                       | Description               |
+|--------|--------------------------------|---------------------------|
+| GET    | `/doctor/all`                  | Get all doctors           |
+| GET    | `/doctor/this/:id`             | Get doctor by ID          |
+| GET    | `/doctor/appointments`         | Get doctor appointments   |
+| POST   | `/doctor/new`                  | Create new doctor         |
+| PUT    | `/doctor/update`               | Update doctor info        |
+| DELETE | `/doctor/delete`               | Delete doctor             |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**Drugs**
+| Method | Endpoint                  | Description         |
+|--------|---------------------------|---------------------|
+| GET    | `/drug/all`               | Get all drugs       |
+| GET    | `/drug/this/:id`          | Get drug by ID      |
+| POST   | `/drug/new`               | Add new drug        |
+| PUT    | `/drug/update`            | Update drug info    |
+| DELETE | `/drug/delete`            | Delete drug entry   |
 
-### Advanced Configuration
+**Hospital Professionals**
+| Method | Endpoint                    | Description                   |
+|--------|-----------------------------|-------------------------------|
+| GET    | `/hp/all`                   | Get all professionals         |
+| GET    | `/hp/this/:id`              | Get professional by ID        |
+| POST   | `/hp/new`                   | Add new professional          |
+| PUT    | `/hp/update`                | Update professional info      |
+| DELETE | `/hp/delete`                | Delete professional           |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**Hospital Staff**
+| Method | Endpoint                          | Description                   |
+|--------|-----------------------------------|-------------------------------|
+| GET    | `/hs/all`                         | Get all staff                 |
+| GET    | `/hs/this/:id`                    | Get staff by ID               |
+| GET    | `/hs/currentDoctors`              | Get current doctors           |
+| GET    | `/hs/currentNurses`               | Get current nurses            |
+| GET    | `/hs/currentAppointments`         | Get current appointments      |
+| POST   | `/hs/new`                         | Add new staff member          |
+| PUT    | `/hs/update`                      | Update staff info             |
+| DELETE | `/hs/delete`                      | Delete staff member           |
 
-### Deployment
+**Nurses**
+| Method | Endpoint                 | Description         |
+|--------|--------------------------|---------------------|
+| GET    | `/nurse/all`             | Get all nurses      |
+| GET    | `/nurse/this/:id`        | Get nurse by ID     |
+| POST   | `/nurse/new`             | Add new nurse       |
+| PUT    | `/nurse/update`          | Update nurse info   |
+| DELETE | `/nurse/delete`          | Delete nurse        |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**Patients**
+| Method | Endpoint                        | Description             |
+|--------|---------------------------------|-------------------------|
+| GET    | `/patient/all`                  | Get all patients        |
+| GET    | `/patient/this/:id`             | Get patient by ID       |
+| GET    | `/patient/:phoneNo`             | Get patient by phone    |
+| POST   | `/patient/new`                  | Add new patient         |
+| PUT    | `/patient/update`               | Update patient info     |
+| DELETE | `/patient/delete`               | Delete patient          |
 
-### `npm run build` fails to minify
+**Rooms & Beds**
+| Method | Endpoint                               | Description           |
+|--------|----------------------------------------|-----------------------|
+| GET    | `/room/all`                            | Get all rooms         |
+| GET    | `/room/this/:id`                       | Get room by ID        |
+| GET    | `/room/allVacantRooms`                 | List all vacant rooms |
+| GET    | `/room/bed/allVacantBeds`              | List all vacant beds  |
+| POST   | `/room/new`                            | Add new room          |
+| PUT    | `/room/update`                         | Update room info      |
+| DELETE | `/room/delete`                         | Delete room           |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Tests**
+| Method | Endpoint               | Description         |
+|--------|------------------------|---------------------|
+| GET    | `/test/all`            | Get all tests       |
+| POST   | `/test/new`            | Add new test        |
+| PUT    | `/test/update`         | Update test info    |
+| DELETE | `/test/delete`         | Delete test         |
+
+## ENV Format
+
+#### Frontend
+
+| Variable Name          | Description                        |
+|------------------------|------------------------------------|
+| `REACT_APP_SERVER_URL` | Base URL of the backend API server |
+
+```env
+REACT_APP_SERVER_URL=http://localhost:5000/api/v1
+```
+
+#### Backend
+
+| Variable Name       | Description                                      |
+|---------------------|--------------------------------------------------|
+| `COCKROACH_DB_URL`  | Connection string for CockroachDB                |
+| `PORT`              | Port number on which the backend runs |
+| `JWT_SECRET`        | Secret key used for signing JWT tokens           |
+| `CLIENT_URL`        | Frontend base URL  |
+| `ADMIN_EMAIL`       | Default admin email |
+| `ADMIN_PASS`        | Default admin password |
+| `ADMIN_ID`          | Unique ID assigned to admin |
+| `ADMIN_SECRET`      | Internal secret for admin-level operations |
+
+```env
+COCKROACH_DB_URL    = your_database_url_here
+PORT                = 5000
+JWT_SECRET          = your_jwt_secret_here
+CLIENT_URL          = http://localhost:3000
+ADMIN_EMAIL         = admin@example.com
+ADMIN_PASS          = your_admin_password
+ADMIN_ID            = admin123
+ADMIN_SECRET        = your_admin_secret
+```
+
+## Contributors
+- Saurav Singh (22CS01010)
+- Suprit Naik (22CS01018)
+- Om Prakash Behera (22CS01041)
+- Harsh Maurya (22CS01046)
