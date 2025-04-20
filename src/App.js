@@ -36,19 +36,6 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path : "/dev",
-      element : <RootLayout/>,
-      children : [
-        {index : true, element : <FDOMainPage/>},
-        { path: "patient/:patientID", 
-          element: <SubRootLayout />,
-          children: [
-            { index : true, element: <PatientMedicalDetails /> }
-          ] 
-        },
-      ]
-    },
-    {
       path: "/",
       element: <ProtectRoute user = {!user} redirect = '/app' />,
       errorElement: <ErrorPage />,
