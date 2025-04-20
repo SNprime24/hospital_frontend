@@ -61,6 +61,7 @@ function AdmitForm({ type = "new", formData, setFormData, handleSubmit }) {
 
     return (
         <div className={classes.wrapper}>
+            {console.log(formData)}
             <div className={classes.divFlex}>
                 <FormSelect
                     id="Aroom"

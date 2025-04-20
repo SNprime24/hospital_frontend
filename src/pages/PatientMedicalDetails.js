@@ -122,10 +122,11 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
 
   return (
     <div className={classes.wrapper}>
+      {console.log(appointment)}
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>APPOINT</h3>
-          {!user.status==="Completed" && user.role === "FDO" &&
+          {appointment.status!=="Completed" && user.role === "FDO" &&
             <button
               className={classes.smallButton}
               title="Edit Appointment"
@@ -144,7 +145,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
               <h5>DOCTOR : </h5>
               {appointment.doctor !== undefined && <StrechBarComponent appointment={appointment?.doctor} type={3} />}
             </div>
-            {!user.status==="Completed" && user.role === "FDO" && <button onClick={handleDischarge} className={`${classes.appBtn} ${classes.discharge}`}> DISCHARGE </button>}
+            {appointment.status!=="Completed" && user.role === "FDO" && <button onClick={handleDischarge} className={`${classes.appBtn} ${classes.discharge}`}> DISCHARGE </button>}
           </div>
         }
 
@@ -161,7 +162,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>ADMISSION</h3>
-          {!user.status==="Completed" && user.role === "FDO" &&
+          {appointment.status!=="Completed" && user.role === "FDO" &&
             <button
               className={classes.smallButton}
               title="Edit Admission Form"
@@ -189,7 +190,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
                 <StrechBarComponent appointment={val} type={4} />
               ))}
             </div>
-            {!user.status==="Completed" && user.role === "FDO" && <button className={`${classes.appBtn} ${classes.discharge}`}> DISCHARGE </button>}
+            {appointment.status!=="Completed" && user.role === "FDO" && <button className={`${classes.appBtn} ${classes.discharge}`}> DISCHARGE </button>}
           </>
         }
 
@@ -206,7 +207,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>EXAMINATION</h3>
-          {!user.status==="Completed" && user.role === "Doctor" && user._id === appointment?.doctor?._id &&
+          {appointment.status!=="Completed" && user.role === "Doctor" && user._id === appointment?.doctor?._id &&
             <button
               className={classes.smallButton}
               title="Edit Admission Form"
@@ -246,7 +247,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>TESTS</h3>
-          {!user.status==="Completed" && user.role === "Doctor" &&
+          {appointment.status!=="Completed" && user.role === "Doctor" &&
             (user._id === appointment?.doctor?._id ||
               appointment?.tests.find((test) => test.doctor._id === user._id)) &&
             <button
@@ -297,7 +298,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
       <div className={classes.wrapperForm}>
         <div className={classes.divFlex}>
           <h3>PRESCRIPTION</h3>
-          {!user.status==="Completed" && user.role === "Doctor" && user._id === appointment?.doctor?._id &&
+          {appointment.status!=="Completed" && user.role === "Doctor" && user._id === appointment?.doctor?._id &&
             <button
               className={classes.smallButton}
               title="Edit Prescription Form"
@@ -336,7 +337,7 @@ function PatientMedicalDetails({ appointment, type = "edit", setNewAppoint, hand
       <div className={classes.wrapperForm}>
         <h3>REMARKS</h3>
         <hr />
-        {(!user.status==="Completed" && (user.role === "Doctor" || user.role === "Nurse") &&
+        {(appointment.status!=="Completed" && (user.role === "Doctor" || user.role === "Nurse") &&
           (
             user._id === appointment?.doctor._id ||
             appointment?.nurse?.find(val => val._id === user._id)

@@ -65,6 +65,7 @@ function LoginForm({ setCurrentPage }) {
                                 event.preventDefault();
                             }
                         }}
+                        placeholder="Email..."
                     />
                     <FontAwesomeIcon icon={faUser} />
                 </div>
@@ -80,6 +81,7 @@ function LoginForm({ setCurrentPage }) {
                                 event.preventDefault();
                             }
                         }}
+                        placeholder="Password..."
                     />
                     <FontAwesomeIcon icon={faKey} />
                 </div>
@@ -191,6 +193,7 @@ function ForgotPasswordEmail({ setCurrentPage, setData }) {
                                 event.preventDefault();
                             }
                         }}
+                        placeholder="Email..."
                     />
                     <FontAwesomeIcon icon={faUser} />
                 </div>
@@ -355,6 +358,7 @@ function PasswordChange({ setCurrentPage, data }) {
                                 event.preventDefault();
                             }
                         }}
+                        placeholder="New Password..."
                     />
                     <FontAwesomeIcon icon={faKey} />
                 </div>
@@ -371,6 +375,7 @@ function PasswordChange({ setCurrentPage, data }) {
                                 event.preventDefault();
                             }
                         }}
+                        placeholder="Confirm Password..."
                     />
                     <FontAwesomeIcon icon={faKey} />
                 </div>
