@@ -18,7 +18,6 @@ import DoctorMainPage from './pages/DoctorMainPage';
 import NurseMainPage from './pages/NurseMainPage';
 import FDOMainPage from './pages/FDOMainPage';
 import DEOMainPage from './pages/DEOMainPage';
-import PatientMedicalDetails from './pages/PatientMedicalDetails';
 import EntityForm from './pages/EntityForm';
 
 // import classes from "./App.module.css";
